@@ -4,19 +4,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Imports y globals | Blog de Juan Santos</title>
+<title>Redes y contratos públicos | Blog de Juan Santos</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Imports y globals" />
+<meta property="og:title" content="Redes y contratos públicos" />
+<meta name="author" content="<a href='https://twitter.com/jjsantoso'>Juan J Santos Ochoa</a>" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Intentando aplicar ciencia de datos a las ciencias sociales." />
-<meta property="og:description" content="Intentando aplicar ciencia de datos a las ciencias sociales." />
-<link rel="canonical" href="http://blog.jjsantoso.com/2020/01/20/redes-contratos-compranet.html" />
-<meta property="og:url" content="http://blog.jjsantoso.com/2020/01/20/redes-contratos-compranet.html" />
+<meta name="description" content="Resultado del análisis que hicimos en el equipo Databuesos para el Datatón Anticorrupción 2019 (México)" />
+<meta property="og:description" content="Resultado del análisis que hicimos en el equipo Databuesos para el Datatón Anticorrupción 2019 (México)" />
+<link rel="canonical" href="http://blog.jjsantoso.com/analisis%20de%20datos/pandas/pymongo/2020/01/20/redes-contratos-compranet.html" />
+<meta property="og:url" content="http://blog.jjsantoso.com/analisis%20de%20datos/pandas/pymongo/2020/01/20/redes-contratos-compranet.html" />
 <meta property="og:site_name" content="Blog de Juan Santos" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-01-20T00:00:00-06:00" />
 <script type="application/ld+json">
-{"description":"Intentando aplicar ciencia de datos a las ciencias sociales.","url":"http://blog.jjsantoso.com/2020/01/20/redes-contratos-compranet.html","@type":"BlogPosting","headline":"Imports y globals","dateModified":"2020-01-20T00:00:00-06:00","datePublished":"2020-01-20T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.jjsantoso.com/2020/01/20/redes-contratos-compranet.html"},"@context":"https://schema.org"}</script>
+{"description":"Resultado del análisis que hicimos en el equipo Databuesos para el Datatón Anticorrupción 2019 (México)","url":"http://blog.jjsantoso.com/analisis%20de%20datos/pandas/pymongo/2020/01/20/redes-contratos-compranet.html","@type":"BlogPosting","headline":"Redes y contratos públicos","dateModified":"2020-01-20T00:00:00-06:00","datePublished":"2020-01-20T00:00:00-06:00","author":{"@type":"Person","name":"<a href='https://twitter.com/jjsantoso'>Juan J Santos Ochoa</a>"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.jjsantoso.com/analisis%20de%20datos/pandas/pymongo/2020/01/20/redes-contratos-compranet.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://blog.jjsantoso.com/feed.xml" title="Blog de Juan Santos" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
 <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
@@ -87,16 +88,31 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Imports y globals</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-01-20T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Redes y contratos públicos</h1><p class="page-description">Resultado del análisis que hicimos en el equipo Databuesos para el Datatón Anticorrupción 2019 (México)</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-01-20T00:00:00-06:00" itemprop="datePublished">
         Jan 20, 2020
-      </time>
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name"><a href='https://twitter.com/jjsantoso'>Juan J Santos Ochoa</a></span></span>
        • <span class="read-time" title="Estimated read time">
     
     
-      24 min read
+      16 min read
     
 </span></p>
 
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#analisis de datos">analisis de datos</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#pandas">pandas</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#pymongo">pymongo</a>
+        
+      
+      </p>
     
 
     
@@ -118,6 +134,12 @@ window.onload = wrap_img;
 
 <div class="container" id="notebook-container">
         
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Imports-y-globals">Imports y globals<a class="anchor-link" href="#Imports-y-globals"> </a></h1>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Imports">Imports<a class="anchor-link" href="#Imports"> </a></h2>
@@ -575,296 +597,6 @@ window.onload = wrap_img;
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[{&#39;parties.id&#39;: &#39;SLE021203RG1&#39;}, {&#39;parties.id&#39;: &#39;LGA111101NI7&#39;}]
-[{&#39;parties.id&#39;: &#39;AA2EEEF597460501F7B8A50B4DE1F671&#39;}, {&#39;parties.id&#39;: &#39;3CAB041C0551441CB0A31EAC594B2339&#39;}]
-[{&#39;parties.id&#39;: &#39;MAN0710026M3&#39;}, {&#39;parties.id&#39;: &#39;MDI130927EM8&#39;}, {&#39;parties.id&#39;: &#39;LEC1202152T9&#39;}]
-[{&#39;parties.id&#39;: &#39;63455D66A674A6129E2963DDAB012081&#39;}, {&#39;parties.id&#39;: &#39;B235993476D58CC3750F77080E9DCA38&#39;}]
-[{&#39;parties.id&#39;: &#39;08094FA2070B800BA4DE5F265BD6563A&#39;}, {&#39;parties.id&#39;: &#39;69017485557D5C0673A244B20E2C6F9C&#39;}]
-[{&#39;parties.id&#39;: &#39;SIM1410088E7&#39;}, {&#39;parties.id&#39;: &#39;TME140911D25&#39;}]
-[{&#39;parties.id&#39;: &#39;CBS170804R21&#39;}, {&#39;parties.id&#39;: &#39;CSR170804TR8&#39;}]
-[{&#39;parties.id&#39;: &#39;TPA161207Q15&#39;}, {&#39;parties.id&#39;: &#39;PET130614137&#39;}]
-[{&#39;parties.id&#39;: &#39;ADFD7D675FA05AD4BB1968B0F01B7B6C&#39;}, {&#39;parties.id&#39;: &#39;690A5D3623AC6FA09A321C4C46931EE7&#39;}]
-[{&#39;parties.id&#39;: &#39;PCE980303GT5&#39;}, {&#39;parties.id&#39;: &#39;ISM050530DL6&#39;}]
-[{&#39;parties.id&#39;: &#39;KME590502HY7&#39;}, {&#39;parties.id&#39;: &#39;MED730308NF0&#39;}]
-[{&#39;parties.id&#39;: &#39;AMC070628518&#39;}, {&#39;parties.id&#39;: &#39;ISC080722633&#39;}]
-[{&#39;parties.id&#39;: &#39;SER110912T71&#39;}, {&#39;parties.id&#39;: &#39;SPS990322966&#39;}]
-[{&#39;parties.id&#39;: &#39;AKA080904US4&#39;}, {&#39;parties.id&#39;: &#39;OGP060214H55&#39;}]
-[{&#39;parties.id&#39;: &#39;MMH0510185GA&#39;}, {&#39;parties.id&#39;: &#39;ART95042071A&#39;}]
-[{&#39;parties.id&#39;: &#39;573C67FD9D50BD5D691A6B0E8A3E3051&#39;}, {&#39;parties.id&#39;: &#39;CAC6A7AA4761ED8731C9F5713AA5C944&#39;}]
-[{&#39;parties.id&#39;: &#39;CIB150311KQA&#39;}, {&#39;parties.id&#39;: &#39;DGA150311QAA&#39;}]
-[{&#39;parties.id&#39;: &#39;CAM140807S66&#39;}, {&#39;parties.id&#39;: &#39;LIB150414J15&#39;}]
-[{&#39;parties.id&#39;: &#39;CDA010714TG6&#39;}, {&#39;parties.id&#39;: &#39;PAD060221U93&#39;}]
-[{&#39;parties.id&#39;: &#39;CLA150108Q84&#39;}, {&#39;parties.id&#39;: &#39;CAI081014UJ6&#39;}]
-[{&#39;parties.id&#39;: &#39;ACO040325KC8&#39;}, {&#39;parties.id&#39;: &#39;CEP000607D96&#39;}]
-[{&#39;parties.id&#39;: &#39;CSI000905MZ6&#39;}, {&#39;parties.id&#39;: &#39;LAL140909SV7&#39;}]
-[{&#39;parties.id&#39;: &#39;PSL160218F1A&#39;}, {&#39;parties.id&#39;: &#39;GCO160218GNA&#39;}]
-[{&#39;parties.id&#39;: &#39;PTH1206294A9&#39;}, {&#39;parties.id&#39;: &#39;GCC950328H41&#39;}]
-[{&#39;parties.id&#39;: &#39;CCO890116QA0&#39;}, {&#39;parties.id&#39;: &#39;CQC080313CP3&#39;}]
-[{&#39;parties.id&#39;: &#39;DDU160607247&#39;}, {&#39;parties.id&#39;: &#39;ABU160112P45&#39;}]
-[{&#39;parties.id&#39;: &#39;RDO070228V11&#39;}, {&#39;parties.id&#39;: &#39;ATD061228L34&#39;}]
-[{&#39;parties.id&#39;: &#39;CSA041119GI7&#39;}, {&#39;parties.id&#39;: &#39;IHE0707254T8&#39;}]
-[{&#39;parties.id&#39;: &#39;50CAC81A1D1F540CFC320C0C4BEA4DC4&#39;}, {&#39;parties.id&#39;: &#39;TTR031030166&#39;}]
-[{&#39;parties.id&#39;: &#39;407987BAB90C9970656030877FFB1F7B&#39;}, {&#39;parties.id&#39;: &#39;6592520DD93AA2A1D6188FB5904A661E&#39;}]
-[{&#39;parties.id&#39;: &#39;MLI040112JU5&#39;}, {&#39;parties.id&#39;: &#39;IMI110617F39&#39;}]
-[{&#39;parties.id&#39;: &#39;903B041B0370D681986EBC58D18B685E&#39;}, {&#39;parties.id&#39;: &#39;72EBDC80DB5BBD3FB79CCD2CD0F21571&#39;}]
-[{&#39;parties.id&#39;: &#39;1A4AAEB1791FCE9EEC1C5AA76BD22FFB&#39;}, {&#39;parties.id&#39;: &#39;21ABB4A5BD5D736B6855B1E0DF3971D3&#39;}]
-[{&#39;parties.id&#39;: &#39;PCO761025DL4&#39;}, {&#39;parties.id&#39;: &#39;EMI970219QD7&#39;}]
-[{&#39;parties.id&#39;: &#39;GFE061004F65&#39;}, {&#39;parties.id&#39;: &#39;FES840823HH0&#39;}]
-[{&#39;parties.id&#39;: &#39;EMA001219M72&#39;}, {&#39;parties.id&#39;: &#39;NEX0710043N1&#39;}]
-[{&#39;parties.id&#39;: &#39;CBC110516NCA&#39;}, {&#39;parties.id&#39;: &#39;CEV061023TE4&#39;}]
-[{&#39;parties.id&#39;: &#39;8D230F328A3FA852A971E92FA3EE0823&#39;}, {&#39;parties.id&#39;: &#39;CII880407HS9&#39;}]
-[{&#39;parties.id&#39;: &#39;D8E3FE62BB417952B7AF70684F2A7E89&#39;}, {&#39;parties.id&#39;: &#39;5B663AF0A4D27117858E1850C3B6C5A0&#39;}]
-[{&#39;parties.id&#39;: &#39;TCO9410128G7&#39;}, {&#39;parties.id&#39;: &#39;CPE9306306M7&#39;}]
-[{&#39;parties.id&#39;: &#39;DIN1611245XA&#39;}, {&#39;parties.id&#39;: &#39;TCO161124L98&#39;}]
-[{&#39;parties.id&#39;: &#39;VPP131009IJ5&#39;}, {&#39;parties.id&#39;: &#39;MVC151216BZ0&#39;}]
-[{&#39;parties.id&#39;: &#39;EVA1605184H5&#39;}, {&#39;parties.id&#39;: &#39;SPE110628DZ2&#39;}]
-[{&#39;parties.id&#39;: &#39;MPI120223V76&#39;}, {&#39;parties.id&#39;: &#39;STI151008119&#39;}]
-[{&#39;parties.id&#39;: &#39;SBA160412574&#39;}, {&#39;parties.id&#39;: &#39;FC11786AB6953640172A8F01C8E663B8&#39;}]
-[{&#39;parties.id&#39;: &#39;CZU150602CX1&#39;}, {&#39;parties.id&#39;: &#39;HCG150126N25&#39;}]
-[{&#39;parties.id&#39;: &#39;JME000530MB8&#39;}, {&#39;parties.id&#39;: &#39;ETE080829B85&#39;}]
-[{&#39;parties.id&#39;: &#39;6A21C3C1E1707E26662C9F8A00D63708&#39;}, {&#39;parties.id&#39;: &#39;64E598A985DCE69FC2F25F6E95450DAC&#39;}]
-[{&#39;parties.id&#39;: &#39;8D8DB6545FDCD231D053E3E6D6A60B8E&#39;}, {&#39;parties.id&#39;: &#39;79D3BCC04DBB4A85BEFE73D040C8E749&#39;}]
-[{&#39;parties.id&#39;: &#39;DCP151006355&#39;}, {&#39;parties.id&#39;: &#39;DCD151006KD2&#39;}]
-[{&#39;parties.id&#39;: &#39;SCO120220CTA&#39;}, {&#39;parties.id&#39;: &#39;51540917A00D4A6B9A1263D4FBBA321D&#39;}]
-[{&#39;parties.id&#39;: &#39;C033E9C43B939496C708EB0CFCCCAB05&#39;}, {&#39;parties.id&#39;: &#39;A86984D882E22202471A1946A0FFC04F&#39;}]
-[{&#39;parties.id&#39;: &#39;CEF0604012L3&#39;}, {&#39;parties.id&#39;: &#39;IMC100821SX2&#39;}]
-[{&#39;parties.id&#39;: &#39;CPA9301221NA&#39;}, {&#39;parties.id&#39;: &#39;MCO030213D7A&#39;}]
-[{&#39;parties.id&#39;: &#39;CFE0909025R9&#39;}, {&#39;parties.id&#39;: &#39;SIP060929ED6&#39;}]
-[{&#39;parties.id&#39;: &#39;830C50E64AF00F2D02273ACF97D66FF7&#39;}, {&#39;parties.id&#39;: &#39;5310A47E56CF52E5B4009EFD6A102DDF&#39;}]
-[{&#39;parties.id&#39;: &#39;69C536B9AAD0A829246C8126B1481B85&#39;}, {&#39;parties.id&#39;: &#39;D5F97052F9EE5FA10937C04F85679359&#39;}]
-[{&#39;parties.id&#39;: &#39;CPS110524V21&#39;}, {&#39;parties.id&#39;: &#39;FGC160419PX7&#39;}]
-[{&#39;parties.id&#39;: &#39;FA35E31A1D75A092DE67A0002A7337DC&#39;}, {&#39;parties.id&#39;: &#39;4050D2C40946894B46F7142D310BD974&#39;}]
-[{&#39;parties.id&#39;: &#39;CDA9601297G9&#39;}, {&#39;parties.id&#39;: &#39;23DF515587ED8B3F4A8B1C9E4D725CAD&#39;}]
-[{&#39;parties.id&#39;: &#39;DKI910218I89&#39;}, {&#39;parties.id&#39;: &#39;CEU980706GL7&#39;}]
-[{&#39;parties.id&#39;: &#39;DIC000410A76&#39;}, {&#39;parties.id&#39;: &#39;LBQ960708PK7&#39;}]
-[{&#39;parties.id&#39;: &#39;MPE110624HD4&#39;}, {&#39;parties.id&#39;: &#39;01AD46CB2D9A1680A5C45060C53FDE13&#39;}]
-[{&#39;parties.id&#39;: &#39;EGR170228E93&#39;}, {&#39;parties.id&#39;: &#39;SLS170228544&#39;}]
-[{&#39;parties.id&#39;: &#39;MPT110802PX1&#39;}, {&#39;parties.id&#39;: &#39;GCV1308193Y5&#39;}]
-[{&#39;parties.id&#39;: &#39;FSI350701GV1&#39;}, {&#39;parties.id&#39;: &#39;SIN011023UC8&#39;}]
-[{&#39;parties.id&#39;: &#39;CGU150217QE6&#39;}, {&#39;parties.id&#39;: &#39;CPD150303S70&#39;}]
-[{&#39;parties.id&#39;: &#39;53576D1E21D33ABA26B9BD334A681098&#39;}, {&#39;parties.id&#39;: &#39;334444F73B6D02881CC40555DC6C318B&#39;}]
-[{&#39;parties.id&#39;: &#39;GMM150226R81&#39;}, {&#39;parties.id&#39;: &#39;GLI131014IQ1&#39;}]
-[{&#39;parties.id&#39;: &#39;TAS1308081N5&#39;}, {&#39;parties.id&#39;: &#39;CTD060131CY1&#39;}]
-[{&#39;parties.id&#39;: &#39;DPM000113TI6&#39;}, {&#39;parties.id&#39;: &#39;5B23F1CF24293B5FA07961E7D7AEC495&#39;}]
-[{&#39;parties.id&#39;: &#39;JME110610456&#39;}, {&#39;parties.id&#39;: &#39;REH150724JT0&#39;}]
-[{&#39;parties.id&#39;: &#39;GPA790523GV6&#39;}, {&#39;parties.id&#39;: &#39;DIE800905HX3&#39;}]
-[{&#39;parties.id&#39;: &#39;HIC891031SZA&#39;}, {&#39;parties.id&#39;: &#39;HIC9207288B2&#39;}]
-[{&#39;parties.id&#39;: &#39;08E1A7D83DB35B72AFE39E034090A711&#39;}, {&#39;parties.id&#39;: &#39;D4505247954159BE074D5E2EDE3C734A&#39;}]
-[{&#39;parties.id&#39;: &#39;ODI040329BP2&#39;}, {&#39;parties.id&#39;: &#39;IVI111116TY4&#39;}]
-[{&#39;parties.id&#39;: &#39;LAC050701B66&#39;}, {&#39;parties.id&#39;: &#39;LAC920509FC4&#39;}, {&#39;parties.id&#39;: &#39;SDC010209LT5&#39;}]
-[{&#39;parties.id&#39;: &#39;CCM120526CI6&#39;}, {&#39;parties.id&#39;: &#39;GCN931005DF7&#39;}]
-[{&#39;parties.id&#39;: &#39;SCE0004124H4&#39;}, {&#39;parties.id&#39;: &#39;GSG130129M65&#39;}, {&#39;parties.id&#39;: &#39;ROC1107042U9&#39;}, {&#39;parties.id&#39;: &#39;SLA111029PK5&#39;}, {&#39;parties.id&#39;: &#39;GOF721005286&#39;}, {&#39;parties.id&#39;: &#39;SVE911021GQ7&#39;}]
-[{&#39;parties.id&#39;: &#39;PAD111206JL7&#39;}, {&#39;parties.id&#39;: &#39;JML121005S41&#39;}]
-[{&#39;parties.id&#39;: &#39;40B50CE323B8BC137CEC75BEAF7B6832&#39;}, {&#39;parties.id&#39;: &#39;FIS900629ED6&#39;}]
-[{&#39;parties.id&#39;: &#39;ICM110208MR0&#39;}, {&#39;parties.id&#39;: &#39;VCS180215DEA&#39;}]
-[{&#39;parties.id&#39;: &#39;FA20E275B45D66B6A2D46A8806C66EE9&#39;}, {&#39;parties.id&#39;: &#39;EOV080922E83&#39;}]
-[{&#39;parties.id&#39;: &#39;MCO131021P49&#39;}, {&#39;parties.id&#39;: &#39;DCM0701128T7&#39;}]
-[{&#39;parties.id&#39;: &#39;GCG1502265R2&#39;}, {&#39;parties.id&#39;: &#39;ACM1711172K1&#39;}]
-[{&#39;parties.id&#39;: &#39;5F39200E194457C7291D091D83761DF9&#39;}, {&#39;parties.id&#39;: &#39;MDI100512355&#39;}]
-[{&#39;parties.id&#39;: &#39;FLE001113KC9&#39;}, {&#39;parties.id&#39;: &#39;DRS130603GS8&#39;}]
-[{&#39;parties.id&#39;: &#39;CD7F471D87AD6FDBA0170CBF356D7A0B&#39;}, {&#39;parties.id&#39;: &#39;E03BC1356495BFAB1D764B37C5ED7078&#39;}]
-[{&#39;parties.id&#39;: &#39;1388867A371B5CCEFFE6974D3578CCC6&#39;}, {&#39;parties.id&#39;: &#39;B4D2D2C07AD2E51695427D72A0974900&#39;}]
-[{&#39;parties.id&#39;: &#39;SVK960605DP4&#39;}, {&#39;parties.id&#39;: &#39;ESM981001CI3&#39;}]
-[{&#39;parties.id&#39;: &#39;RCO1305066Y1&#39;}, {&#39;parties.id&#39;: &#39;MIM130220NV2&#39;}]
-[{&#39;parties.id&#39;: &#39;PEX051012GW2&#39;}, {&#39;parties.id&#39;: &#39;GTN160419130&#39;}, {&#39;parties.id&#39;: &#39;IRC151203F8A&#39;}]
-[{&#39;parties.id&#39;: &#39;GME030704546&#39;}, {&#39;parties.id&#39;: &#39;PIT110909J75&#39;}]
-[{&#39;parties.id&#39;: &#39;GRA9406213L3&#39;}, {&#39;parties.id&#39;: &#39;TEL990629JR9&#39;}]
-[{&#39;parties.id&#39;: &#39;CAP910111U90&#39;}, {&#39;parties.id&#39;: &#39;RMC021114BA5&#39;}]
-[{&#39;parties.id&#39;: &#39;ZUN1610148K6&#39;}, {&#39;parties.id&#39;: &#39;RAO1703135P9&#39;}]
-[{&#39;parties.id&#39;: &#39;GCE140531CN5&#39;}, {&#39;parties.id&#39;: &#39;IOC170303SC0&#39;}]
-[{&#39;parties.id&#39;: &#39;CDA010714TG6&#39;}, {&#39;parties.id&#39;: &#39;PAD060221U93&#39;}]
-[{&#39;parties.id&#39;: &#39;DPI9008079U4&#39;}, {&#39;parties.id&#39;: &#39;639AA7750C920647DDDF4A93AF45703B&#39;}]
-[{&#39;parties.id&#39;: &#39;MBA960229SJ9&#39;}, {&#39;parties.id&#39;: &#39;IMA8012089S2&#39;}, {&#39;parties.id&#39;: &#39;CIN060724T73&#39;}]
-[{&#39;parties.id&#39;: &#39;GBA160714LCA&#39;}, {&#39;parties.id&#39;: &#39;GRE100519U47&#39;}]
-[{&#39;parties.id&#39;: &#39;CEO1208228P3&#39;}, {&#39;parties.id&#39;: &#39;OAW10121314A&#39;}]
-[{&#39;parties.id&#39;: &#39;488D206B7723816F085AF689E99FD4B0&#39;}, {&#39;parties.id&#39;: &#39;MKS130504D10&#39;}]
-[{&#39;parties.id&#39;: &#39;GID040318GX6&#39;}, {&#39;parties.id&#39;: &#39;CBS940607LS8&#39;}, {&#39;parties.id&#39;: &#39;ICP050425HP1&#39;}]
-[{&#39;parties.id&#39;: &#39;CPE100324QA5&#39;}, {&#39;parties.id&#39;: &#39;EDO0605053B6&#39;}]
-[{&#39;parties.id&#39;: &#39;CTH120705DI0&#39;}, {&#39;parties.id&#39;: &#39;PTH1206294A9&#39;}]
-[{&#39;parties.id&#39;: &#39;2E5579D1ADF46842ADD140C62B8F62E0&#39;}, {&#39;parties.id&#39;: &#39;HCC950503NY4&#39;}]
-[{&#39;parties.id&#39;: &#39;CSR170804TR8&#39;}, {&#39;parties.id&#39;: &#39;CBS170804R21&#39;}, {&#39;parties.id&#39;: &#39;VIN1201135Q9&#39;}]
-[{&#39;parties.id&#39;: &#39;ETA1410106EA&#39;}, {&#39;parties.id&#39;: &#39;ULJ141110G48&#39;}]
-[{&#39;parties.id&#39;: &#39;50CAC81A1D1F540CFC320C0C4BEA4DC4&#39;}, {&#39;parties.id&#39;: &#39;TTR031030166&#39;}]
-[{&#39;parties.id&#39;: &#39;TME840315KT6&#39;}, {&#39;parties.id&#39;: &#39;BD03FBE666C3DBA5C57BCDC8BF0AA451&#39;}]
-[{&#39;parties.id&#39;: &#39;ECA031114DB1&#39;}, {&#39;parties.id&#39;: &#39;MPU821007EM3&#39;}]
-[{&#39;parties.id&#39;: &#39;PRO130131J16&#39;}, {&#39;parties.id&#39;: &#39;SPW170512TT2&#39;}]
-[{&#39;parties.id&#39;: &#39;CTE080825JC2&#39;}, {&#39;parties.id&#39;: &#39;GHE060921FZA&#39;}]
-[{&#39;parties.id&#39;: &#39;CTR970918574&#39;}, {&#39;parties.id&#39;: &#39;GVA010601FT9&#39;}]
-[{&#39;parties.id&#39;: &#39;ECG090226QH3&#39;}, {&#39;parties.id&#39;: &#39;VCS030919PI9&#39;}]
-[{&#39;parties.id&#39;: &#39;OPF150415AJ3&#39;}, {&#39;parties.id&#39;: &#39;COM140718L49&#39;}]
-[{&#39;parties.id&#39;: &#39;MID050615IC2&#39;}, {&#39;parties.id&#39;: &#39;GCS160901RV6&#39;}, {&#39;parties.id&#39;: &#39;MIE1002042C5&#39;}]
-[{&#39;parties.id&#39;: &#39;SSC040730SG9&#39;}, {&#39;parties.id&#39;: &#39;PGA930201M16&#39;}, {&#39;parties.id&#39;: &#39;WHA041213JC7&#39;}, {&#39;parties.id&#39;: &#39;CTA840227TR0&#39;}, {&#39;parties.id&#39;: &#39;OIN850708PF4&#39;}, {&#39;parties.id&#39;: &#39;TDG890317MT9&#39;}, {&#39;parties.id&#39;: &#39;AIC020201EW8&#39;}]
-[{&#39;parties.id&#39;: &#39;DCE0908051U8&#39;}, {&#39;parties.id&#39;: &#39;TRI110217839&#39;}]
-[{&#39;parties.id&#39;: &#39;GGG901128441&#39;}, {&#39;parties.id&#39;: &#39;IFM880216AF1&#39;}]
-[{&#39;parties.id&#39;: &#39;GMC131015V97&#39;}, {&#39;parties.id&#39;: &#39;GMC090921JI8&#39;}]
-[{&#39;parties.id&#39;: &#39;QCO020709KY8&#39;}, {&#39;parties.id&#39;: &#39;CER010914M7A&#39;}, {&#39;parties.id&#39;: &#39;GCA110620M19&#39;}]
-[{&#39;parties.id&#39;: &#39;MSE010515SP2&#39;}, {&#39;parties.id&#39;: &#39;GPE9708147P8&#39;}]
-[{&#39;parties.id&#39;: &#39;MBU1404103BA&#39;}, {&#39;parties.id&#39;: &#39;LRC071126QY4&#39;}]
-[{&#39;parties.id&#39;: &#39;DIN1611245XA&#39;}, {&#39;parties.id&#39;: &#39;TCO161124L98&#39;}]
-[{&#39;parties.id&#39;: &#39;D73016CAA1F8020E3BAC52068FB0B2D9&#39;}, {&#39;parties.id&#39;: &#39;MLA840208FN5&#39;}]
-[{&#39;parties.id&#39;: &#39;PQU961210DJ9&#39;}, {&#39;parties.id&#39;: &#39;MOR020813I30&#39;}]
-[{&#39;parties.id&#39;: &#39;CZU150602CX1&#39;}, {&#39;parties.id&#39;: &#39;HCG150126N25&#39;}]
-[{&#39;parties.id&#39;: &#39;6A21C3C1E1707E26662C9F8A00D63708&#39;}, {&#39;parties.id&#39;: &#39;64E598A985DCE69FC2F25F6E95450DAC&#39;}]
-[{&#39;parties.id&#39;: &#39;8D8DB6545FDCD231D053E3E6D6A60B8E&#39;}, {&#39;parties.id&#39;: &#39;79D3BCC04DBB4A85BEFE73D040C8E749&#39;}]
-[{&#39;parties.id&#39;: &#39;247AE9616FE58F0BF2C38A430711C7FF&#39;}, {&#39;parties.id&#39;: &#39;AB9A15D32A74ECD70CC1755734016C80&#39;}]
-[{&#39;parties.id&#39;: &#39;796E618431BE872B919388D1E2070F37&#39;}, {&#39;parties.id&#39;: &#39;83882ED49A616D371EEF9F7FC74918DA&#39;}]
-[{&#39;parties.id&#39;: &#39;BC76DBBE1172800C070419506156B2DA&#39;}, {&#39;parties.id&#39;: &#39;41620D9F39AECF87A8E8109BE44DCC53&#39;}]
-[{&#39;parties.id&#39;: &#39;CAJ160308ML4&#39;}, {&#39;parties.id&#39;: &#39;CAR130225JN6&#39;}]
-[{&#39;parties.id&#39;: &#39;GCD0903207Y7&#39;}, {&#39;parties.id&#39;: &#39;CPA9301221NA&#39;}]
-[{&#39;parties.id&#39;: &#39;FA35E31A1D75A092DE67A0002A7337DC&#39;}, {&#39;parties.id&#39;: &#39;4050D2C40946894B46F7142D310BD974&#39;}]
-[{&#39;parties.id&#39;: &#39;AMH140815CV5&#39;}, {&#39;parties.id&#39;: &#39;EBD4A5D63D1738C0A5A8CA4AEF839BE6&#39;}]
-[{&#39;parties.id&#39;: &#39;GTA910608A32&#39;}, {&#39;parties.id&#39;: &#39;GRI9302081W7&#39;}]
-[{&#39;parties.id&#39;: &#39;MMS160708JQA&#39;}, {&#39;parties.id&#39;: &#39;DIR070822774&#39;}]
-[{&#39;parties.id&#39;: &#39;F54A547CB9CE80981FF6E7F1881835AF&#39;}, {&#39;parties.id&#39;: &#39;SSG180123IG1&#39;}]
-[{&#39;parties.id&#39;: &#39;39E9107BF49B418E5726C6FCB938FE81&#39;}, {&#39;parties.id&#39;: &#39;MPE110624HD4&#39;}]
-[{&#39;parties.id&#39;: &#39;DLV131111TW9&#39;}, {&#39;parties.id&#39;: &#39;DCQ1110254V8&#39;}]
-[{&#39;parties.id&#39;: &#39;OMS131023NU1&#39;}, {&#39;parties.id&#39;: &#39;DBM121023M10&#39;}]
-[{&#39;parties.id&#39;: &#39;DMA170421L85&#39;}, {&#39;parties.id&#39;: &#39;DNO070226TWA&#39;}]
-[{&#39;parties.id&#39;: &#39;OSM160921I24&#39;}, {&#39;parties.id&#39;: &#39;PGI100120N35&#39;}]
-[{&#39;parties.id&#39;: &#39;79005AFEE96D823B254D502C6D999E2D&#39;}, {&#39;parties.id&#39;: &#39;A495D416E886F6781B204AD6F798931E&#39;}]
-[{&#39;parties.id&#39;: &#39;NUC051013L40&#39;}, {&#39;parties.id&#39;: &#39;CRE060905PK7&#39;}]
-[{&#39;parties.id&#39;: &#39;GTA130827AP5&#39;}, {&#39;parties.id&#39;: &#39;UAC771230988&#39;}, {&#39;parties.id&#39;: &#39;QCA090930JAA&#39;}]
-[{&#39;parties.id&#39;: &#39;ACO14O217NP9&#39;}, {&#39;parties.id&#39;: &#39;VAD0612O4V38&#39;}]
-[{&#39;parties.id&#39;: &#39;JCC130918SI2&#39;}, {&#39;parties.id&#39;: &#39;CCA100406FV0&#39;}]
-[{&#39;parties.id&#39;: &#39;BA9CE225986689791509C0B1A3061E32&#39;}, {&#39;parties.id&#39;: &#39;CUT130110US2&#39;}]
-[{&#39;parties.id&#39;: &#39;IEC0502219G4&#39;}, {&#39;parties.id&#39;: &#39;GBC140110LW5&#39;}]
-[{&#39;parties.id&#39;: &#39;ZPC090223IR5&#39;}, {&#39;parties.id&#39;: &#39;GCJ070307348&#39;}]
-[{&#39;parties.id&#39;: &#39;CXB150928MB0&#39;}, {&#39;parties.id&#39;: &#39;MCE150223PI7&#39;}]
-[{&#39;parties.id&#39;: &#39;AAD070326I33&#39;}, {&#39;parties.id&#39;: &#39;PFA020703GY8&#39;}]
-[{&#39;parties.id&#39;: &#39;HIC891031SZA&#39;}, {&#39;parties.id&#39;: &#39;HIC9207288B2&#39;}]
-[{&#39;parties.id&#39;: &#39;IIG050929AX5&#39;}, {&#39;parties.id&#39;: &#39;EIS981029CI1&#39;}]
-[{&#39;parties.id&#39;: &#39;ROH1405075WA&#39;}, {&#39;parties.id&#39;: &#39;LRO0403116PA&#39;}]
-[{&#39;parties.id&#39;: &#39;SCH120225BI9&#39;}, {&#39;parties.id&#39;: &#39;GEV091215AR4&#39;}]
-[{&#39;parties.id&#39;: &#39;MED050715BE2&#39;}, {&#39;parties.id&#39;: &#39;CRI970421B93&#39;}]
-[{&#39;parties.id&#39;: &#39;MIS130307KDA&#39;}, {&#39;parties.id&#39;: &#39;CME130307QC8&#39;}]
-[{&#39;parties.id&#39;: &#39;CCM120526CI6&#39;}, {&#39;parties.id&#39;: &#39;GCN931005DF7&#39;}]
-[{&#39;parties.id&#39;: &#39;SCE0004124H4&#39;}, {&#39;parties.id&#39;: &#39;GSG130129M65&#39;}, {&#39;parties.id&#39;: &#39;SSE001025NT9&#39;}, {&#39;parties.id&#39;: &#39;ROC1107042U9&#39;}, {&#39;parties.id&#39;: &#39;SLA111029PK5&#39;}, {&#39;parties.id&#39;: &#39;GOF721005286&#39;}, {&#39;parties.id&#39;: &#39;SVE911021GQ7&#39;}]
-[{&#39;parties.id&#39;: &#39;ROX1603033T7&#39;}, {&#39;parties.id&#39;: &#39;SKA1503304G1&#39;}]
-[{&#39;parties.id&#39;: &#39;CEC090716PZ7&#39;}, {&#39;parties.id&#39;: &#39;CDI980428392&#39;}]
-[{&#39;parties.id&#39;: &#39;LPE091002911&#39;}, {&#39;parties.id&#39;: &#39;TSG990322IE4&#39;}]
-[{&#39;parties.id&#39;: &#39;MAR140325334&#39;}, {&#39;parties.id&#39;: &#39;VCO160413J73&#39;}]
-[{&#39;parties.id&#39;: &#39;MCO131021P49&#39;}, {&#39;parties.id&#39;: &#39;DCM0701128T7&#39;}]
-[{&#39;parties.id&#39;: &#39;MIC140812GT3&#39;}, {&#39;parties.id&#39;: &#39;GCD160329LG4&#39;}]
-[{&#39;parties.id&#39;: &#39;PPR120323G96&#39;}, {&#39;parties.id&#39;: &#39;CMC051128HW0&#39;}]
-[{&#39;parties.id&#39;: &#39;5F39200E194457C7291D091D83761DF9&#39;}, {&#39;parties.id&#39;: &#39;MDI100512355&#39;}]
-[{&#39;parties.id&#39;: &#39;ASA940818HQ8&#39;}, {&#39;parties.id&#39;: &#39;PAU130419NZ0&#39;}]
-[{&#39;parties.id&#39;: &#39;FLE001113KC9&#39;}, {&#39;parties.id&#39;: &#39;DRS130603GS8&#39;}]
-[{&#39;parties.id&#39;: &#39;8D0EB877613FBC6731F2D1A2812160CA&#39;}, {&#39;parties.id&#39;: &#39;B2D2583054883C71BBB05917320554E5&#39;}]
-[{&#39;parties.id&#39;: &#39;PPA111228EG0&#39;}, {&#39;parties.id&#39;: &#39;ADA920610LK4&#39;}, {&#39;parties.id&#39;: &#39;GUC060613AY7&#39;}]
-[{&#39;parties.id&#39;: &#39;RIN040823510&#39;}, {&#39;parties.id&#39;: &#39;RIS0907293B0&#39;}, {&#39;parties.id&#39;: &#39;CTA840227RT0&#39;}, {&#39;parties.id&#39;: &#39;PIN911004AK5&#39;}]
-[{&#39;parties.id&#39;: &#39;9F2A5568DB2EC16223C9072CD83E63AE&#39;}, {&#39;parties.id&#39;: &#39;6121B916DD639C9A53D22C7F2943AFB9&#39;}]
-[{&#39;parties.id&#39;: &#39;IDI9802234X8&#39;}, {&#39;parties.id&#39;: &#39;CCA120619SGO&#39;}]
-[{&#39;parties.id&#39;: &#39;SAD050124Q50&#39;}, {&#39;parties.id&#39;: &#39;SAZ000925N86&#39;}]
-[{&#39;parties.id&#39;: &#39;CD7F471D87AD6FDBA0170CBF356D7A0B&#39;}, {&#39;parties.id&#39;: &#39;E03BC1356495BFAB1D764B37C5ED7078&#39;}]
-[{&#39;parties.id&#39;: &#39;LTI960220FP5&#39;}, {&#39;parties.id&#39;: &#39;ALA860227ID6&#39;}]
-[{&#39;parties.id&#39;: &#39;CMD1101197FA&#39;}, {&#39;parties.id&#39;: &#39;CPR111109NA7&#39;}, {&#39;parties.id&#39;: &#39;KFO040609EA7&#39;}, {&#39;parties.id&#39;: &#39;KCO030922UM6&#39;}]
-[{&#39;parties.id&#39;: &#39;CBA16031084A&#39;}, {&#39;parties.id&#39;: &#39;SIT180531P45&#39;}]
-[{&#39;parties.id&#39;: &#39;TCM9207139S7&#39;}, {&#39;parties.id&#39;: &#39;CAM020227M88&#39;}]
-[{&#39;parties.id&#39;: &#39;AAL860603DQ6&#39;}, {&#39;parties.id&#39;: &#39;RLI050504936&#39;}, {&#39;parties.id&#39;: &#39;PQL031105LE4&#39;}, {&#39;parties.id&#39;: &#39;QED051216531&#39;}]
-[{&#39;parties.id&#39;: &#39;LCC971231PX3&#39;}, {&#39;parties.id&#39;: &#39;MSI020424I78&#39;}]
-[{&#39;parties.id&#39;: &#39;ASF070131AV9&#39;}, {&#39;parties.id&#39;: &#39;IRC921125647&#39;}]
-[{&#39;parties.id&#39;: &#39;ADC160331TG9&#39;}, {&#39;parties.id&#39;: &#39;RIN130322FEA&#39;}, {&#39;parties.id&#39;: &#39;CIN140717QD0&#39;}]
-[{&#39;parties.id&#39;: &#39;R&amp;G050928U8A&#39;}, {&#39;parties.id&#39;: &#39;EEJ101207SQ9&#39;}]
-[{&#39;parties.id&#39;: &#39;07EA267554E3BAB4B1D6CE4FF3B521AB&#39;}, {&#39;parties.id&#39;: &#39;SDI170508GE9&#39;}]
-[{&#39;parties.id&#39;: &#39;SVK960605DP4&#39;}, {&#39;parties.id&#39;: &#39;ESM981001CI3&#39;}]
-[{&#39;parties.id&#39;: &#39;AME0408107C9&#39;}, {&#39;parties.id&#39;: &#39;81FC94938D0AEAEA32193502154D87DE&#39;}]
-[{&#39;parties.id&#39;: &#39;TCS031021Q32&#39;}, {&#39;parties.id&#39;: &#39;CII930819177&#39;}]
-[{&#39;parties.id&#39;: &#39;RDE020318D58&#39;}, {&#39;parties.id&#39;: &#39;COL840718D85&#39;}, {&#39;parties.id&#39;: &#39;DTN180416Q20&#39;}, {&#39;parties.id&#39;: &#39;80517D0076CB1A1EB10FA9EC2EF97330&#39;}]
-[{&#39;parties.id&#39;: &#39;CSE1601077U7&#39;}, {&#39;parties.id&#39;: &#39;URL151111GG7&#39;}]
-[{&#39;parties.id&#39;: &#39;SLE021203RG1&#39;}, {&#39;parties.id&#39;: &#39;LGA111101NI7&#39;}]
-[{&#39;parties.id&#39;: &#39;CAP910111U90&#39;}, {&#39;parties.id&#39;: &#39;SPI020108543&#39;}]
-[{&#39;parties.id&#39;: &#39;GRA9406213L3&#39;}, {&#39;parties.id&#39;: &#39;TEL990629JR9&#39;}]
-[{&#39;parties.id&#39;: &#39;GLA841203HGA&#39;}, {&#39;parties.id&#39;: &#39;VMI050120AU6&#39;}]
-[{&#39;parties.id&#39;: &#39;HLO120315AW1&#39;}, {&#39;parties.id&#39;: &#39;MMA7608259J1&#39;}]
-[{&#39;parties.id&#39;: &#39;DIB0306171I1&#39;}, {&#39;parties.id&#39;: &#39;COB130819CD5&#39;}]
-[{&#39;parties.id&#39;: &#39;812411525&#39;}, {&#39;parties.id&#39;: &#39;TIC1708093M3&#39;}]
-[{&#39;parties.id&#39;: &#39;KME590502HY7&#39;}, {&#39;parties.id&#39;: &#39;MED730308NF0&#39;}]
-[{&#39;parties.id&#39;: &#39;PFM891014836&#39;}, {&#39;parties.id&#39;: &#39;DST041201HL4&#39;}]
-[{&#39;parties.id&#39;: &#39;AKU030910CH3&#39;}, {&#39;parties.id&#39;: &#39;CGR630227TQ0&#39;}]
-[{&#39;parties.id&#39;: &#39;CIB150311KQA&#39;}, {&#39;parties.id&#39;: &#39;DGA150311QAA&#39;}]
-[{&#39;parties.id&#39;: &#39;GAL060202CA5&#39;}, {&#39;parties.id&#39;: &#39;LLA160307QM6&#39;}]
-[{&#39;parties.id&#39;: &#39;FRI0006282Q0&#39;}, {&#39;parties.id&#39;: &#39;MEL8605161U0&#39;}]
-[{&#39;parties.id&#39;: &#39;GIX151118RT9&#39;}, {&#39;parties.id&#39;: &#39;7DD171FE19ADBD9B69CB975598C293BC&#39;}]
-[{&#39;parties.id&#39;: &#39;41E41EAF0C1715D05BCE892CFFB3A1FA&#39;}, {&#39;parties.id&#39;: &#39;PSM120516T52&#39;}]
-[{&#39;parties.id&#39;: &#39;IAP020717QR3&#39;}, {&#39;parties.id&#39;: &#39;COC0602143CA&#39;}]
-[{&#39;parties.id&#39;: &#39;PRS050620JW6&#39;}, {&#39;parties.id&#39;: &#39;SEG170828FP2&#39;}]
-[{&#39;parties.id&#39;: &#39;DAA141006NB2&#39;}, {&#39;parties.id&#39;: &#39;NAR1102179D3&#39;}]
-[{&#39;parties.id&#39;: &#39;CCO890116QA0&#39;}, {&#39;parties.id&#39;: &#39;CQC080313CP3&#39;}]
-[{&#39;parties.id&#39;: &#39;30792C7E87784AFA8986E72179624775&#39;}, {&#39;parties.id&#39;: &#39;GMP170315E57&#39;}]
-[{&#39;parties.id&#39;: &#39;MAS090109T98&#39;}, {&#39;parties.id&#39;: &#39;MAM0702137S4&#39;}]
-[{&#39;parties.id&#39;: &#39;ETA1410106EA&#39;}, {&#39;parties.id&#39;: &#39;ULJ141110G48&#39;}]
-[{&#39;parties.id&#39;: &#39;TEC020701914&#39;}, {&#39;parties.id&#39;: &#39;TLA021022CM5&#39;}]
-[{&#39;parties.id&#39;: &#39;50CAC81A1D1F540CFC320C0C4BEA4DC4&#39;}, {&#39;parties.id&#39;: &#39;TTR031030166&#39;}]
-[{&#39;parties.id&#39;: &#39;TME840315KT6&#39;}, {&#39;parties.id&#39;: &#39;BD03FBE666C3DBA5C57BCDC8BF0AA451&#39;}]
-[{&#39;parties.id&#39;: &#39;0B64525B0D937B9277C34E94460BB1F0&#39;}, {&#39;parties.id&#39;: &#39;B4C68D26AA652BA350706752576C672F&#39;}]
-[{&#39;parties.id&#39;: &#39;FIH910606J83&#39;}, {&#39;parties.id&#39;: &#39;ELJ970709MB2&#39;}]
-[{&#39;parties.id&#39;: &#39;ESA910101NY3&#39;}, {&#39;parties.id&#39;: &#39;RPU021127E66&#39;}]
-[{&#39;parties.id&#39;: &#39;ELI1102188W5&#39;}, {&#39;parties.id&#39;: &#39;SUP060615BY8&#39;}]
-[{&#39;parties.id&#39;: &#39;MLI040112JU5&#39;}, {&#39;parties.id&#39;: &#39;IMI110617F39&#39;}]
-[{&#39;parties.id&#39;: &#39;903B041B0370D681986EBC58D18B685E&#39;}, {&#39;parties.id&#39;: &#39;72EBDC80DB5BBD3FB79CCD2CD0F21571&#39;}]
-[{&#39;parties.id&#39;: &#39;5F741438DA4DEF277EDFD0AF6754C9AD&#39;}, {&#39;parties.id&#39;: &#39;CMH140425IJ8&#39;}]
-[{&#39;parties.id&#39;: &#39;GRE120517S7A&#39;}, {&#39;parties.id&#39;: &#39;DVA160209196&#39;}]
-[{&#39;parties.id&#39;: &#39;NEX0710043N1&#39;}, {&#39;parties.id&#39;: &#39;EMA001219M72&#39;}]
-[{&#39;parties.id&#39;: &#39;ECO140127QIA&#39;}, {&#39;parties.id&#39;: &#39;FF592E89C0D4FED4815F9DEECAFAAA47&#39;}]
-[{&#39;parties.id&#39;: &#39;PRS140903DE8&#39;}, {&#39;parties.id&#39;: &#39;AME140819JG8&#39;}]
-[{&#39;parties.id&#39;: &#39;RAL9206115U8&#39;}, {&#39;parties.id&#39;: &#39;DEN861217P3A&#39;}]
-[{&#39;parties.id&#39;: &#39;STE160602HG2&#39;}, {&#39;parties.id&#39;: &#39;EAV090210QJ0&#39;}]
-[{&#39;parties.id&#39;: &#39;POM891221EX9&#39;}, {&#39;parties.id&#39;: &#39;CDI140411FP3&#39;}]
-[{&#39;parties.id&#39;: &#39;PIA090513817&#39;}, {&#39;parties.id&#39;: &#39;IMD021002183&#39;}]
-[{&#39;parties.id&#39;: &#39;MOR020813I30&#39;}, {&#39;parties.id&#39;: &#39;PQU961210DJ9&#39;}]
-[{&#39;parties.id&#39;: &#39;68816D76FF0D334D718DB3F626AF2AF2&#39;}, {&#39;parties.id&#39;: &#39;MCS101122151&#39;}]
-[{&#39;parties.id&#39;: &#39;9825AE1F5028D9FA8A3B6DB305792B33&#39;}, {&#39;parties.id&#39;: &#39;45CF05A5002EC4213E43A36C147AA96C&#39;}]
-[{&#39;parties.id&#39;: &#39;OCE930624SW2&#39;}, {&#39;parties.id&#39;: &#39;OIM0808114Y6&#39;}]
-[{&#39;parties.id&#39;: &#39;CUM9406175T9&#39;}, {&#39;parties.id&#39;: &#39;OMA101210J83&#39;}]
-[{&#39;parties.id&#39;: &#39;SMM0809235UA&#39;}, {&#39;parties.id&#39;: &#39;DIR070822774&#39;}]
-[{&#39;parties.id&#39;: &#39;GFE061004F65&#39;}, {&#39;parties.id&#39;: &#39;EEE830909BM4&#39;}]
-[{&#39;parties.id&#39;: &#39;CMD080513MX1&#39;}, {&#39;parties.id&#39;: &#39;63E7A3DE3AA7920EA8925D090B3695E6&#39;}]
-[{&#39;parties.id&#39;: &#39;543FECE89DA121C20A1E5395AB5D1804&#39;}, {&#39;parties.id&#39;: &#39;LVA050620HX7&#39;}]
-[{&#39;parties.id&#39;: &#39;CPL990223QM8&#39;}, {&#39;parties.id&#39;: &#39;XAZ0208304U6&#39;}]
-[{&#39;parties.id&#39;: &#39;CPA161219B72&#39;}, {&#39;parties.id&#39;: &#39;PME091210TJ9&#39;}]
-[{&#39;parties.id&#39;: &#39;BA9CE225986689791509C0B1A3061E32&#39;}, {&#39;parties.id&#39;: &#39;CUT130110US2&#39;}]
-[{&#39;parties.id&#39;: &#39;DIB800508G9A&#39;}, {&#39;parties.id&#39;: &#39;QMH841105255&#39;}]
-[{&#39;parties.id&#39;: &#39;HIC891031SZA&#39;}, {&#39;parties.id&#39;: &#39;HIC9207288B2&#39;}]
-[{&#39;parties.id&#39;: &#39;CCM120526CI6&#39;}, {&#39;parties.id&#39;: &#39;GCN931005DF7&#39;}]
-[{&#39;parties.id&#39;: &#39;E1C3063CE8DD7DB3AC2AF8CC7DFB7A7C&#39;}, {&#39;parties.id&#39;: &#39;708F60A1A1DD41FD33310F5E0E347087&#39;}]
-[{&#39;parties.id&#39;: &#39;IST081203288&#39;}, {&#39;parties.id&#39;: &#39;GIC1404248L7&#39;}]
-[{&#39;parties.id&#39;: &#39;FLE001113KC9&#39;}, {&#39;parties.id&#39;: &#39;DRS130603GS8&#39;}]
-[{&#39;parties.id&#39;: &#39;LTI960220FP5&#39;}, {&#39;parties.id&#39;: &#39;ALA860227ID6&#39;}]
-[{&#39;parties.id&#39;: &#39;UNI590804UB2&#39;}, {&#39;parties.id&#39;: &#39;MLA901022JF7&#39;}]
-[{&#39;parties.id&#39;: &#39;AME130311L48&#39;}, {&#39;parties.id&#39;: &#39;AME181017JV4&#39;}]
-[{&#39;parties.id&#39;: &#39;LOR110314NF9&#39;}, {&#39;parties.id&#39;: &#39;CDI980618JK2&#39;}]
-[{&#39;parties.id&#39;: &#39;GTN160419130&#39;}, {&#39;parties.id&#39;: &#39;IRC151203F8A&#39;}]
-[{&#39;parties.id&#39;: &#39;IME990322288&#39;}, {&#39;parties.id&#39;: &#39;CPI8908013SA&#39;}]
-[{&#39;parties.id&#39;: &#39;591C34B8CED778F60A8FA1E0E91C7917&#39;}, {&#39;parties.id&#39;: &#39;EDM080619398&#39;}]
-[{&#39;parties.id&#39;: &#39;TCS1201237N3&#39;}, {&#39;parties.id&#39;: &#39;AVZ960506I1A&#39;}]
-[{&#39;parties.id&#39;: &#39;NNC121031D79&#39;}, {&#39;parties.id&#39;: &#39;ATI101123F26&#39;}]
-[{&#39;parties.id&#39;: &#39;TEC020701914&#39;}, {&#39;parties.id&#39;: &#39;TLA021022CM5&#39;}]
-[{&#39;parties.id&#39;: &#39;ADO080314CC9&#39;}, {&#39;parties.id&#39;: &#39;ARA800729N99&#39;}]
-[{&#39;parties.id&#39;: &#39;CVI041207JEA&#39;}, {&#39;parties.id&#39;: &#39;TDI160315HJ0&#39;}]
-[{&#39;parties.id&#39;: &#39;ISE0910263D5&#39;}, {&#39;parties.id&#39;: &#39;INE120208FT1&#39;}]
-[{&#39;parties.id&#39;: &#39;PRO160225UE2&#39;}, {&#39;parties.id&#39;: &#39;SEC170407PP3&#39;}]
-[{&#39;parties.id&#39;: &#39;DECD12E11703BCDB67A076839A8D8041&#39;}, {&#39;parties.id&#39;: &#39;230B385DD7A8ACD1605A590A5653FCA2&#39;}]
-[{&#39;parties.id&#39;: &#39;ODN100106LN7&#39;}, {&#39;parties.id&#39;: &#39;CCO890116QA0&#39;}]
-[{&#39;parties.id&#39;: &#39;50CAC81A1D1F540CFC320C0C4BEA4DC4&#39;}, {&#39;parties.id&#39;: &#39;TTR031030166&#39;}]
-[{&#39;parties.id&#39;: &#39;PEG860506CT9&#39;}, {&#39;parties.id&#39;: &#39;PSI741010UI1&#39;}]
-[{&#39;parties.id&#39;: &#39;LFS040719JM4&#39;}, {&#39;parties.id&#39;: &#39;CCO050914F93&#39;}]
-[{&#39;parties.id&#39;: &#39;NEX0710043N1&#39;}, {&#39;parties.id&#39;: &#39;EMA001219M72&#39;}]
-[{&#39;parties.id&#39;: &#39;907E98ECBB9F19A53CB0E7D0666A0895&#39;}, {&#39;parties.id&#39;: &#39;B086A50670DBE1FB7EC75D3B15D3D3BA&#39;}]
-[{&#39;parties.id&#39;: &#39;DIC000410A76&#39;}, {&#39;parties.id&#39;: &#39;LBQ960708PK7&#39;}]
-[{&#39;parties.id&#39;: &#39;CEF0604012L3&#39;}, {&#39;parties.id&#39;: &#39;IMC100821SX2&#39;}]
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -2015,114 +1747,6 @@ Buscar contratos en los que todos los particpantes reciben contrato.</p>
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mydb</span><span class="o">.</span><span class="n">contrataciones</span><span class="o">.</span><span class="n">find_one</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;_id&#39;: ObjectId(&#39;5dcdaf7b0d84ead5c49c6dd8&#39;),
- &#39;publisher&#39;: {&#39;uid&#39;: &#39;27511&#39;,
-  &#39;name&#39;: &#39;SECRETARÍA DE LA FUNCIÓN PÚBLICA&#39;,
-  &#39;uri&#39;: &#39;http://www.gob.mx/sfp&#39;},
- &#39;cycle&#39;: 2016,
- &#39;ocid&#39;: &#39;ocds-07smqs-1003803&#39;,
- &#39;id&#39;: &#39;SFP-1003803-2018-11-12&#39;,
- &#39;date&#39;: &#39;2016-02-19T01:09:18Z&#39;,
- &#39;tag&#39;: [&#39;tender&#39;, &#39;award&#39;],
- &#39;initiationType&#39;: &#39;tender&#39;,
- &#39;parties&#39;: [{&#39;name&#39;: &#39;Servicio de Administración Tributaria&#39;,
-   &#39;id&#39;: &#39;SAT-284&#39;,
-   &#39;roles&#39;: [&#39;buyer&#39;]},
-  {&#39;name&#39;: &#39;SAT-Administración de Operación de Recursos y Servicios 6 #006E00002&#39;,
-   &#39;id&#39;: &#39;SAT970701NN3-006E00002&#39;,
-   &#39;identifier&#39;: {&#39;id&#39;: &#39;SAT970701NN3-006E00002&#39;,
-    &#39;legalName&#39;: &#39;SAT-Administración de Operación de Recursos y Servicios 6 #006E00002&#39;,
-    &#39;scheme&#39;: &#39;MX-RFC&#39;,
-    &#39;uri&#39;: &#39;https://portalsat.plataforma.sat.gob.mx/ConsultaRFC&#39;},
-   &#39;address&#39;: {&#39;streetAddress&#39;: &#39;Avenida Hidalgo No. 77, Colonia Guerrero&#39;,
-    &#39;locality&#39;: &#39;Cuauhtémoc&#39;,
-    &#39;region&#39;: &#39;Ciudad de México&#39;,
-    &#39;postalCode&#39;: &#39;06300&#39;,
-    &#39;countryName&#39;: &#39;MX&#39;},
-   &#39;contactPoint&#39;: {&#39;name&#39;: &#39;José Gabriel Ramos Martínez&#39;,
-    &#39;email&#39;: &#39;jose.ramosm@sat.gob.mx&#39;,
-    &#39;telephone&#39;: &#39;5802-0318&#39;},
-   &#39;roles&#39;: [&#39;procuringEntity&#39;]},
-  {&#39;name&#39;: &#39;IRAM LIEVANOS VELAZQUEZ&#39;,
-   &#39;id&#39;: &#39;E9C1C827AE1234CCF7AC4D9070BB597C&#39;,
-   &#39;identifier&#39;: {&#39;id&#39;: &#39;E9C1C827AE1234CCF7AC4D9070BB597C&#39;,
-    &#39;legalName&#39;: &#39;IRAM LIEVANOS VELAZQUEZ&#39;,
-    &#39;scheme&#39;: &#39;MX-RFC&#39;,
-    &#39;uri&#39;: &#39;https://portalsat.plataforma.sat.gob.mx/ConsultaRFC&#39;},
-   &#39;address&#39;: {&#39;streetAddress&#39;: &#39;PASEO DE LA ASUNCION NO. 536&#39;,
-    &#39;locality&#39;: &#39;METEPEC&#39;,
-    &#39;region&#39;: &#39;MX-MEX&#39;,
-    &#39;postalCode&#39;: &#39;52148&#39;,
-    &#39;countryName&#39;: &#39;MÉXICO&#39;},
-   &#39;contactPoint&#39;: {&#39;name&#39;: &#39;IRAM LIEVANOS VELAZQUEZ&#39;,
-    &#39;email&#39;: &#39;laroca.canino@gmail.com&#39;,
-    &#39;telephone&#39;: &#39;52 722 093749&#39;},
-   &#39;roles&#39;: [&#39;tenderer&#39;, &#39;supplier&#39;]}],
- &#39;buyer&#39;: {&#39;name&#39;: &#39;Servicio de Administración Tributaria&#39;, &#39;id&#39;: &#39;SAT-284&#39;},
- &#39;tender&#39;: {&#39;id&#39;: &#39;1003803&#39;,
-  &#39;title&#39;: &#39;SERVICIO INTEGRAL DE CANINOS.&#39;,
-  &#39;description&#39;: &#39;SERVICIO INTEGRAL DE CANINOS.&#39;,
-  &#39;status&#39;: &#39;complete&#39;,
-  &#39;procuringEntity&#39;: {&#39;name&#39;: &#39;SAT-Administración de Operación de Recursos y Servicios 6 #006E00002&#39;,
-   &#39;id&#39;: &#39;SAT970701NN3-006E00002&#39;},
-  &#39;items&#39;: [],
-  &#39;value&#39;: {&#39;amount&#39;: 0},
-  &#39;procurementMethod&#39;: &#39;direct&#39;,
-  &#39;procurementMethodRationale&#39;: &#39;Art. 41 fr. III&#39;,
-  &#39;submissionMethod&#39;: [&#39;inPerson&#39;],
-  &#39;tenderPeriod&#39;: {&#39;startDate&#39;: &#39;2016-02-19T01:09:18Z&#39;},
-  &#39;enquiryPeriod&#39;: {&#39;startDate&#39;: &#39;2016-02-19T01:09:18Z&#39;},
-  &#39;hasEnquiries&#39;: False,
-  &#39;awardPeriod&#39;: {&#39;endDate&#39;: &#39;2016-12-30T00:00:00Z&#39;}},
- &#39;language&#39;: &#39;es&#39;,
- &#39;awards&#39;: [{&#39;id&#39;: &#39;1004248&#39;,
-   &#39;title&#39;: &#39;SERVICIO INTEGRAL DE CANINOS.&#39;,
-   &#39;status&#39;: &#39;active&#39;,
-   &#39;value&#39;: {&#39;amount&#39;: 8451072, &#39;currency&#39;: &#39;MXN&#39;},
-   &#39;suppliers&#39;: [{&#39;name&#39;: &#39;IRAM LIEVANOS VELAZQUEZ&#39;,
-     &#39;id&#39;: &#39;E9C1C827AE1234CCF7AC4D9070BB597C&#39;}],
-   &#39;contractPeriod&#39;: {&#39;startDate&#39;: &#39;2017-01-01T12:00:00Z&#39;,
-    &#39;endDate&#39;: &#39;2017-03-08T11:59:00Z&#39;}}],
- &#39;contracts&#39;: [{&#39;id&#39;: 1004248,
-   &#39;awardID&#39;: &#39;1004248&#39;,
-   &#39;title&#39;: &#39;SERVICIO INTEGRAL DE CANINOS.&#39;,
-   &#39;status&#39;: &#39;terminated&#39;,
-   &#39;period&#39;: {&#39;startDate&#39;: &#39;2017-01-01T12:00:00Z&#39;,
-    &#39;endDate&#39;: &#39;2017-03-08T11:59:00Z&#39;},
-   &#39;value&#39;: {&#39;amount&#39;: 8451072, &#39;currency&#39;: &#39;MXN&#39;},
-   &#39;dateSigned&#39;: &#39;2016-12-30T00:00:00Z&#39;}]}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Funcionarios-que-intervienen-en-contrataciones">Funcionarios que intervienen en contrataciones<a class="anchor-link" href="#Funcionarios-que-intervienen-en-contrataciones"> </a></h2>
@@ -2990,7 +2614,15 @@ Buscar contratos en los que todos los particpantes reciben contrato.</p>
 
 
 
-  </div><a class="u-url" href="/2020/01/20/redes-contratos-compranet.html" hidden></a>
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="jjsantos01/jjsantosoblog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/analisis%20de%20datos/pandas/pymongo/2020/01/20/redes-contratos-compranet.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
