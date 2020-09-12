@@ -1,0 +1,3024 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Imports y globals | Blog de Juan Santos</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Imports y globals" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Intentando aplicar ciencia de datos a las ciencias sociales." />
+<meta property="og:description" content="Intentando aplicar ciencia de datos a las ciencias sociales." />
+<link rel="canonical" href="http://blog.jjsantoso.com/2020/01/20/redes-contratos-compranet.html" />
+<meta property="og:url" content="http://blog.jjsantoso.com/2020/01/20/redes-contratos-compranet.html" />
+<meta property="og:site_name" content="Blog de Juan Santos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-20T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Intentando aplicar ciencia de datos a las ciencias sociales.","url":"http://blog.jjsantoso.com/2020/01/20/redes-contratos-compranet.html","@type":"BlogPosting","headline":"Imports y globals","dateModified":"2020-01-20T00:00:00-06:00","datePublished":"2020-01-20T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.jjsantoso.com/2020/01/20/redes-contratos-compranet.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://blog.jjsantoso.com/feed.xml" title="Blog de Juan Santos" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Blog de Juan Santos</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">Bio</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Imports y globals</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-01-20T00:00:00-06:00" itemprop="datePublished">
+        Jan 20, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      24 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-01-20-redes-contratos-compranet.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Imports">Imports<a class="anchor-link" href="#Imports"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pymongo</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">NetworkUtils</span> <span class="kn">import</span> <span class="n">draw_network</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="globals">globals<a class="anchor-link" href="#globals"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dir_datos</span> <span class="o">=</span> <span class="s1">&#39;d:/datos/licitaciones_compranet&#39;</span>
+<span class="n">myclient</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">MongoClient</span><span class="p">(</span><span class="s2">&quot;mongodb://localhost:27017/&quot;</span><span class="p">)</span>
+<span class="n">mydb</span> <span class="o">=</span> <span class="n">myclient</span><span class="p">[</span><span class="s1">&#39;dataton2019&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Funciones">Funciones<a class="anchor-link" href="#Funciones"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="An&#225;lisis-de-asociados">An&#225;lisis de asociados<a class="anchor-link" href="#An&#225;lisis-de-asociados"> </a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Contacpoints">Contacpoints<a class="anchor-link" href="#Contacpoints"> </a></h2><h3 id="Creaci&#243;n-de-la-base">Creaci&#243;n de la base<a class="anchor-link" href="#Creaci&#243;n-de-la-base"> </a></h3><ul>
+<li>Creamos una base de datos que tenga identificado a cada punto de contacto.</li>
+<li>Los puntos de contacto se obtienen a partir de los contratistas que tienen información o su dirección.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">resultado</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">contrataciones</span><span class="o">.</span><span class="n">find</span><span class="p">({},</span>  <span class="p">{</span><span class="s1">&#39;_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;parties.contactPoint&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;parties.roles&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;parties.id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;parties.address&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_contactos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="o">**</span><span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;contactPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="o">**</span><span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;address&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="s1">&#39;tenderer_id&#39;</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="p">}</span>
+                             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">resultado</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;parties&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;roles&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">&#39;tenderer&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;tenderer&#39;</span><span class="p">,</span> <span class="s1">&#39;supplier&#39;</span><span class="p">]])</span> <span class="o">&amp;</span>
+                             <span class="p">((</span><span class="nb">bool</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;address&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)))</span> <span class="o">|</span> <span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;contactPoint&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))))])</span>
+<span class="n">df_contactos</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dir_datos</span><span class="si">}</span><span class="s1">/tenderers_contacpoint.pkl&#39;</span><span class="p">)</span>
+<span class="n">df_contactos</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>email</th>
+      <th>telephone</th>
+      <th>streetAddress</th>
+      <th>locality</th>
+      <th>region</th>
+      <th>postalCode</th>
+      <th>countryName</th>
+      <th>tenderer_id</th>
+      <th>faxNumber</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>IRAM LIEVANOS VELAZQUEZ</td>
+      <td>laroca.canino@gmail.com</td>
+      <td>52 722 093749</td>
+      <td>PASEO DE LA ASUNCION NO. 536</td>
+      <td>METEPEC</td>
+      <td>MX-MEX</td>
+      <td>52148</td>
+      <td>MÉXICO</td>
+      <td>E9C1C827AE1234CCF7AC4D9070BB597C</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>servillantas@prodigy.net.mx</td>
+      <td>10191684</td>
+      <td>JOSE MORAN 66</td>
+      <td>MIGUEL HIDALGO</td>
+      <td>MX-CMX</td>
+      <td>11850</td>
+      <td>MÉXICO</td>
+      <td>SCA031118BX7</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>sportingautoreparaciones@gmail.com</td>
+      <td>55 56397681   55 54894622</td>
+      <td>PLUTARCO ELIAS CALLES No. 660. COL. SAN FRANCI...</td>
+      <td>Iztacalco</td>
+      <td>MX-CMX</td>
+      <td>08230</td>
+      <td>MÉXICO</td>
+      <td>SAU0505307M9</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>EDGAR GUSTAVO TREJO KEMPER</td>
+      <td>edgarg_kemper@hotmail.com; balcazar-sol@hotmai...</td>
+      <td>5543419836</td>
+      <td>CALZADA VALLEJO NUMERO 1020</td>
+      <td>AZCAPOTZALCO</td>
+      <td>MX-CMX</td>
+      <td>02300</td>
+      <td>MÉXICO</td>
+      <td>SCK070618C21</td>
+      <td>52 55 55873415 ext 201, 202, 203</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Daniel Ernesto De la Fuente Barra</td>
+      <td>daniel.delafuente@segurossura.com.mx</td>
+      <td>5519636830</td>
+      <td>BLVD ADOLFO LOPEZ MATEOS 2448</td>
+      <td>ALVARO OBREGON</td>
+      <td>MX-CMX</td>
+      <td>01060</td>
+      <td>MÉXICO</td>
+      <td>R&amp;S811221KR6</td>
+      <td>57237999 Ext. 7965</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>De la base de datos de contrataciones seleccionamos los datos de contacto de los que han ganado licitaciones. Estos tiene datos como nombre de la persona de contacto, email, teléfono, número de fax, dirección y id del proveedor</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Uso-de-la-base">Uso de la base<a class="anchor-link" href="#Uso-de-la-base"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_contactos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dir_datos</span><span class="si">}</span><span class="s1">/tenderers_contacpoint.pkl&#39;</span><span class="p">)</span>
+<span class="n">df_contactos</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>email</th>
+      <th>telephone</th>
+      <th>streetAddress</th>
+      <th>locality</th>
+      <th>region</th>
+      <th>postalCode</th>
+      <th>countryName</th>
+      <th>tenderer_id</th>
+      <th>faxNumber</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>IRAM LIEVANOS VELAZQUEZ</td>
+      <td>laroca.canino@gmail.com</td>
+      <td>52 722 093749</td>
+      <td>PASEO DE LA ASUNCION NO. 536</td>
+      <td>METEPEC</td>
+      <td>MX-MEX</td>
+      <td>52148</td>
+      <td>MÉXICO</td>
+      <td>E9C1C827AE1234CCF7AC4D9070BB597C</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>servillantas@prodigy.net.mx</td>
+      <td>10191684</td>
+      <td>JOSE MORAN 66</td>
+      <td>MIGUEL HIDALGO</td>
+      <td>MX-CMX</td>
+      <td>11850</td>
+      <td>MÉXICO</td>
+      <td>SCA031118BX7</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>sportingautoreparaciones@gmail.com</td>
+      <td>55 56397681   55 54894622</td>
+      <td>PLUTARCO ELIAS CALLES No. 660. COL. SAN FRANCI...</td>
+      <td>Iztacalco</td>
+      <td>MX-CMX</td>
+      <td>08230</td>
+      <td>MÉXICO</td>
+      <td>SAU0505307M9</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>EDGAR GUSTAVO TREJO KEMPER</td>
+      <td>edgarg_kemper@hotmail.com; balcazar-sol@hotmai...</td>
+      <td>5543419836</td>
+      <td>CALZADA VALLEJO NUMERO 1020</td>
+      <td>AZCAPOTZALCO</td>
+      <td>MX-CMX</td>
+      <td>02300</td>
+      <td>MÉXICO</td>
+      <td>SCK070618C21</td>
+      <td>52 55 55873415 ext 201, 202, 203</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Daniel Ernesto De la Fuente Barra</td>
+      <td>daniel.delafuente@segurossura.com.mx</td>
+      <td>5519636830</td>
+      <td>BLVD ADOLFO LOPEZ MATEOS 2448</td>
+      <td>ALVARO OBREGON</td>
+      <td>MX-CMX</td>
+      <td>01060</td>
+      <td>MÉXICO</td>
+      <td>R&amp;S811221KR6</td>
+      <td>57237999 Ext. 7965</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_contactos</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(563693, 10)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>De todos los contratos encontramos 563693 puntos de contacto. Muchos de estos se repiten porque un contratista que ganó varias veces aparecerá como un contacto por cada contrato ganado.</li>
+<li>Calculamos todas las combinaciones únicas de telefono y tenderer_id.</li>
+<li>Luego verificamos si existen casos en los que varios tenderer_id comparten el:<ul>
+<li>teléfono: 700 casos en los que eso ocurre.</li>
+<li>Email: 839 casos.</li>
+<li>Nombre: 706 casos</li>
+<li>Número de fax: 135 casos</li>
+<li>Dirección de la calle: 172 casos</li>
+</ul>
+</li>
+<li>Todos estos son signos de sospecha.</li>
+<li>En muchos casos hay cuentas de funcionarios públicos. Habría que verificar cuál es su papel.</li>
+<li>La pregunta relevante es ¿Hay casos en los que contratistas que tienen contactos en común hayan participado en un mismo proceso de licitación?</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">variables_contacto</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;telephone&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;streetAddress&#39;</span><span class="p">,</span> <span class="s1">&#39;faxNumber&#39;</span><span class="p">]</span>
+<span class="n">casos</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">var_duplicated</span> <span class="ow">in</span> <span class="n">variables_contacto</span><span class="p">:</span>
+    <span class="c1"># Encontramos todos los valores únicos de la variable de contacto y de tenderer_id</span>
+    <span class="n">dups_direccion</span> <span class="o">=</span> <span class="n">df_contactos</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tenderer_id&#39;</span><span class="p">,</span> <span class="n">var_duplicated</span><span class="p">]))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">var_duplicated</span><span class="p">]</span><span class="o">.</span><span class="n">notnull</span><span class="p">())]</span>\
+        <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">var_duplicated</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">22</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s1">&#39;- (Cuenta administrada&#39;</span><span class="p">)),</span> <span class="n">var_duplicated</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="c1"># Encontramos cuáles son los tenderers_id que comparten un mismo contacto</span>
+    <span class="n">tenderers_dup_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">df_contactos</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="n">var_duplicated</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">dup</span><span class="p">)]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tenderer_id&#39;</span><span class="p">])[</span><span class="s1">&#39;tenderer_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                   <span class="k">for</span> <span class="n">dup</span> <span class="ow">in</span> <span class="n">dups_direccion</span><span class="p">]</span>
+    <span class="c1"># Buscamos los contratos en los que participaron los ids asociados</span>
+    <span class="n">queries_dup</span> <span class="o">=</span> <span class="p">[[{</span><span class="s1">&#39;parties.id&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">}</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tenderers_dup_id</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">queries_dup</span><span class="p">:</span>
+        <span class="n">resultado</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mydb</span><span class="o">.</span><span class="n">contrataciones</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;$and&#39;</span><span class="p">:</span> <span class="n">q</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ocid&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}))</span>
+        <span class="k">if</span> <span class="n">resultado</span><span class="p">:</span>
+            <span class="n">tenderers_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;parties.id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">q</span><span class="p">]</span>
+            <span class="n">ocids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;ocid&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">resultado</span><span class="p">})</span>
+            <span class="n">casos</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;tenderer_ids&#39;</span><span class="p">:</span> <span class="n">tenderers_id</span><span class="p">,</span> <span class="s1">&#39;contratos_ocid&#39;</span><span class="p">:</span> <span class="n">ocids</span><span class="p">,</span> <span class="s1">&#39;variable&#39;</span><span class="p">:</span> <span class="n">var_duplicated</span><span class="p">})</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+            
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;datos/casos_colusion.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">jsonfile</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">casos</span><span class="p">,</span> <span class="n">jsonfile</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[{&#39;parties.id&#39;: &#39;SLE021203RG1&#39;}, {&#39;parties.id&#39;: &#39;LGA111101NI7&#39;}]
+[{&#39;parties.id&#39;: &#39;AA2EEEF597460501F7B8A50B4DE1F671&#39;}, {&#39;parties.id&#39;: &#39;3CAB041C0551441CB0A31EAC594B2339&#39;}]
+[{&#39;parties.id&#39;: &#39;MAN0710026M3&#39;}, {&#39;parties.id&#39;: &#39;MDI130927EM8&#39;}, {&#39;parties.id&#39;: &#39;LEC1202152T9&#39;}]
+[{&#39;parties.id&#39;: &#39;63455D66A674A6129E2963DDAB012081&#39;}, {&#39;parties.id&#39;: &#39;B235993476D58CC3750F77080E9DCA38&#39;}]
+[{&#39;parties.id&#39;: &#39;08094FA2070B800BA4DE5F265BD6563A&#39;}, {&#39;parties.id&#39;: &#39;69017485557D5C0673A244B20E2C6F9C&#39;}]
+[{&#39;parties.id&#39;: &#39;SIM1410088E7&#39;}, {&#39;parties.id&#39;: &#39;TME140911D25&#39;}]
+[{&#39;parties.id&#39;: &#39;CBS170804R21&#39;}, {&#39;parties.id&#39;: &#39;CSR170804TR8&#39;}]
+[{&#39;parties.id&#39;: &#39;TPA161207Q15&#39;}, {&#39;parties.id&#39;: &#39;PET130614137&#39;}]
+[{&#39;parties.id&#39;: &#39;ADFD7D675FA05AD4BB1968B0F01B7B6C&#39;}, {&#39;parties.id&#39;: &#39;690A5D3623AC6FA09A321C4C46931EE7&#39;}]
+[{&#39;parties.id&#39;: &#39;PCE980303GT5&#39;}, {&#39;parties.id&#39;: &#39;ISM050530DL6&#39;}]
+[{&#39;parties.id&#39;: &#39;KME590502HY7&#39;}, {&#39;parties.id&#39;: &#39;MED730308NF0&#39;}]
+[{&#39;parties.id&#39;: &#39;AMC070628518&#39;}, {&#39;parties.id&#39;: &#39;ISC080722633&#39;}]
+[{&#39;parties.id&#39;: &#39;SER110912T71&#39;}, {&#39;parties.id&#39;: &#39;SPS990322966&#39;}]
+[{&#39;parties.id&#39;: &#39;AKA080904US4&#39;}, {&#39;parties.id&#39;: &#39;OGP060214H55&#39;}]
+[{&#39;parties.id&#39;: &#39;MMH0510185GA&#39;}, {&#39;parties.id&#39;: &#39;ART95042071A&#39;}]
+[{&#39;parties.id&#39;: &#39;573C67FD9D50BD5D691A6B0E8A3E3051&#39;}, {&#39;parties.id&#39;: &#39;CAC6A7AA4761ED8731C9F5713AA5C944&#39;}]
+[{&#39;parties.id&#39;: &#39;CIB150311KQA&#39;}, {&#39;parties.id&#39;: &#39;DGA150311QAA&#39;}]
+[{&#39;parties.id&#39;: &#39;CAM140807S66&#39;}, {&#39;parties.id&#39;: &#39;LIB150414J15&#39;}]
+[{&#39;parties.id&#39;: &#39;CDA010714TG6&#39;}, {&#39;parties.id&#39;: &#39;PAD060221U93&#39;}]
+[{&#39;parties.id&#39;: &#39;CLA150108Q84&#39;}, {&#39;parties.id&#39;: &#39;CAI081014UJ6&#39;}]
+[{&#39;parties.id&#39;: &#39;ACO040325KC8&#39;}, {&#39;parties.id&#39;: &#39;CEP000607D96&#39;}]
+[{&#39;parties.id&#39;: &#39;CSI000905MZ6&#39;}, {&#39;parties.id&#39;: &#39;LAL140909SV7&#39;}]
+[{&#39;parties.id&#39;: &#39;PSL160218F1A&#39;}, {&#39;parties.id&#39;: &#39;GCO160218GNA&#39;}]
+[{&#39;parties.id&#39;: &#39;PTH1206294A9&#39;}, {&#39;parties.id&#39;: &#39;GCC950328H41&#39;}]
+[{&#39;parties.id&#39;: &#39;CCO890116QA0&#39;}, {&#39;parties.id&#39;: &#39;CQC080313CP3&#39;}]
+[{&#39;parties.id&#39;: &#39;DDU160607247&#39;}, {&#39;parties.id&#39;: &#39;ABU160112P45&#39;}]
+[{&#39;parties.id&#39;: &#39;RDO070228V11&#39;}, {&#39;parties.id&#39;: &#39;ATD061228L34&#39;}]
+[{&#39;parties.id&#39;: &#39;CSA041119GI7&#39;}, {&#39;parties.id&#39;: &#39;IHE0707254T8&#39;}]
+[{&#39;parties.id&#39;: &#39;50CAC81A1D1F540CFC320C0C4BEA4DC4&#39;}, {&#39;parties.id&#39;: &#39;TTR031030166&#39;}]
+[{&#39;parties.id&#39;: &#39;407987BAB90C9970656030877FFB1F7B&#39;}, {&#39;parties.id&#39;: &#39;6592520DD93AA2A1D6188FB5904A661E&#39;}]
+[{&#39;parties.id&#39;: &#39;MLI040112JU5&#39;}, {&#39;parties.id&#39;: &#39;IMI110617F39&#39;}]
+[{&#39;parties.id&#39;: &#39;903B041B0370D681986EBC58D18B685E&#39;}, {&#39;parties.id&#39;: &#39;72EBDC80DB5BBD3FB79CCD2CD0F21571&#39;}]
+[{&#39;parties.id&#39;: &#39;1A4AAEB1791FCE9EEC1C5AA76BD22FFB&#39;}, {&#39;parties.id&#39;: &#39;21ABB4A5BD5D736B6855B1E0DF3971D3&#39;}]
+[{&#39;parties.id&#39;: &#39;PCO761025DL4&#39;}, {&#39;parties.id&#39;: &#39;EMI970219QD7&#39;}]
+[{&#39;parties.id&#39;: &#39;GFE061004F65&#39;}, {&#39;parties.id&#39;: &#39;FES840823HH0&#39;}]
+[{&#39;parties.id&#39;: &#39;EMA001219M72&#39;}, {&#39;parties.id&#39;: &#39;NEX0710043N1&#39;}]
+[{&#39;parties.id&#39;: &#39;CBC110516NCA&#39;}, {&#39;parties.id&#39;: &#39;CEV061023TE4&#39;}]
+[{&#39;parties.id&#39;: &#39;8D230F328A3FA852A971E92FA3EE0823&#39;}, {&#39;parties.id&#39;: &#39;CII880407HS9&#39;}]
+[{&#39;parties.id&#39;: &#39;D8E3FE62BB417952B7AF70684F2A7E89&#39;}, {&#39;parties.id&#39;: &#39;5B663AF0A4D27117858E1850C3B6C5A0&#39;}]
+[{&#39;parties.id&#39;: &#39;TCO9410128G7&#39;}, {&#39;parties.id&#39;: &#39;CPE9306306M7&#39;}]
+[{&#39;parties.id&#39;: &#39;DIN1611245XA&#39;}, {&#39;parties.id&#39;: &#39;TCO161124L98&#39;}]
+[{&#39;parties.id&#39;: &#39;VPP131009IJ5&#39;}, {&#39;parties.id&#39;: &#39;MVC151216BZ0&#39;}]
+[{&#39;parties.id&#39;: &#39;EVA1605184H5&#39;}, {&#39;parties.id&#39;: &#39;SPE110628DZ2&#39;}]
+[{&#39;parties.id&#39;: &#39;MPI120223V76&#39;}, {&#39;parties.id&#39;: &#39;STI151008119&#39;}]
+[{&#39;parties.id&#39;: &#39;SBA160412574&#39;}, {&#39;parties.id&#39;: &#39;FC11786AB6953640172A8F01C8E663B8&#39;}]
+[{&#39;parties.id&#39;: &#39;CZU150602CX1&#39;}, {&#39;parties.id&#39;: &#39;HCG150126N25&#39;}]
+[{&#39;parties.id&#39;: &#39;JME000530MB8&#39;}, {&#39;parties.id&#39;: &#39;ETE080829B85&#39;}]
+[{&#39;parties.id&#39;: &#39;6A21C3C1E1707E26662C9F8A00D63708&#39;}, {&#39;parties.id&#39;: &#39;64E598A985DCE69FC2F25F6E95450DAC&#39;}]
+[{&#39;parties.id&#39;: &#39;8D8DB6545FDCD231D053E3E6D6A60B8E&#39;}, {&#39;parties.id&#39;: &#39;79D3BCC04DBB4A85BEFE73D040C8E749&#39;}]
+[{&#39;parties.id&#39;: &#39;DCP151006355&#39;}, {&#39;parties.id&#39;: &#39;DCD151006KD2&#39;}]
+[{&#39;parties.id&#39;: &#39;SCO120220CTA&#39;}, {&#39;parties.id&#39;: &#39;51540917A00D4A6B9A1263D4FBBA321D&#39;}]
+[{&#39;parties.id&#39;: &#39;C033E9C43B939496C708EB0CFCCCAB05&#39;}, {&#39;parties.id&#39;: &#39;A86984D882E22202471A1946A0FFC04F&#39;}]
+[{&#39;parties.id&#39;: &#39;CEF0604012L3&#39;}, {&#39;parties.id&#39;: &#39;IMC100821SX2&#39;}]
+[{&#39;parties.id&#39;: &#39;CPA9301221NA&#39;}, {&#39;parties.id&#39;: &#39;MCO030213D7A&#39;}]
+[{&#39;parties.id&#39;: &#39;CFE0909025R9&#39;}, {&#39;parties.id&#39;: &#39;SIP060929ED6&#39;}]
+[{&#39;parties.id&#39;: &#39;830C50E64AF00F2D02273ACF97D66FF7&#39;}, {&#39;parties.id&#39;: &#39;5310A47E56CF52E5B4009EFD6A102DDF&#39;}]
+[{&#39;parties.id&#39;: &#39;69C536B9AAD0A829246C8126B1481B85&#39;}, {&#39;parties.id&#39;: &#39;D5F97052F9EE5FA10937C04F85679359&#39;}]
+[{&#39;parties.id&#39;: &#39;CPS110524V21&#39;}, {&#39;parties.id&#39;: &#39;FGC160419PX7&#39;}]
+[{&#39;parties.id&#39;: &#39;FA35E31A1D75A092DE67A0002A7337DC&#39;}, {&#39;parties.id&#39;: &#39;4050D2C40946894B46F7142D310BD974&#39;}]
+[{&#39;parties.id&#39;: &#39;CDA9601297G9&#39;}, {&#39;parties.id&#39;: &#39;23DF515587ED8B3F4A8B1C9E4D725CAD&#39;}]
+[{&#39;parties.id&#39;: &#39;DKI910218I89&#39;}, {&#39;parties.id&#39;: &#39;CEU980706GL7&#39;}]
+[{&#39;parties.id&#39;: &#39;DIC000410A76&#39;}, {&#39;parties.id&#39;: &#39;LBQ960708PK7&#39;}]
+[{&#39;parties.id&#39;: &#39;MPE110624HD4&#39;}, {&#39;parties.id&#39;: &#39;01AD46CB2D9A1680A5C45060C53FDE13&#39;}]
+[{&#39;parties.id&#39;: &#39;EGR170228E93&#39;}, {&#39;parties.id&#39;: &#39;SLS170228544&#39;}]
+[{&#39;parties.id&#39;: &#39;MPT110802PX1&#39;}, {&#39;parties.id&#39;: &#39;GCV1308193Y5&#39;}]
+[{&#39;parties.id&#39;: &#39;FSI350701GV1&#39;}, {&#39;parties.id&#39;: &#39;SIN011023UC8&#39;}]
+[{&#39;parties.id&#39;: &#39;CGU150217QE6&#39;}, {&#39;parties.id&#39;: &#39;CPD150303S70&#39;}]
+[{&#39;parties.id&#39;: &#39;53576D1E21D33ABA26B9BD334A681098&#39;}, {&#39;parties.id&#39;: &#39;334444F73B6D02881CC40555DC6C318B&#39;}]
+[{&#39;parties.id&#39;: &#39;GMM150226R81&#39;}, {&#39;parties.id&#39;: &#39;GLI131014IQ1&#39;}]
+[{&#39;parties.id&#39;: &#39;TAS1308081N5&#39;}, {&#39;parties.id&#39;: &#39;CTD060131CY1&#39;}]
+[{&#39;parties.id&#39;: &#39;DPM000113TI6&#39;}, {&#39;parties.id&#39;: &#39;5B23F1CF24293B5FA07961E7D7AEC495&#39;}]
+[{&#39;parties.id&#39;: &#39;JME110610456&#39;}, {&#39;parties.id&#39;: &#39;REH150724JT0&#39;}]
+[{&#39;parties.id&#39;: &#39;GPA790523GV6&#39;}, {&#39;parties.id&#39;: &#39;DIE800905HX3&#39;}]
+[{&#39;parties.id&#39;: &#39;HIC891031SZA&#39;}, {&#39;parties.id&#39;: &#39;HIC9207288B2&#39;}]
+[{&#39;parties.id&#39;: &#39;08E1A7D83DB35B72AFE39E034090A711&#39;}, {&#39;parties.id&#39;: &#39;D4505247954159BE074D5E2EDE3C734A&#39;}]
+[{&#39;parties.id&#39;: &#39;ODI040329BP2&#39;}, {&#39;parties.id&#39;: &#39;IVI111116TY4&#39;}]
+[{&#39;parties.id&#39;: &#39;LAC050701B66&#39;}, {&#39;parties.id&#39;: &#39;LAC920509FC4&#39;}, {&#39;parties.id&#39;: &#39;SDC010209LT5&#39;}]
+[{&#39;parties.id&#39;: &#39;CCM120526CI6&#39;}, {&#39;parties.id&#39;: &#39;GCN931005DF7&#39;}]
+[{&#39;parties.id&#39;: &#39;SCE0004124H4&#39;}, {&#39;parties.id&#39;: &#39;GSG130129M65&#39;}, {&#39;parties.id&#39;: &#39;ROC1107042U9&#39;}, {&#39;parties.id&#39;: &#39;SLA111029PK5&#39;}, {&#39;parties.id&#39;: &#39;GOF721005286&#39;}, {&#39;parties.id&#39;: &#39;SVE911021GQ7&#39;}]
+[{&#39;parties.id&#39;: &#39;PAD111206JL7&#39;}, {&#39;parties.id&#39;: &#39;JML121005S41&#39;}]
+[{&#39;parties.id&#39;: &#39;40B50CE323B8BC137CEC75BEAF7B6832&#39;}, {&#39;parties.id&#39;: &#39;FIS900629ED6&#39;}]
+[{&#39;parties.id&#39;: &#39;ICM110208MR0&#39;}, {&#39;parties.id&#39;: &#39;VCS180215DEA&#39;}]
+[{&#39;parties.id&#39;: &#39;FA20E275B45D66B6A2D46A8806C66EE9&#39;}, {&#39;parties.id&#39;: &#39;EOV080922E83&#39;}]
+[{&#39;parties.id&#39;: &#39;MCO131021P49&#39;}, {&#39;parties.id&#39;: &#39;DCM0701128T7&#39;}]
+[{&#39;parties.id&#39;: &#39;GCG1502265R2&#39;}, {&#39;parties.id&#39;: &#39;ACM1711172K1&#39;}]
+[{&#39;parties.id&#39;: &#39;5F39200E194457C7291D091D83761DF9&#39;}, {&#39;parties.id&#39;: &#39;MDI100512355&#39;}]
+[{&#39;parties.id&#39;: &#39;FLE001113KC9&#39;}, {&#39;parties.id&#39;: &#39;DRS130603GS8&#39;}]
+[{&#39;parties.id&#39;: &#39;CD7F471D87AD6FDBA0170CBF356D7A0B&#39;}, {&#39;parties.id&#39;: &#39;E03BC1356495BFAB1D764B37C5ED7078&#39;}]
+[{&#39;parties.id&#39;: &#39;1388867A371B5CCEFFE6974D3578CCC6&#39;}, {&#39;parties.id&#39;: &#39;B4D2D2C07AD2E51695427D72A0974900&#39;}]
+[{&#39;parties.id&#39;: &#39;SVK960605DP4&#39;}, {&#39;parties.id&#39;: &#39;ESM981001CI3&#39;}]
+[{&#39;parties.id&#39;: &#39;RCO1305066Y1&#39;}, {&#39;parties.id&#39;: &#39;MIM130220NV2&#39;}]
+[{&#39;parties.id&#39;: &#39;PEX051012GW2&#39;}, {&#39;parties.id&#39;: &#39;GTN160419130&#39;}, {&#39;parties.id&#39;: &#39;IRC151203F8A&#39;}]
+[{&#39;parties.id&#39;: &#39;GME030704546&#39;}, {&#39;parties.id&#39;: &#39;PIT110909J75&#39;}]
+[{&#39;parties.id&#39;: &#39;GRA9406213L3&#39;}, {&#39;parties.id&#39;: &#39;TEL990629JR9&#39;}]
+[{&#39;parties.id&#39;: &#39;CAP910111U90&#39;}, {&#39;parties.id&#39;: &#39;RMC021114BA5&#39;}]
+[{&#39;parties.id&#39;: &#39;ZUN1610148K6&#39;}, {&#39;parties.id&#39;: &#39;RAO1703135P9&#39;}]
+[{&#39;parties.id&#39;: &#39;GCE140531CN5&#39;}, {&#39;parties.id&#39;: &#39;IOC170303SC0&#39;}]
+[{&#39;parties.id&#39;: &#39;CDA010714TG6&#39;}, {&#39;parties.id&#39;: &#39;PAD060221U93&#39;}]
+[{&#39;parties.id&#39;: &#39;DPI9008079U4&#39;}, {&#39;parties.id&#39;: &#39;639AA7750C920647DDDF4A93AF45703B&#39;}]
+[{&#39;parties.id&#39;: &#39;MBA960229SJ9&#39;}, {&#39;parties.id&#39;: &#39;IMA8012089S2&#39;}, {&#39;parties.id&#39;: &#39;CIN060724T73&#39;}]
+[{&#39;parties.id&#39;: &#39;GBA160714LCA&#39;}, {&#39;parties.id&#39;: &#39;GRE100519U47&#39;}]
+[{&#39;parties.id&#39;: &#39;CEO1208228P3&#39;}, {&#39;parties.id&#39;: &#39;OAW10121314A&#39;}]
+[{&#39;parties.id&#39;: &#39;488D206B7723816F085AF689E99FD4B0&#39;}, {&#39;parties.id&#39;: &#39;MKS130504D10&#39;}]
+[{&#39;parties.id&#39;: &#39;GID040318GX6&#39;}, {&#39;parties.id&#39;: &#39;CBS940607LS8&#39;}, {&#39;parties.id&#39;: &#39;ICP050425HP1&#39;}]
+[{&#39;parties.id&#39;: &#39;CPE100324QA5&#39;}, {&#39;parties.id&#39;: &#39;EDO0605053B6&#39;}]
+[{&#39;parties.id&#39;: &#39;CTH120705DI0&#39;}, {&#39;parties.id&#39;: &#39;PTH1206294A9&#39;}]
+[{&#39;parties.id&#39;: &#39;2E5579D1ADF46842ADD140C62B8F62E0&#39;}, {&#39;parties.id&#39;: &#39;HCC950503NY4&#39;}]
+[{&#39;parties.id&#39;: &#39;CSR170804TR8&#39;}, {&#39;parties.id&#39;: &#39;CBS170804R21&#39;}, {&#39;parties.id&#39;: &#39;VIN1201135Q9&#39;}]
+[{&#39;parties.id&#39;: &#39;ETA1410106EA&#39;}, {&#39;parties.id&#39;: &#39;ULJ141110G48&#39;}]
+[{&#39;parties.id&#39;: &#39;50CAC81A1D1F540CFC320C0C4BEA4DC4&#39;}, {&#39;parties.id&#39;: &#39;TTR031030166&#39;}]
+[{&#39;parties.id&#39;: &#39;TME840315KT6&#39;}, {&#39;parties.id&#39;: &#39;BD03FBE666C3DBA5C57BCDC8BF0AA451&#39;}]
+[{&#39;parties.id&#39;: &#39;ECA031114DB1&#39;}, {&#39;parties.id&#39;: &#39;MPU821007EM3&#39;}]
+[{&#39;parties.id&#39;: &#39;PRO130131J16&#39;}, {&#39;parties.id&#39;: &#39;SPW170512TT2&#39;}]
+[{&#39;parties.id&#39;: &#39;CTE080825JC2&#39;}, {&#39;parties.id&#39;: &#39;GHE060921FZA&#39;}]
+[{&#39;parties.id&#39;: &#39;CTR970918574&#39;}, {&#39;parties.id&#39;: &#39;GVA010601FT9&#39;}]
+[{&#39;parties.id&#39;: &#39;ECG090226QH3&#39;}, {&#39;parties.id&#39;: &#39;VCS030919PI9&#39;}]
+[{&#39;parties.id&#39;: &#39;OPF150415AJ3&#39;}, {&#39;parties.id&#39;: &#39;COM140718L49&#39;}]
+[{&#39;parties.id&#39;: &#39;MID050615IC2&#39;}, {&#39;parties.id&#39;: &#39;GCS160901RV6&#39;}, {&#39;parties.id&#39;: &#39;MIE1002042C5&#39;}]
+[{&#39;parties.id&#39;: &#39;SSC040730SG9&#39;}, {&#39;parties.id&#39;: &#39;PGA930201M16&#39;}, {&#39;parties.id&#39;: &#39;WHA041213JC7&#39;}, {&#39;parties.id&#39;: &#39;CTA840227TR0&#39;}, {&#39;parties.id&#39;: &#39;OIN850708PF4&#39;}, {&#39;parties.id&#39;: &#39;TDG890317MT9&#39;}, {&#39;parties.id&#39;: &#39;AIC020201EW8&#39;}]
+[{&#39;parties.id&#39;: &#39;DCE0908051U8&#39;}, {&#39;parties.id&#39;: &#39;TRI110217839&#39;}]
+[{&#39;parties.id&#39;: &#39;GGG901128441&#39;}, {&#39;parties.id&#39;: &#39;IFM880216AF1&#39;}]
+[{&#39;parties.id&#39;: &#39;GMC131015V97&#39;}, {&#39;parties.id&#39;: &#39;GMC090921JI8&#39;}]
+[{&#39;parties.id&#39;: &#39;QCO020709KY8&#39;}, {&#39;parties.id&#39;: &#39;CER010914M7A&#39;}, {&#39;parties.id&#39;: &#39;GCA110620M19&#39;}]
+[{&#39;parties.id&#39;: &#39;MSE010515SP2&#39;}, {&#39;parties.id&#39;: &#39;GPE9708147P8&#39;}]
+[{&#39;parties.id&#39;: &#39;MBU1404103BA&#39;}, {&#39;parties.id&#39;: &#39;LRC071126QY4&#39;}]
+[{&#39;parties.id&#39;: &#39;DIN1611245XA&#39;}, {&#39;parties.id&#39;: &#39;TCO161124L98&#39;}]
+[{&#39;parties.id&#39;: &#39;D73016CAA1F8020E3BAC52068FB0B2D9&#39;}, {&#39;parties.id&#39;: &#39;MLA840208FN5&#39;}]
+[{&#39;parties.id&#39;: &#39;PQU961210DJ9&#39;}, {&#39;parties.id&#39;: &#39;MOR020813I30&#39;}]
+[{&#39;parties.id&#39;: &#39;CZU150602CX1&#39;}, {&#39;parties.id&#39;: &#39;HCG150126N25&#39;}]
+[{&#39;parties.id&#39;: &#39;6A21C3C1E1707E26662C9F8A00D63708&#39;}, {&#39;parties.id&#39;: &#39;64E598A985DCE69FC2F25F6E95450DAC&#39;}]
+[{&#39;parties.id&#39;: &#39;8D8DB6545FDCD231D053E3E6D6A60B8E&#39;}, {&#39;parties.id&#39;: &#39;79D3BCC04DBB4A85BEFE73D040C8E749&#39;}]
+[{&#39;parties.id&#39;: &#39;247AE9616FE58F0BF2C38A430711C7FF&#39;}, {&#39;parties.id&#39;: &#39;AB9A15D32A74ECD70CC1755734016C80&#39;}]
+[{&#39;parties.id&#39;: &#39;796E618431BE872B919388D1E2070F37&#39;}, {&#39;parties.id&#39;: &#39;83882ED49A616D371EEF9F7FC74918DA&#39;}]
+[{&#39;parties.id&#39;: &#39;BC76DBBE1172800C070419506156B2DA&#39;}, {&#39;parties.id&#39;: &#39;41620D9F39AECF87A8E8109BE44DCC53&#39;}]
+[{&#39;parties.id&#39;: &#39;CAJ160308ML4&#39;}, {&#39;parties.id&#39;: &#39;CAR130225JN6&#39;}]
+[{&#39;parties.id&#39;: &#39;GCD0903207Y7&#39;}, {&#39;parties.id&#39;: &#39;CPA9301221NA&#39;}]
+[{&#39;parties.id&#39;: &#39;FA35E31A1D75A092DE67A0002A7337DC&#39;}, {&#39;parties.id&#39;: &#39;4050D2C40946894B46F7142D310BD974&#39;}]
+[{&#39;parties.id&#39;: &#39;AMH140815CV5&#39;}, {&#39;parties.id&#39;: &#39;EBD4A5D63D1738C0A5A8CA4AEF839BE6&#39;}]
+[{&#39;parties.id&#39;: &#39;GTA910608A32&#39;}, {&#39;parties.id&#39;: &#39;GRI9302081W7&#39;}]
+[{&#39;parties.id&#39;: &#39;MMS160708JQA&#39;}, {&#39;parties.id&#39;: &#39;DIR070822774&#39;}]
+[{&#39;parties.id&#39;: &#39;F54A547CB9CE80981FF6E7F1881835AF&#39;}, {&#39;parties.id&#39;: &#39;SSG180123IG1&#39;}]
+[{&#39;parties.id&#39;: &#39;39E9107BF49B418E5726C6FCB938FE81&#39;}, {&#39;parties.id&#39;: &#39;MPE110624HD4&#39;}]
+[{&#39;parties.id&#39;: &#39;DLV131111TW9&#39;}, {&#39;parties.id&#39;: &#39;DCQ1110254V8&#39;}]
+[{&#39;parties.id&#39;: &#39;OMS131023NU1&#39;}, {&#39;parties.id&#39;: &#39;DBM121023M10&#39;}]
+[{&#39;parties.id&#39;: &#39;DMA170421L85&#39;}, {&#39;parties.id&#39;: &#39;DNO070226TWA&#39;}]
+[{&#39;parties.id&#39;: &#39;OSM160921I24&#39;}, {&#39;parties.id&#39;: &#39;PGI100120N35&#39;}]
+[{&#39;parties.id&#39;: &#39;79005AFEE96D823B254D502C6D999E2D&#39;}, {&#39;parties.id&#39;: &#39;A495D416E886F6781B204AD6F798931E&#39;}]
+[{&#39;parties.id&#39;: &#39;NUC051013L40&#39;}, {&#39;parties.id&#39;: &#39;CRE060905PK7&#39;}]
+[{&#39;parties.id&#39;: &#39;GTA130827AP5&#39;}, {&#39;parties.id&#39;: &#39;UAC771230988&#39;}, {&#39;parties.id&#39;: &#39;QCA090930JAA&#39;}]
+[{&#39;parties.id&#39;: &#39;ACO14O217NP9&#39;}, {&#39;parties.id&#39;: &#39;VAD0612O4V38&#39;}]
+[{&#39;parties.id&#39;: &#39;JCC130918SI2&#39;}, {&#39;parties.id&#39;: &#39;CCA100406FV0&#39;}]
+[{&#39;parties.id&#39;: &#39;BA9CE225986689791509C0B1A3061E32&#39;}, {&#39;parties.id&#39;: &#39;CUT130110US2&#39;}]
+[{&#39;parties.id&#39;: &#39;IEC0502219G4&#39;}, {&#39;parties.id&#39;: &#39;GBC140110LW5&#39;}]
+[{&#39;parties.id&#39;: &#39;ZPC090223IR5&#39;}, {&#39;parties.id&#39;: &#39;GCJ070307348&#39;}]
+[{&#39;parties.id&#39;: &#39;CXB150928MB0&#39;}, {&#39;parties.id&#39;: &#39;MCE150223PI7&#39;}]
+[{&#39;parties.id&#39;: &#39;AAD070326I33&#39;}, {&#39;parties.id&#39;: &#39;PFA020703GY8&#39;}]
+[{&#39;parties.id&#39;: &#39;HIC891031SZA&#39;}, {&#39;parties.id&#39;: &#39;HIC9207288B2&#39;}]
+[{&#39;parties.id&#39;: &#39;IIG050929AX5&#39;}, {&#39;parties.id&#39;: &#39;EIS981029CI1&#39;}]
+[{&#39;parties.id&#39;: &#39;ROH1405075WA&#39;}, {&#39;parties.id&#39;: &#39;LRO0403116PA&#39;}]
+[{&#39;parties.id&#39;: &#39;SCH120225BI9&#39;}, {&#39;parties.id&#39;: &#39;GEV091215AR4&#39;}]
+[{&#39;parties.id&#39;: &#39;MED050715BE2&#39;}, {&#39;parties.id&#39;: &#39;CRI970421B93&#39;}]
+[{&#39;parties.id&#39;: &#39;MIS130307KDA&#39;}, {&#39;parties.id&#39;: &#39;CME130307QC8&#39;}]
+[{&#39;parties.id&#39;: &#39;CCM120526CI6&#39;}, {&#39;parties.id&#39;: &#39;GCN931005DF7&#39;}]
+[{&#39;parties.id&#39;: &#39;SCE0004124H4&#39;}, {&#39;parties.id&#39;: &#39;GSG130129M65&#39;}, {&#39;parties.id&#39;: &#39;SSE001025NT9&#39;}, {&#39;parties.id&#39;: &#39;ROC1107042U9&#39;}, {&#39;parties.id&#39;: &#39;SLA111029PK5&#39;}, {&#39;parties.id&#39;: &#39;GOF721005286&#39;}, {&#39;parties.id&#39;: &#39;SVE911021GQ7&#39;}]
+[{&#39;parties.id&#39;: &#39;ROX1603033T7&#39;}, {&#39;parties.id&#39;: &#39;SKA1503304G1&#39;}]
+[{&#39;parties.id&#39;: &#39;CEC090716PZ7&#39;}, {&#39;parties.id&#39;: &#39;CDI980428392&#39;}]
+[{&#39;parties.id&#39;: &#39;LPE091002911&#39;}, {&#39;parties.id&#39;: &#39;TSG990322IE4&#39;}]
+[{&#39;parties.id&#39;: &#39;MAR140325334&#39;}, {&#39;parties.id&#39;: &#39;VCO160413J73&#39;}]
+[{&#39;parties.id&#39;: &#39;MCO131021P49&#39;}, {&#39;parties.id&#39;: &#39;DCM0701128T7&#39;}]
+[{&#39;parties.id&#39;: &#39;MIC140812GT3&#39;}, {&#39;parties.id&#39;: &#39;GCD160329LG4&#39;}]
+[{&#39;parties.id&#39;: &#39;PPR120323G96&#39;}, {&#39;parties.id&#39;: &#39;CMC051128HW0&#39;}]
+[{&#39;parties.id&#39;: &#39;5F39200E194457C7291D091D83761DF9&#39;}, {&#39;parties.id&#39;: &#39;MDI100512355&#39;}]
+[{&#39;parties.id&#39;: &#39;ASA940818HQ8&#39;}, {&#39;parties.id&#39;: &#39;PAU130419NZ0&#39;}]
+[{&#39;parties.id&#39;: &#39;FLE001113KC9&#39;}, {&#39;parties.id&#39;: &#39;DRS130603GS8&#39;}]
+[{&#39;parties.id&#39;: &#39;8D0EB877613FBC6731F2D1A2812160CA&#39;}, {&#39;parties.id&#39;: &#39;B2D2583054883C71BBB05917320554E5&#39;}]
+[{&#39;parties.id&#39;: &#39;PPA111228EG0&#39;}, {&#39;parties.id&#39;: &#39;ADA920610LK4&#39;}, {&#39;parties.id&#39;: &#39;GUC060613AY7&#39;}]
+[{&#39;parties.id&#39;: &#39;RIN040823510&#39;}, {&#39;parties.id&#39;: &#39;RIS0907293B0&#39;}, {&#39;parties.id&#39;: &#39;CTA840227RT0&#39;}, {&#39;parties.id&#39;: &#39;PIN911004AK5&#39;}]
+[{&#39;parties.id&#39;: &#39;9F2A5568DB2EC16223C9072CD83E63AE&#39;}, {&#39;parties.id&#39;: &#39;6121B916DD639C9A53D22C7F2943AFB9&#39;}]
+[{&#39;parties.id&#39;: &#39;IDI9802234X8&#39;}, {&#39;parties.id&#39;: &#39;CCA120619SGO&#39;}]
+[{&#39;parties.id&#39;: &#39;SAD050124Q50&#39;}, {&#39;parties.id&#39;: &#39;SAZ000925N86&#39;}]
+[{&#39;parties.id&#39;: &#39;CD7F471D87AD6FDBA0170CBF356D7A0B&#39;}, {&#39;parties.id&#39;: &#39;E03BC1356495BFAB1D764B37C5ED7078&#39;}]
+[{&#39;parties.id&#39;: &#39;LTI960220FP5&#39;}, {&#39;parties.id&#39;: &#39;ALA860227ID6&#39;}]
+[{&#39;parties.id&#39;: &#39;CMD1101197FA&#39;}, {&#39;parties.id&#39;: &#39;CPR111109NA7&#39;}, {&#39;parties.id&#39;: &#39;KFO040609EA7&#39;}, {&#39;parties.id&#39;: &#39;KCO030922UM6&#39;}]
+[{&#39;parties.id&#39;: &#39;CBA16031084A&#39;}, {&#39;parties.id&#39;: &#39;SIT180531P45&#39;}]
+[{&#39;parties.id&#39;: &#39;TCM9207139S7&#39;}, {&#39;parties.id&#39;: &#39;CAM020227M88&#39;}]
+[{&#39;parties.id&#39;: &#39;AAL860603DQ6&#39;}, {&#39;parties.id&#39;: &#39;RLI050504936&#39;}, {&#39;parties.id&#39;: &#39;PQL031105LE4&#39;}, {&#39;parties.id&#39;: &#39;QED051216531&#39;}]
+[{&#39;parties.id&#39;: &#39;LCC971231PX3&#39;}, {&#39;parties.id&#39;: &#39;MSI020424I78&#39;}]
+[{&#39;parties.id&#39;: &#39;ASF070131AV9&#39;}, {&#39;parties.id&#39;: &#39;IRC921125647&#39;}]
+[{&#39;parties.id&#39;: &#39;ADC160331TG9&#39;}, {&#39;parties.id&#39;: &#39;RIN130322FEA&#39;}, {&#39;parties.id&#39;: &#39;CIN140717QD0&#39;}]
+[{&#39;parties.id&#39;: &#39;R&amp;G050928U8A&#39;}, {&#39;parties.id&#39;: &#39;EEJ101207SQ9&#39;}]
+[{&#39;parties.id&#39;: &#39;07EA267554E3BAB4B1D6CE4FF3B521AB&#39;}, {&#39;parties.id&#39;: &#39;SDI170508GE9&#39;}]
+[{&#39;parties.id&#39;: &#39;SVK960605DP4&#39;}, {&#39;parties.id&#39;: &#39;ESM981001CI3&#39;}]
+[{&#39;parties.id&#39;: &#39;AME0408107C9&#39;}, {&#39;parties.id&#39;: &#39;81FC94938D0AEAEA32193502154D87DE&#39;}]
+[{&#39;parties.id&#39;: &#39;TCS031021Q32&#39;}, {&#39;parties.id&#39;: &#39;CII930819177&#39;}]
+[{&#39;parties.id&#39;: &#39;RDE020318D58&#39;}, {&#39;parties.id&#39;: &#39;COL840718D85&#39;}, {&#39;parties.id&#39;: &#39;DTN180416Q20&#39;}, {&#39;parties.id&#39;: &#39;80517D0076CB1A1EB10FA9EC2EF97330&#39;}]
+[{&#39;parties.id&#39;: &#39;CSE1601077U7&#39;}, {&#39;parties.id&#39;: &#39;URL151111GG7&#39;}]
+[{&#39;parties.id&#39;: &#39;SLE021203RG1&#39;}, {&#39;parties.id&#39;: &#39;LGA111101NI7&#39;}]
+[{&#39;parties.id&#39;: &#39;CAP910111U90&#39;}, {&#39;parties.id&#39;: &#39;SPI020108543&#39;}]
+[{&#39;parties.id&#39;: &#39;GRA9406213L3&#39;}, {&#39;parties.id&#39;: &#39;TEL990629JR9&#39;}]
+[{&#39;parties.id&#39;: &#39;GLA841203HGA&#39;}, {&#39;parties.id&#39;: &#39;VMI050120AU6&#39;}]
+[{&#39;parties.id&#39;: &#39;HLO120315AW1&#39;}, {&#39;parties.id&#39;: &#39;MMA7608259J1&#39;}]
+[{&#39;parties.id&#39;: &#39;DIB0306171I1&#39;}, {&#39;parties.id&#39;: &#39;COB130819CD5&#39;}]
+[{&#39;parties.id&#39;: &#39;812411525&#39;}, {&#39;parties.id&#39;: &#39;TIC1708093M3&#39;}]
+[{&#39;parties.id&#39;: &#39;KME590502HY7&#39;}, {&#39;parties.id&#39;: &#39;MED730308NF0&#39;}]
+[{&#39;parties.id&#39;: &#39;PFM891014836&#39;}, {&#39;parties.id&#39;: &#39;DST041201HL4&#39;}]
+[{&#39;parties.id&#39;: &#39;AKU030910CH3&#39;}, {&#39;parties.id&#39;: &#39;CGR630227TQ0&#39;}]
+[{&#39;parties.id&#39;: &#39;CIB150311KQA&#39;}, {&#39;parties.id&#39;: &#39;DGA150311QAA&#39;}]
+[{&#39;parties.id&#39;: &#39;GAL060202CA5&#39;}, {&#39;parties.id&#39;: &#39;LLA160307QM6&#39;}]
+[{&#39;parties.id&#39;: &#39;FRI0006282Q0&#39;}, {&#39;parties.id&#39;: &#39;MEL8605161U0&#39;}]
+[{&#39;parties.id&#39;: &#39;GIX151118RT9&#39;}, {&#39;parties.id&#39;: &#39;7DD171FE19ADBD9B69CB975598C293BC&#39;}]
+[{&#39;parties.id&#39;: &#39;41E41EAF0C1715D05BCE892CFFB3A1FA&#39;}, {&#39;parties.id&#39;: &#39;PSM120516T52&#39;}]
+[{&#39;parties.id&#39;: &#39;IAP020717QR3&#39;}, {&#39;parties.id&#39;: &#39;COC0602143CA&#39;}]
+[{&#39;parties.id&#39;: &#39;PRS050620JW6&#39;}, {&#39;parties.id&#39;: &#39;SEG170828FP2&#39;}]
+[{&#39;parties.id&#39;: &#39;DAA141006NB2&#39;}, {&#39;parties.id&#39;: &#39;NAR1102179D3&#39;}]
+[{&#39;parties.id&#39;: &#39;CCO890116QA0&#39;}, {&#39;parties.id&#39;: &#39;CQC080313CP3&#39;}]
+[{&#39;parties.id&#39;: &#39;30792C7E87784AFA8986E72179624775&#39;}, {&#39;parties.id&#39;: &#39;GMP170315E57&#39;}]
+[{&#39;parties.id&#39;: &#39;MAS090109T98&#39;}, {&#39;parties.id&#39;: &#39;MAM0702137S4&#39;}]
+[{&#39;parties.id&#39;: &#39;ETA1410106EA&#39;}, {&#39;parties.id&#39;: &#39;ULJ141110G48&#39;}]
+[{&#39;parties.id&#39;: &#39;TEC020701914&#39;}, {&#39;parties.id&#39;: &#39;TLA021022CM5&#39;}]
+[{&#39;parties.id&#39;: &#39;50CAC81A1D1F540CFC320C0C4BEA4DC4&#39;}, {&#39;parties.id&#39;: &#39;TTR031030166&#39;}]
+[{&#39;parties.id&#39;: &#39;TME840315KT6&#39;}, {&#39;parties.id&#39;: &#39;BD03FBE666C3DBA5C57BCDC8BF0AA451&#39;}]
+[{&#39;parties.id&#39;: &#39;0B64525B0D937B9277C34E94460BB1F0&#39;}, {&#39;parties.id&#39;: &#39;B4C68D26AA652BA350706752576C672F&#39;}]
+[{&#39;parties.id&#39;: &#39;FIH910606J83&#39;}, {&#39;parties.id&#39;: &#39;ELJ970709MB2&#39;}]
+[{&#39;parties.id&#39;: &#39;ESA910101NY3&#39;}, {&#39;parties.id&#39;: &#39;RPU021127E66&#39;}]
+[{&#39;parties.id&#39;: &#39;ELI1102188W5&#39;}, {&#39;parties.id&#39;: &#39;SUP060615BY8&#39;}]
+[{&#39;parties.id&#39;: &#39;MLI040112JU5&#39;}, {&#39;parties.id&#39;: &#39;IMI110617F39&#39;}]
+[{&#39;parties.id&#39;: &#39;903B041B0370D681986EBC58D18B685E&#39;}, {&#39;parties.id&#39;: &#39;72EBDC80DB5BBD3FB79CCD2CD0F21571&#39;}]
+[{&#39;parties.id&#39;: &#39;5F741438DA4DEF277EDFD0AF6754C9AD&#39;}, {&#39;parties.id&#39;: &#39;CMH140425IJ8&#39;}]
+[{&#39;parties.id&#39;: &#39;GRE120517S7A&#39;}, {&#39;parties.id&#39;: &#39;DVA160209196&#39;}]
+[{&#39;parties.id&#39;: &#39;NEX0710043N1&#39;}, {&#39;parties.id&#39;: &#39;EMA001219M72&#39;}]
+[{&#39;parties.id&#39;: &#39;ECO140127QIA&#39;}, {&#39;parties.id&#39;: &#39;FF592E89C0D4FED4815F9DEECAFAAA47&#39;}]
+[{&#39;parties.id&#39;: &#39;PRS140903DE8&#39;}, {&#39;parties.id&#39;: &#39;AME140819JG8&#39;}]
+[{&#39;parties.id&#39;: &#39;RAL9206115U8&#39;}, {&#39;parties.id&#39;: &#39;DEN861217P3A&#39;}]
+[{&#39;parties.id&#39;: &#39;STE160602HG2&#39;}, {&#39;parties.id&#39;: &#39;EAV090210QJ0&#39;}]
+[{&#39;parties.id&#39;: &#39;POM891221EX9&#39;}, {&#39;parties.id&#39;: &#39;CDI140411FP3&#39;}]
+[{&#39;parties.id&#39;: &#39;PIA090513817&#39;}, {&#39;parties.id&#39;: &#39;IMD021002183&#39;}]
+[{&#39;parties.id&#39;: &#39;MOR020813I30&#39;}, {&#39;parties.id&#39;: &#39;PQU961210DJ9&#39;}]
+[{&#39;parties.id&#39;: &#39;68816D76FF0D334D718DB3F626AF2AF2&#39;}, {&#39;parties.id&#39;: &#39;MCS101122151&#39;}]
+[{&#39;parties.id&#39;: &#39;9825AE1F5028D9FA8A3B6DB305792B33&#39;}, {&#39;parties.id&#39;: &#39;45CF05A5002EC4213E43A36C147AA96C&#39;}]
+[{&#39;parties.id&#39;: &#39;OCE930624SW2&#39;}, {&#39;parties.id&#39;: &#39;OIM0808114Y6&#39;}]
+[{&#39;parties.id&#39;: &#39;CUM9406175T9&#39;}, {&#39;parties.id&#39;: &#39;OMA101210J83&#39;}]
+[{&#39;parties.id&#39;: &#39;SMM0809235UA&#39;}, {&#39;parties.id&#39;: &#39;DIR070822774&#39;}]
+[{&#39;parties.id&#39;: &#39;GFE061004F65&#39;}, {&#39;parties.id&#39;: &#39;EEE830909BM4&#39;}]
+[{&#39;parties.id&#39;: &#39;CMD080513MX1&#39;}, {&#39;parties.id&#39;: &#39;63E7A3DE3AA7920EA8925D090B3695E6&#39;}]
+[{&#39;parties.id&#39;: &#39;543FECE89DA121C20A1E5395AB5D1804&#39;}, {&#39;parties.id&#39;: &#39;LVA050620HX7&#39;}]
+[{&#39;parties.id&#39;: &#39;CPL990223QM8&#39;}, {&#39;parties.id&#39;: &#39;XAZ0208304U6&#39;}]
+[{&#39;parties.id&#39;: &#39;CPA161219B72&#39;}, {&#39;parties.id&#39;: &#39;PME091210TJ9&#39;}]
+[{&#39;parties.id&#39;: &#39;BA9CE225986689791509C0B1A3061E32&#39;}, {&#39;parties.id&#39;: &#39;CUT130110US2&#39;}]
+[{&#39;parties.id&#39;: &#39;DIB800508G9A&#39;}, {&#39;parties.id&#39;: &#39;QMH841105255&#39;}]
+[{&#39;parties.id&#39;: &#39;HIC891031SZA&#39;}, {&#39;parties.id&#39;: &#39;HIC9207288B2&#39;}]
+[{&#39;parties.id&#39;: &#39;CCM120526CI6&#39;}, {&#39;parties.id&#39;: &#39;GCN931005DF7&#39;}]
+[{&#39;parties.id&#39;: &#39;E1C3063CE8DD7DB3AC2AF8CC7DFB7A7C&#39;}, {&#39;parties.id&#39;: &#39;708F60A1A1DD41FD33310F5E0E347087&#39;}]
+[{&#39;parties.id&#39;: &#39;IST081203288&#39;}, {&#39;parties.id&#39;: &#39;GIC1404248L7&#39;}]
+[{&#39;parties.id&#39;: &#39;FLE001113KC9&#39;}, {&#39;parties.id&#39;: &#39;DRS130603GS8&#39;}]
+[{&#39;parties.id&#39;: &#39;LTI960220FP5&#39;}, {&#39;parties.id&#39;: &#39;ALA860227ID6&#39;}]
+[{&#39;parties.id&#39;: &#39;UNI590804UB2&#39;}, {&#39;parties.id&#39;: &#39;MLA901022JF7&#39;}]
+[{&#39;parties.id&#39;: &#39;AME130311L48&#39;}, {&#39;parties.id&#39;: &#39;AME181017JV4&#39;}]
+[{&#39;parties.id&#39;: &#39;LOR110314NF9&#39;}, {&#39;parties.id&#39;: &#39;CDI980618JK2&#39;}]
+[{&#39;parties.id&#39;: &#39;GTN160419130&#39;}, {&#39;parties.id&#39;: &#39;IRC151203F8A&#39;}]
+[{&#39;parties.id&#39;: &#39;IME990322288&#39;}, {&#39;parties.id&#39;: &#39;CPI8908013SA&#39;}]
+[{&#39;parties.id&#39;: &#39;591C34B8CED778F60A8FA1E0E91C7917&#39;}, {&#39;parties.id&#39;: &#39;EDM080619398&#39;}]
+[{&#39;parties.id&#39;: &#39;TCS1201237N3&#39;}, {&#39;parties.id&#39;: &#39;AVZ960506I1A&#39;}]
+[{&#39;parties.id&#39;: &#39;NNC121031D79&#39;}, {&#39;parties.id&#39;: &#39;ATI101123F26&#39;}]
+[{&#39;parties.id&#39;: &#39;TEC020701914&#39;}, {&#39;parties.id&#39;: &#39;TLA021022CM5&#39;}]
+[{&#39;parties.id&#39;: &#39;ADO080314CC9&#39;}, {&#39;parties.id&#39;: &#39;ARA800729N99&#39;}]
+[{&#39;parties.id&#39;: &#39;CVI041207JEA&#39;}, {&#39;parties.id&#39;: &#39;TDI160315HJ0&#39;}]
+[{&#39;parties.id&#39;: &#39;ISE0910263D5&#39;}, {&#39;parties.id&#39;: &#39;INE120208FT1&#39;}]
+[{&#39;parties.id&#39;: &#39;PRO160225UE2&#39;}, {&#39;parties.id&#39;: &#39;SEC170407PP3&#39;}]
+[{&#39;parties.id&#39;: &#39;DECD12E11703BCDB67A076839A8D8041&#39;}, {&#39;parties.id&#39;: &#39;230B385DD7A8ACD1605A590A5653FCA2&#39;}]
+[{&#39;parties.id&#39;: &#39;ODN100106LN7&#39;}, {&#39;parties.id&#39;: &#39;CCO890116QA0&#39;}]
+[{&#39;parties.id&#39;: &#39;50CAC81A1D1F540CFC320C0C4BEA4DC4&#39;}, {&#39;parties.id&#39;: &#39;TTR031030166&#39;}]
+[{&#39;parties.id&#39;: &#39;PEG860506CT9&#39;}, {&#39;parties.id&#39;: &#39;PSI741010UI1&#39;}]
+[{&#39;parties.id&#39;: &#39;LFS040719JM4&#39;}, {&#39;parties.id&#39;: &#39;CCO050914F93&#39;}]
+[{&#39;parties.id&#39;: &#39;NEX0710043N1&#39;}, {&#39;parties.id&#39;: &#39;EMA001219M72&#39;}]
+[{&#39;parties.id&#39;: &#39;907E98ECBB9F19A53CB0E7D0666A0895&#39;}, {&#39;parties.id&#39;: &#39;B086A50670DBE1FB7EC75D3B15D3D3BA&#39;}]
+[{&#39;parties.id&#39;: &#39;DIC000410A76&#39;}, {&#39;parties.id&#39;: &#39;LBQ960708PK7&#39;}]
+[{&#39;parties.id&#39;: &#39;CEF0604012L3&#39;}, {&#39;parties.id&#39;: &#39;IMC100821SX2&#39;}]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>El resultado que encontramos es que existen 571 casos de contratistas posiblemente relacionados en una misma licitación.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;datos/casos_colusion.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">jsonfile</span><span class="p">:</span>
+    <span class="n">casos</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">jsonfile</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">casos_ocid</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="n">c</span> <span class="k">for</span> <span class="n">cas</span> <span class="ow">in</span> <span class="n">casos</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cas</span><span class="p">[</span><span class="s1">&#39;contratos_ocid&#39;</span><span class="p">]})</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">casos_ocid</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>571</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">casos_contratos</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mydb</span><span class="o">.</span><span class="n">contrataciones</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;ocid&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;$in&#39;</span><span class="p">:</span> <span class="n">casos_ocid</span><span class="p">}}))</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">casos_contratos</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>619</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">datos_contrato</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;titulo&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;contracts&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;descr&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;contracts&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                   <span class="s1">&#39;valor&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;contracts&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">][</span><span class="s1">&#39;amount&#39;</span><span class="p">],</span>
+                  <span class="s1">&#39;dependencia_id&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;buyer&#39;</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+                  <span class="s1">&#39;dependencia_nombre&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;buyer&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+                  <span class="s1">&#39;uc_id&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;tender&#39;</span><span class="p">][</span><span class="s1">&#39;procuringEntity&#39;</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+                  <span class="s1">&#39;uc_name&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;tender&#39;</span><span class="p">][</span><span class="s1">&#39;procuringEntity&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;ocid&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;ocid&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;fecha&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span>
+                  <span class="p">}</span>
+                  
+                  <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">casos_contratos</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;contracts&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)]</span>
+
+<span class="n">df_datos_contratos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">datos_contrato</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ocid&#39;</span><span class="p">)</span>
+<span class="n">df_datos_contratos</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>titulo</th>
+      <th>descr</th>
+      <th>valor</th>
+      <th>dependencia_id</th>
+      <th>dependencia_nombre</th>
+      <th>uc_id</th>
+      <th>uc_name</th>
+      <th>fecha</th>
+    </tr>
+    <tr>
+      <th>ocid</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ocds-07smqs-1317308</th>
+      <td>Servicio Integral de Suministro, Mantenimiento...</td>
+      <td>Servicio Integral de Suministro, Mantenimiento...</td>
+      <td>450000.00</td>
+      <td>CNBV-80</td>
+      <td>Comisión Nacional Bancaria y de Valores</td>
+      <td>CNB950501PT6-006B00001</td>
+      <td>CNBV-Dirección General Adjunta de Adquisicione...</td>
+      <td>2017-03-29T05:13:19Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1367848</th>
+      <td>PRESTADOR DE SERVICIOS INTEGRALES</td>
+      <td>PRESTADOR DE SERVICIOS INTEGRALES (HONORARIOS)</td>
+      <td>44542.62</td>
+      <td>SAGARPA-261</td>
+      <td>Secretaría de Agricultura, Ganadería, Desarrol...</td>
+      <td>SAG010710V98-008000995</td>
+      <td>SAGARPA-Delegacion Chihuahua #008000995</td>
+      <td>2017-05-22T12:24:14Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1430619</th>
+      <td>CONTRATACIÓN ABIERTA DEL SERVICIO DE LECTURA E...</td>
+      <td>CONTRATACIÓN ABIERTA DEL SERVICIO DE LECTURA E...</td>
+      <td>220000.00</td>
+      <td>SEP-265</td>
+      <td>Secretaría de Educación Pública</td>
+      <td>SEP210905778-011000999</td>
+      <td>SEP-Dirección de Adquisiciones #011000999</td>
+      <td>2017-07-20T06:22:43Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1444924</th>
+      <td>SERVICIO DE MANTENIMIENTO CORRECTIVO AL SISTEM...</td>
+      <td>SERVICIO DE MANTENIMIENTO CORRECTIVO AL SISTEM...</td>
+      <td>287780.00</td>
+      <td>CONAGUA-94</td>
+      <td>Comisión Nacional del Agua</td>
+      <td>CNA890116SF2-016B00009</td>
+      <td>CONAGUA-Gerencia de Resursos Materiales #016B0...</td>
+      <td>2017-08-03T01:58:53Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1452158</th>
+      <td>SERVICIO DE DIFUSIÓN EN MEDIOS DIGITALES DE LA...</td>
+      <td>SERVICIO DE DIFUSIÓN EN MEDIOS DIGITALES DE LA...</td>
+      <td>68950.00</td>
+      <td>CONUEE-98</td>
+      <td>Comisión Nacional para el Uso Eficiente de la ...</td>
+      <td>CNU800928K31-018E00999</td>
+      <td>CONUEE-Dirección de Recursos Materiales y Serv...</td>
+      <td>2017-08-30T04:21:41Z</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">casos_contratos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;_id&#39;: ObjectId(&#39;5dcdb0c10d84ead5c49d2e99&#39;),
+ &#39;publisher&#39;: {&#39;uid&#39;: &#39;27511&#39;,
+  &#39;name&#39;: &#39;SECRETARÍA DE LA FUNCIÓN PÚBLICA&#39;,
+  &#39;uri&#39;: &#39;http://www.gob.mx/sfp&#39;},
+ &#39;cycle&#39;: 2017,
+ &#39;ocid&#39;: &#39;ocds-07smqs-1317308&#39;,
+ &#39;id&#39;: &#39;SFP-1317308-2018-11-12&#39;,
+ &#39;date&#39;: &#39;2017-03-29T05:13:19Z&#39;,
+ &#39;tag&#39;: [&#39;tender&#39;, &#39;award&#39;],
+ &#39;initiationType&#39;: &#39;tender&#39;,
+ &#39;parties&#39;: [{&#39;name&#39;: &#39;Comisión Nacional Bancaria y de Valores&#39;,
+   &#39;id&#39;: &#39;CNBV-80&#39;,
+   &#39;roles&#39;: [&#39;buyer&#39;]},
+  {&#39;name&#39;: &#39;CNBV-Dirección General Adjunta de Adquisiciones y Contratos #006B00001&#39;,
+   &#39;id&#39;: &#39;CNB950501PT6-006B00001&#39;,
+   &#39;identifier&#39;: {&#39;id&#39;: &#39;CNB950501PT6-006B00001&#39;,
+    &#39;legalName&#39;: &#39;CNBV-Dirección General Adjunta de Adquisiciones y Contratos #006B00001&#39;,
+    &#39;scheme&#39;: &#39;MX-RFC&#39;,
+    &#39;uri&#39;: &#39;https://portalsat.plataforma.sat.gob.mx/ConsultaRFC&#39;},
+   &#39;address&#39;: {&#39;streetAddress&#39;: &#39;Av. Insurgentes Sur No. 1971, Torre Sur, Piso 6, Col. Guadalupe Inn&#39;,
+    &#39;locality&#39;: &#39;Álvaro Obregón&#39;,
+    &#39;region&#39;: &#39;Ciudad de México&#39;,
+    &#39;postalCode&#39;: &#39;01020&#39;,
+    &#39;countryName&#39;: &#39;MX&#39;},
+   &#39;contactPoint&#39;: {&#39;name&#39;: &#39;Jannet Miriam Martínez Sánchez&#39;,
+    &#39;email&#39;: &#39;jmartinezs@cnbv.gob.mx&#39;,
+    &#39;telephone&#39;: &#39;1454-6537 y 1454-6538&#39;},
+   &#39;roles&#39;: [&#39;procuringEntity&#39;]},
+  {&#39;name&#39;: &#39;MARIANA REGALADO SOBERON&#39;,
+   &#39;id&#39;: &#39;3CAB041C0551441CB0A31EAC594B2339&#39;,
+   &#39;identifier&#39;: {&#39;id&#39;: &#39;3CAB041C0551441CB0A31EAC594B2339&#39;,
+    &#39;legalName&#39;: &#39;MARIANA REGALADO SOBERON&#39;,
+    &#39;scheme&#39;: &#39;MX-RFC&#39;,
+    &#39;uri&#39;: &#39;https://portalsat.plataforma.sat.gob.mx/ConsultaRFC&#39;},
+   &#39;address&#39;: {},
+   &#39;contactPoint&#39;: {},
+   &#39;roles&#39;: [&#39;tenderer&#39;]},
+  {&#39;name&#39;: &#39;GRUPO SANMARI SA DE CV&#39;,
+   &#39;id&#39;: &#39;GSA0310175N4&#39;,
+   &#39;identifier&#39;: {&#39;id&#39;: &#39;GSA0310175N4&#39;,
+    &#39;legalName&#39;: &#39;GRUPO SANMARI SA DE CV&#39;,
+    &#39;scheme&#39;: &#39;MX-RFC&#39;,
+    &#39;uri&#39;: &#39;https://portalsat.plataforma.sat.gob.mx/ConsultaRFC&#39;},
+   &#39;address&#39;: {&#39;streetAddress&#39;: &#39;AZTECAS 81 LA ROMANA&#39;,
+    &#39;locality&#39;: &#39;Tlalnepantla de Baz&#39;,
+    &#39;region&#39;: &#39;MX-MEX&#39;,
+    &#39;postalCode&#39;: &#39;54050&#39;,
+    &#39;countryName&#39;: &#39;MÉXICO&#39;},
+   &#39;contactPoint&#39;: {&#39;email&#39;: &#39;rafael@sanmari.com.mx&#39;,
+    &#39;telephone&#39;: &#39;55-52409421&#39;},
+   &#39;roles&#39;: [&#39;tenderer&#39;]},
+  {&#39;name&#39;: &#39;HECTOR MANUEL SEGURA TORRE&#39;,
+   &#39;id&#39;: &#39;E2E9D6DA235621FC08C1A0EFC4201B95&#39;,
+   &#39;identifier&#39;: {&#39;id&#39;: &#39;E2E9D6DA235621FC08C1A0EFC4201B95&#39;,
+    &#39;legalName&#39;: &#39;HECTOR MANUEL SEGURA TORRE&#39;,
+    &#39;scheme&#39;: &#39;MX-RFC&#39;,
+    &#39;uri&#39;: &#39;https://portalsat.plataforma.sat.gob.mx/ConsultaRFC&#39;},
+   &#39;address&#39;: {},
+   &#39;contactPoint&#39;: {},
+   &#39;roles&#39;: [&#39;tenderer&#39;]},
+  {&#39;name&#39;: &#39;GABRIEL DEL POZO RUIZ&#39;,
+   &#39;id&#39;: &#39;AA2EEEF597460501F7B8A50B4DE1F671&#39;,
+   &#39;identifier&#39;: {&#39;id&#39;: &#39;AA2EEEF597460501F7B8A50B4DE1F671&#39;,
+    &#39;legalName&#39;: &#39;GABRIEL DEL POZO RUIZ&#39;,
+    &#39;scheme&#39;: &#39;MX-RFC&#39;,
+    &#39;uri&#39;: &#39;https://portalsat.plataforma.sat.gob.mx/ConsultaRFC&#39;},
+   &#39;address&#39;: {&#39;streetAddress&#39;: &#39;CEIBAS 45&#39;,
+    &#39;locality&#39;: &#39;NAUCALPAN DE JUAREZ&#39;,
+    &#39;region&#39;: &#39;MX-MEX&#39;,
+    &#39;postalCode&#39;: &#39;53240&#39;,
+    &#39;countryName&#39;: &#39;MÉXICO&#39;},
+   &#39;contactPoint&#39;: {&#39;name&#39;: &#39;GABRIEL DEL POZO RUIZ&#39;,
+    &#39;email&#39;: &#39;mascontrolmenoscosto@yahoo.com.mx&#39;,
+    &#39;telephone&#39;: &#39;525536259819&#39;},
+   &#39;roles&#39;: [&#39;tenderer&#39;, &#39;supplier&#39;]}],
+ &#39;buyer&#39;: {&#39;name&#39;: &#39;Comisión Nacional Bancaria y de Valores&#39;, &#39;id&#39;: &#39;CNBV-80&#39;},
+ &#39;tender&#39;: {&#39;id&#39;: &#39;1317308&#39;,
+  &#39;title&#39;: &#39;Servicio Integral de Suministro, Mantenimiento Plantas y Macetas&#39;,
+  &#39;description&#39;: &#39;Servicio Integral de Suministro, Mantenimiento y Conservación de Plantas Naturales y Macetas Propiedad de la CNBV&#39;,
+  &#39;status&#39;: &#39;complete&#39;,
+  &#39;procuringEntity&#39;: {&#39;name&#39;: &#39;CNBV-Dirección General Adjunta de Adquisiciones y Contratos #006B00001&#39;,
+   &#39;id&#39;: &#39;CNB950501PT6-006B00001&#39;},
+  &#39;items&#39;: [{&#39;id&#39;: &#39;7044016&#39;,
+    &#39;description&#39;: &#39;Contratación de una Póliza de Seguro de Accidentes Personales para la protección de los participantes en acciones de capacitación del Programa de Apoyo al Empleo 2016.&#39;,
+    &#39;classification&#39;: {&#39;id&#39;: &#39;33900006&#39;,
+     &#39;description&#39;: &#39;Servicios de seguros de gastos medicos mayores&#39;},
+    &#39;quantity&#39;: 1,
+    &#39;unit&#39;: {&#39;name&#39;: &#39;Servicio&#39;}}],
+  &#39;value&#39;: {&#39;amount&#39;: 0},
+  &#39;procurementMethod&#39;: &#39;direct&#39;,
+  &#39;procurementMethodRationale&#39;: &#39;Art. 42 párrafo primero&#39;,
+  &#39;submissionMethod&#39;: [&#39;electronicSubmission&#39;],
+  &#39;tenderPeriod&#39;: {&#39;startDate&#39;: &#39;2017-03-29T05:13:19Z&#39;},
+  &#39;enquiryPeriod&#39;: {&#39;startDate&#39;: &#39;2017-03-29T05:13:19Z&#39;},
+  &#39;hasEnquiries&#39;: False,
+  &#39;awardPeriod&#39;: {&#39;endDate&#39;: &#39;2017-03-30T00:00:00Z&#39;},
+  &#39;numberOfTenderers&#39;: 4,
+  &#39;tenderers&#39;: [{&#39;name&#39;: &#39;MARIANA REGALADO SOBERON&#39;,
+    &#39;id&#39;: &#39;3CAB041C0551441CB0A31EAC594B2339&#39;},
+   {&#39;name&#39;: &#39;GRUPO SANMARI SA DE CV&#39;, &#39;id&#39;: &#39;GSA0310175N4&#39;},
+   {&#39;name&#39;: &#39;GABRIEL DEL POZO RUIZ&#39;, &#39;id&#39;: &#39;AA2EEEF597460501F7B8A50B4DE1F671&#39;},
+   {&#39;name&#39;: &#39;HECTOR MANUEL SEGURA TORRE&#39;,
+    &#39;id&#39;: &#39;E2E9D6DA235621FC08C1A0EFC4201B95&#39;}]},
+ &#39;language&#39;: &#39;es&#39;,
+ &#39;awards&#39;: [{&#39;id&#39;: &#39;1399908&#39;,
+   &#39;title&#39;: &#39;Servicio Integral de Suministro, Mantenimiento Plantas y Macetas&#39;,
+   &#39;description&#39;: &#39;Servicio Integral de Suministro, Mantenimiento y Conservación de Plantas Naturales y Macetas Propiedad de la CNBV&#39;,
+   &#39;status&#39;: &#39;active&#39;,
+   &#39;value&#39;: {&#39;amount&#39;: 450000, &#39;currency&#39;: &#39;MXN&#39;},
+   &#39;suppliers&#39;: [{&#39;name&#39;: &#39;GABRIEL DEL POZO RUIZ&#39;,
+     &#39;id&#39;: &#39;AA2EEEF597460501F7B8A50B4DE1F671&#39;}],
+   &#39;items&#39;: [{&#39;id&#39;: &#39;4645830&#39;,
+     &#39;description&#39;: &#39;Servicio Integral de Suministro, Mantenimiento Plantas y Macetas&#39;,
+     &#39;classification&#39;: {&#39;scheme&#39;: &#39;CUCOP: Clasificador Único de las Contrataciones Públicas&#39;,
+      &#39;id&#39;: &#39;35900004&#39;,
+      &#39;description&#39;: &#39;Servicios de jardineria&#39;,
+      &#39;uri&#39;: &#39;https://compranetinfo.funcionpublica.gob.mx/descargas/CUCOP.xlsx&#39;},
+     &#39;quantity&#39;: 1,
+     &#39;unit&#39;: {&#39;name&#39;: &#39;Servicio&#39;,
+      &#39;value&#39;: {&#39;amount&#39;: 450000, &#39;currency&#39;: &#39;MXN&#39;}}}],
+   &#39;contractPeriod&#39;: {&#39;startDate&#39;: &#39;2017-04-14T09:00:00Z&#39;,
+    &#39;endDate&#39;: &#39;2018-06-18T03:59:00Z&#39;}}],
+ &#39;contracts&#39;: [{&#39;id&#39;: 1399908,
+   &#39;awardID&#39;: &#39;1399908&#39;,
+   &#39;title&#39;: &#39;Servicio Integral de Suministro, Mantenimiento Plantas y Macetas&#39;,
+   &#39;description&#39;: &#39;Servicio Integral de Suministro, Mantenimiento y Conservación de Plantas Naturales y Macetas Propiedad de la CNBV&#39;,
+   &#39;status&#39;: &#39;terminated&#39;,
+   &#39;period&#39;: {&#39;startDate&#39;: &#39;2017-04-14T09:00:00Z&#39;,
+    &#39;endDate&#39;: &#39;2018-06-18T03:59:00Z&#39;},
+   &#39;value&#39;: {&#39;amount&#39;: 450000, &#39;currency&#39;: &#39;MXN&#39;},
+   &#39;items&#39;: [{&#39;id&#39;: &#39;4645830&#39;,
+     &#39;description&#39;: &#39;Servicio Integral de Suministro, Mantenimiento Plantas y Macetas&#39;,
+     &#39;classification&#39;: {&#39;id&#39;: &#39;35900004&#39;,
+      &#39;description&#39;: &#39;Servicios de jardineria&#39;},
+     &#39;quantity&#39;: 1,
+     &#39;unit&#39;: {&#39;name&#39;: &#39;Servicio&#39;,
+      &#39;value&#39;: {&#39;amount&#39;: 450000, &#39;currency&#39;: &#39;MXN&#39;}}}]}]}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">participantes_contrato</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ocid&#39;</span><span class="p">]:</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;parties&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;roles&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">&#39;tenderer&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;tenderer&#39;</span><span class="p">,</span> <span class="s1">&#39;supplier&#39;</span><span class="p">]]]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">casos_contratos</span><span class="p">}</span>
+<span class="c1"># Número de particpantes que estaban asociados en cada contrato</span>
+<span class="n">asociados_contrato</span> <span class="o">=</span> <span class="p">{</span><span class="n">o</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;tenderer_ids&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">casos</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;contratos_ocid&#39;</span><span class="p">]}</span>
+<span class="c1"># ganador contrato</span>
+<span class="n">ganadores_contrato</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ocid&#39;</span><span class="p">]:</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;parties&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;roles&#39;</span><span class="p">]</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;tenderer&#39;</span><span class="p">,</span> <span class="s1">&#39;supplier&#39;</span><span class="p">]]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">casos_contratos</span><span class="p">}</span>
+<span class="c1"># dataframe</span>
+<span class="n">df_asoc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">participantes_contrato</span><span class="p">,</span> <span class="n">asociados_contrato</span><span class="p">,</span> <span class="n">ganadores_contrato</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>\
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;asoc&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;gana&#39;</span><span class="p">})</span>\
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">N_part</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;part&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">(),</span>
+            <span class="n">N_asoc</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;asoc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">(),</span>
+            <span class="n">N_gana</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;gana&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">(),</span>
+            <span class="n">prop_asoc_part</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;N_asoc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;N_part&#39;</span><span class="p">]),</span>
+            <span class="n">part_mayo</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;prop_asoc_part&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>
+            <span class="n">asoc_ganadores</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="s1">&#39;gana&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="s1">&#39;asoc&#39;</span><span class="p">]))),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">N_asoc_ganadores</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;asoc_ganadores&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">(),</span>
+            <span class="n">part_nogana</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="s1">&#39;part&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="s1">&#39;gana&#39;</span><span class="p">]))),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>\
+            <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df_datos_contratos</span><span class="p">)</span>
+<span class="n">df_asoc</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dir_datos</span><span class="si">}</span><span class="s1">/df_asociados.pkl&#39;</span><span class="p">)</span>
+<span class="n">df_asoc</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>part</th>
+      <th>asoc</th>
+      <th>gana</th>
+      <th>N_part</th>
+      <th>N_asoc</th>
+      <th>N_gana</th>
+      <th>prop_asoc_part</th>
+      <th>part_mayo</th>
+      <th>asoc_ganadores</th>
+      <th>N_asoc_ganadores</th>
+      <th>part_nogana</th>
+      <th>titulo</th>
+      <th>descr</th>
+      <th>valor</th>
+      <th>dependencia_id</th>
+      <th>dependencia_nombre</th>
+      <th>uc_id</th>
+      <th>uc_name</th>
+      <th>fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ocds-07smqs-1043398</th>
+      <td>[TME840315KT6, BD03FBE666C3DBA5C57BCDC8BF0AA451]</td>
+      <td>[TME840315KT6, BD03FBE666C3DBA5C57BCDC8BF0AA451]</td>
+      <td>[TME840315KT6, BD03FBE666C3DBA5C57BCDC8BF0AA451]</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>1.000000</td>
+      <td>True</td>
+      <td>[BD03FBE666C3DBA5C57BCDC8BF0AA451, TME840315KT6]</td>
+      <td>2</td>
+      <td>[]</td>
+      <td>SERVICIO MPLS ATRAVES DE UN ENLACE DEDICADO CO...</td>
+      <td></td>
+      <td>169133.00</td>
+      <td>CIJ-66</td>
+      <td>Centros de Integración Juvenil, A.C.</td>
+      <td>CIJ731003QK3-012M7K001</td>
+      <td>CIJ-Departamento de Adquisiciones #012M7K001</td>
+      <td>2016-04-18T12:02:38Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1193763</th>
+      <td>[MLA840208FN5, D73016CAA1F8020E3BAC52068FB0B2D...</td>
+      <td>[D73016CAA1F8020E3BAC52068FB0B2D9, MLA840208FN5]</td>
+      <td>[MLA840208FN5, D73016CAA1F8020E3BAC52068FB0B2D...</td>
+      <td>4</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0.500000</td>
+      <td>True</td>
+      <td>[MLA840208FN5, D73016CAA1F8020E3BAC52068FB0B2D9]</td>
+      <td>2</td>
+      <td>[]</td>
+      <td>ADQ. DE VIVERES PARA EJERCICIO 2017</td>
+      <td>ADQ. DE VIVERES PARA EJERCICIO 2017</td>
+      <td>3880739.50</td>
+      <td>IMSS-192</td>
+      <td>Instituto Mexicano del Seguro Social</td>
+      <td>IMS421231I45-050GYR045</td>
+      <td>IMSS-UMAE Hospital de Especilidades No.71 Dept...</td>
+      <td>2016-12-09T05:26:28Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1224403</th>
+      <td>[89E87098891F04A46318B7F775AD5E48, FAR100921AL...</td>
+      <td>[D73016CAA1F8020E3BAC52068FB0B2D9, MLA840208FN5]</td>
+      <td>[D73016CAA1F8020E3BAC52068FB0B2D9, 9D3346ADF0B...</td>
+      <td>8</td>
+      <td>2</td>
+      <td>5</td>
+      <td>0.250000</td>
+      <td>False</td>
+      <td>[MLA840208FN5, D73016CAA1F8020E3BAC52068FB0B2D9]</td>
+      <td>2</td>
+      <td>[FAR100921ALA, 89E87098891F04A46318B7F775AD5E4...</td>
+      <td>AA-019GYR026-E221-2016 DESIERTAS VIVERES</td>
+      <td></td>
+      <td>671930.69</td>
+      <td>IMSS-192</td>
+      <td>Instituto Mexicano del Seguro Social</td>
+      <td>IMS421231I45-050GYR026</td>
+      <td>IMSS-Coordinación de abastecimiento y equipami...</td>
+      <td>2016-12-02T05:49:52Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1240190</th>
+      <td>[RDO070228V11, ATD061228L34, MEX0301141G6]</td>
+      <td>[RDO070228V11, ATD061228L34]</td>
+      <td>[MEX0301141G6]</td>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0.666667</td>
+      <td>True</td>
+      <td>[]</td>
+      <td>0</td>
+      <td>[RDO070228V11, ATD061228L34]</td>
+      <td>SERVICIO DE RESGUARDO, CUSTODIA, TRASLADO, ENV...</td>
+      <td>SERVICIO DE RESGUARDO, CUSTODIA, TRASLADO, ENV...</td>
+      <td>116379.72</td>
+      <td>CPTM-109</td>
+      <td>Consejo de Promoción Turística de México, S.A....</td>
+      <td>CPT991022DE7-021W3J001</td>
+      <td>CPTM-Gerencia de Adquisiciones y Licitaciones ...</td>
+      <td>2016-12-20T06:52:52Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1241959</th>
+      <td>[CGE130930JV2, CDA9601297G9, 23DF515587ED8B3F4...</td>
+      <td>[CDA9601297G9, 23DF515587ED8B3F4A8B1C9E4D725CAD]</td>
+      <td>[]</td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0.666667</td>
+      <td>True</td>
+      <td>[]</td>
+      <td>0</td>
+      <td>[CGE130930JV2, 23DF515587ED8B3F4A8B1C9E4D725CA...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_asoc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dir_datos</span><span class="si">}</span><span class="s1">/df_asociados.pkl&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>¿En cuántos de estos casos los contratistas representaban el 50% de los proponentes o más?</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Los contratistas representaban el 50</span><span class="si">% d</span><span class="s1">e los proponentes o más en&#39;</span><span class="p">,</span> <span class="n">df_asoc</span><span class="o">.</span><span class="n">part_mayo</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s1">&#39;licitaciones&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Los contratistas representaban el 50% de los proponentes o más en 212 licitaciones
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>¿En cuántos de estos casos los asociados fueron los únicos proponentes?</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;¿En cuántos de estos casos los asociados fueron los únicos proponentes?&#39;</span><span class="p">,</span> <span class="n">df_asoc</span><span class="o">.</span><span class="n">prop_asoc_part</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s1">&#39;licitaciones&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>¿En cuántos de estos casos los asociados fueron los únicos proponentes? 41 licitaciones
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>De estos casos ¿en cuántas licitaciones los que estaban relacionados ganaron un concurso?</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;En&#39;</span><span class="p">,</span> <span class="n">df_asoc</span><span class="o">.</span><span class="n">N_asoc_ganadores</span><span class="o">.</span><span class="n">gt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s1">&#39;licitaciones ganó al menos uno de los contratistas asociados&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>En 370 licitaciones ganó al menos uno de los contratistas asociados
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>¿Cuántos contratistas asociados recibieron un contrato?</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_asoc</span><span class="o">.</span><span class="n">N_asoc_ganadores</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s1">&#39; contratistas asociados ganaron una licitación&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>552  contratistas asociados ganaron una licitación
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>¿En qué dependencias, unidades compradoras y servidores públicos ocurre más esto?</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_asoc</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;uc_name&#39;</span><span class="p">])[</span><span class="s1">&#39;part&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>uc_name
+CONALITEG-Dirección de Recursos Materiales y Servicios Generales #011L6J001                                             33
+IMSS-Departamento de Adquisición de Bienes y Contratación de Servicios #050GYR033                                       16
+IMSS-Coordinación de Abastecimiento y Equipamiento #050GYR009                                                           10
+IMSS-Coordinación de Adquisición de Bienes y Contratación de Serv, Dirección de Administración #050GYR047                9
+INER-Departamento de Adquisiciones #012NCD001                                                                            9
+                                                                                                                        ..
+IMSS-UMAE HOSPITAL DE GINECO OBSTETRICIA No 03 DR VICTOR MANUEL ESPINOSA DE LOS REYES SANCHEZ CMN LA RAZA #050GYR050     1
+IMSS-Coord. de Abastecimiento y Equipamiento Deleg. Ver. Sur #050GYR022                                                  1
+SCT-Centro SCT Chihuahua #009000980                                                                                      1
+SCT-CENTRO SCT EN CHIAPAS SUBDIRECCION DE ADMINISTRACION #009000992                                                      1
+Tribunales Agrarios-Dirección General de Recursos Materiales #031000001                                                  1
+Name: part, Length: 218, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_asoc</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;dependencia_nombre&#39;</span><span class="p">])[</span><span class="s1">&#39;part&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>dependencia_nombre
+Instituto Mexicano del Seguro Social                                          215
+Comisión Nacional de Libros de Texto Gratuitos                                 33
+Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado     32
+Comisión Federal de Electricidad                                               24
+Comisión Nacional del Agua                                                     15
+                                                                             ... 
+Hospital Regional de Alta Especialidad de Oaxaca                                1
+Exportadora de Sal, S.A. de C.V.                                                1
+El Colegio de la Frontera Sur                                                   1
+Corporación Mexicana de Investigación en Materiales, S.A. de C.V.               1
+Administración Portuaria Integral de Progreso, S.A. de C.V.                     1
+Name: part, Length: 92, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Crea-red-para-visualizar">Crea red para visualizar<a class="anchor-link" href="#Crea-red-para-visualizar"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nodos</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">red</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">df_asoc</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">nodos</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span> <span class="s1">&#39;tipo&#39;</span><span class="p">:</span> <span class="s1">&#39;contrato&#39;</span><span class="p">})</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;part_nogana&#39;</span><span class="p">]:</span>
+        <span class="n">nodos</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> <span class="s1">&#39;tipo&#39;</span><span class="p">:</span> <span class="s1">&#39;tenderer&#39;</span><span class="p">})</span>
+        <span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;origen_id&#39;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> <span class="s1">&#39;destino_id&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span> <span class="s1">&#39;accion&#39;</span><span class="p">:</span> <span class="s1">&#39;participa&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="n">red</span><span class="p">})</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;gana&#39;</span><span class="p">]:</span>
+        <span class="n">nodos</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> <span class="s1">&#39;tipo&#39;</span><span class="p">:</span> <span class="s1">&#39;supplier&#39;</span><span class="p">})</span>
+        <span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;origen_id&#39;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> <span class="s1">&#39;destino_id&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span> <span class="s1">&#39;accion&#39;</span><span class="p">:</span> <span class="s1">&#39;gana&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="n">red</span><span class="p">})</span>
+    
+    <span class="k">for</span> <span class="n">p1</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;asoc&#39;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">p2</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;asoc&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">p1</span><span class="o">!=</span><span class="n">p2</span><span class="p">:</span>
+                <span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;origen_id&#39;</span><span class="p">:</span> <span class="n">p1</span><span class="p">,</span> <span class="s1">&#39;destino_id&#39;</span><span class="p">:</span> <span class="n">p2</span><span class="p">,</span> <span class="s1">&#39;accion&#39;</span><span class="p">:</span> <span class="s1">&#39;asociado&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="n">red</span><span class="p">})</span>
+        
+    <span class="n">nodos</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;uc_id&#39;</span><span class="p">],</span> <span class="s1">&#39;tipo&#39;</span><span class="p">:</span> <span class="s1">&#39;uc&#39;</span><span class="p">})</span>
+    <span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;origen_id&#39;</span><span class="p">:</span> <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;uc_id&#39;</span><span class="p">],</span> <span class="s1">&#39;destino_id&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span> <span class="s1">&#39;accion&#39;</span><span class="p">:</span> <span class="s1">&#39;compra&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="n">red</span><span class="p">})</span>
+    <span class="n">red</span><span class="o">+=</span><span class="mi">1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_nodos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nodos</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">dicc_nodo_num</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">df_nodos</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">df_links</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">links</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">origen_num</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;origen_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">dicc_nodo_num</span><span class="p">),</span>
+           <span class="n">destino_num</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;destino_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">dicc_nodo_num</span><span class="p">))</span>\
+    <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">df_links</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>origen_id</th>
+      <th>destino_id</th>
+      <th>accion</th>
+      <th>red</th>
+      <th>origen_num</th>
+      <th>destino_num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>25696</th>
+      <td>TME840315KT6</td>
+      <td>ocds-07smqs-1043398</td>
+      <td>gana</td>
+      <td>1.0</td>
+      <td>287</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>25697</th>
+      <td>BD03FBE666C3DBA5C57BCDC8BF0AA451</td>
+      <td>ocds-07smqs-1043398</td>
+      <td>gana</td>
+      <td>1.0</td>
+      <td>286</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>25698</th>
+      <td>TME840315KT6</td>
+      <td>BD03FBE666C3DBA5C57BCDC8BF0AA451</td>
+      <td>asociado</td>
+      <td>1.0</td>
+      <td>287</td>
+      <td>286</td>
+    </tr>
+    <tr>
+      <th>25699</th>
+      <td>BD03FBE666C3DBA5C57BCDC8BF0AA451</td>
+      <td>TME840315KT6</td>
+      <td>asociado</td>
+      <td>1.0</td>
+      <td>286</td>
+      <td>287</td>
+    </tr>
+    <tr>
+      <th>25700</th>
+      <td>CIJ731003QK3-012M7K001</td>
+      <td>ocds-07smqs-1043398</td>
+      <td>compra</td>
+      <td>1.0</td>
+      <td>284</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_nodos</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;datos/asociados_nodos.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df_links</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;datos/asociados_links.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Visualziacion-networkX">Visualziacion networkX<a class="anchor-link" href="#Visualziacion-networkX"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_nodos_graph</span> <span class="o">=</span> <span class="n">df_nodos</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">red</span> <span class="ow">in</span> <span class="n">df_links</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_edgelist</span><span class="p">(</span><span class="n">df_links</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;red==@red&#39;</span><span class="p">),</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;origen_id&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;destino_id&#39;</span><span class="p">,</span> <span class="n">edge_attr</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accion&#39;</span><span class="p">])</span>
+    <span class="n">dicc_color_edges</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;gana&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;asociado&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;participa&#39;</span><span class="p">:</span> <span class="s1">&#39;#3292a8&#39;</span><span class="p">,</span> <span class="s1">&#39;compra&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">}</span>
+    <span class="n">dicc_color_nodos</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;contrato&#39;</span><span class="p">:</span> <span class="s1">&#39;#3292a8&#39;</span><span class="p">,</span> <span class="s1">&#39;supplier&#39;</span><span class="p">:</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;tenderer&#39;</span><span class="p">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;uc&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">}</span>
+    <span class="n">color_edges</span> <span class="o">=</span> <span class="p">[</span><span class="n">dicc_color_edges</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;accion&#39;</span><span class="p">]]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+    <span class="n">color_nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">dicc_color_nodos</span><span class="p">[</span><span class="n">df_nodos_graph</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;tipo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">draw_network</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">color_edges</span><span class="o">=</span><span class="n">color_edges</span><span class="p">,</span> <span class="n">color_nodes</span><span class="o">=</span><span class="n">color_nodes</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">text_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;graficas/redes/red_</span><span class="si">{</span><span class="n">red</span><span class="si">}</span><span class="s1">.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_asoc</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df_links</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;red==@red&#39;</span><span class="p">)[</span><span class="s1">&#39;destino_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="k">if</span> <span class="s1">&#39;ocds&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Tareas</strong>:</p>
+<ul>
+<li><p>Procesar telefonos</p>
+</li>
+<li><p>procesar múltiples mails</p>
+</li>
+<li><p>Es posible obtener más datos de los contratistas a partir del RUCP, como el sitio web, giro del negocio</p>
+</li>
+</ul>
+<p>Buscar otra anomalía: todos los contratos con métodos abiertos en los que solo participa un proponente.
+Buscar contratos en los que todos los particpantes reciben contrato.</p>
+<ul>
+<li>Buscar otra anomalía: todos los contratos con métodos abiertos en los que solo participa un proponente.</li>
+<li>Buscar contratos en los que todos los particpantes reciben contrato.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mydb</span><span class="o">.</span><span class="n">contrataciones</span><span class="o">.</span><span class="n">find_one</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;_id&#39;: ObjectId(&#39;5dcdaf7b0d84ead5c49c6dd8&#39;),
+ &#39;publisher&#39;: {&#39;uid&#39;: &#39;27511&#39;,
+  &#39;name&#39;: &#39;SECRETARÍA DE LA FUNCIÓN PÚBLICA&#39;,
+  &#39;uri&#39;: &#39;http://www.gob.mx/sfp&#39;},
+ &#39;cycle&#39;: 2016,
+ &#39;ocid&#39;: &#39;ocds-07smqs-1003803&#39;,
+ &#39;id&#39;: &#39;SFP-1003803-2018-11-12&#39;,
+ &#39;date&#39;: &#39;2016-02-19T01:09:18Z&#39;,
+ &#39;tag&#39;: [&#39;tender&#39;, &#39;award&#39;],
+ &#39;initiationType&#39;: &#39;tender&#39;,
+ &#39;parties&#39;: [{&#39;name&#39;: &#39;Servicio de Administración Tributaria&#39;,
+   &#39;id&#39;: &#39;SAT-284&#39;,
+   &#39;roles&#39;: [&#39;buyer&#39;]},
+  {&#39;name&#39;: &#39;SAT-Administración de Operación de Recursos y Servicios 6 #006E00002&#39;,
+   &#39;id&#39;: &#39;SAT970701NN3-006E00002&#39;,
+   &#39;identifier&#39;: {&#39;id&#39;: &#39;SAT970701NN3-006E00002&#39;,
+    &#39;legalName&#39;: &#39;SAT-Administración de Operación de Recursos y Servicios 6 #006E00002&#39;,
+    &#39;scheme&#39;: &#39;MX-RFC&#39;,
+    &#39;uri&#39;: &#39;https://portalsat.plataforma.sat.gob.mx/ConsultaRFC&#39;},
+   &#39;address&#39;: {&#39;streetAddress&#39;: &#39;Avenida Hidalgo No. 77, Colonia Guerrero&#39;,
+    &#39;locality&#39;: &#39;Cuauhtémoc&#39;,
+    &#39;region&#39;: &#39;Ciudad de México&#39;,
+    &#39;postalCode&#39;: &#39;06300&#39;,
+    &#39;countryName&#39;: &#39;MX&#39;},
+   &#39;contactPoint&#39;: {&#39;name&#39;: &#39;José Gabriel Ramos Martínez&#39;,
+    &#39;email&#39;: &#39;jose.ramosm@sat.gob.mx&#39;,
+    &#39;telephone&#39;: &#39;5802-0318&#39;},
+   &#39;roles&#39;: [&#39;procuringEntity&#39;]},
+  {&#39;name&#39;: &#39;IRAM LIEVANOS VELAZQUEZ&#39;,
+   &#39;id&#39;: &#39;E9C1C827AE1234CCF7AC4D9070BB597C&#39;,
+   &#39;identifier&#39;: {&#39;id&#39;: &#39;E9C1C827AE1234CCF7AC4D9070BB597C&#39;,
+    &#39;legalName&#39;: &#39;IRAM LIEVANOS VELAZQUEZ&#39;,
+    &#39;scheme&#39;: &#39;MX-RFC&#39;,
+    &#39;uri&#39;: &#39;https://portalsat.plataforma.sat.gob.mx/ConsultaRFC&#39;},
+   &#39;address&#39;: {&#39;streetAddress&#39;: &#39;PASEO DE LA ASUNCION NO. 536&#39;,
+    &#39;locality&#39;: &#39;METEPEC&#39;,
+    &#39;region&#39;: &#39;MX-MEX&#39;,
+    &#39;postalCode&#39;: &#39;52148&#39;,
+    &#39;countryName&#39;: &#39;MÉXICO&#39;},
+   &#39;contactPoint&#39;: {&#39;name&#39;: &#39;IRAM LIEVANOS VELAZQUEZ&#39;,
+    &#39;email&#39;: &#39;laroca.canino@gmail.com&#39;,
+    &#39;telephone&#39;: &#39;52 722 093749&#39;},
+   &#39;roles&#39;: [&#39;tenderer&#39;, &#39;supplier&#39;]}],
+ &#39;buyer&#39;: {&#39;name&#39;: &#39;Servicio de Administración Tributaria&#39;, &#39;id&#39;: &#39;SAT-284&#39;},
+ &#39;tender&#39;: {&#39;id&#39;: &#39;1003803&#39;,
+  &#39;title&#39;: &#39;SERVICIO INTEGRAL DE CANINOS.&#39;,
+  &#39;description&#39;: &#39;SERVICIO INTEGRAL DE CANINOS.&#39;,
+  &#39;status&#39;: &#39;complete&#39;,
+  &#39;procuringEntity&#39;: {&#39;name&#39;: &#39;SAT-Administración de Operación de Recursos y Servicios 6 #006E00002&#39;,
+   &#39;id&#39;: &#39;SAT970701NN3-006E00002&#39;},
+  &#39;items&#39;: [],
+  &#39;value&#39;: {&#39;amount&#39;: 0},
+  &#39;procurementMethod&#39;: &#39;direct&#39;,
+  &#39;procurementMethodRationale&#39;: &#39;Art. 41 fr. III&#39;,
+  &#39;submissionMethod&#39;: [&#39;inPerson&#39;],
+  &#39;tenderPeriod&#39;: {&#39;startDate&#39;: &#39;2016-02-19T01:09:18Z&#39;},
+  &#39;enquiryPeriod&#39;: {&#39;startDate&#39;: &#39;2016-02-19T01:09:18Z&#39;},
+  &#39;hasEnquiries&#39;: False,
+  &#39;awardPeriod&#39;: {&#39;endDate&#39;: &#39;2016-12-30T00:00:00Z&#39;}},
+ &#39;language&#39;: &#39;es&#39;,
+ &#39;awards&#39;: [{&#39;id&#39;: &#39;1004248&#39;,
+   &#39;title&#39;: &#39;SERVICIO INTEGRAL DE CANINOS.&#39;,
+   &#39;status&#39;: &#39;active&#39;,
+   &#39;value&#39;: {&#39;amount&#39;: 8451072, &#39;currency&#39;: &#39;MXN&#39;},
+   &#39;suppliers&#39;: [{&#39;name&#39;: &#39;IRAM LIEVANOS VELAZQUEZ&#39;,
+     &#39;id&#39;: &#39;E9C1C827AE1234CCF7AC4D9070BB597C&#39;}],
+   &#39;contractPeriod&#39;: {&#39;startDate&#39;: &#39;2017-01-01T12:00:00Z&#39;,
+    &#39;endDate&#39;: &#39;2017-03-08T11:59:00Z&#39;}}],
+ &#39;contracts&#39;: [{&#39;id&#39;: 1004248,
+   &#39;awardID&#39;: &#39;1004248&#39;,
+   &#39;title&#39;: &#39;SERVICIO INTEGRAL DE CANINOS.&#39;,
+   &#39;status&#39;: &#39;terminated&#39;,
+   &#39;period&#39;: {&#39;startDate&#39;: &#39;2017-01-01T12:00:00Z&#39;,
+    &#39;endDate&#39;: &#39;2017-03-08T11:59:00Z&#39;},
+   &#39;value&#39;: {&#39;amount&#39;: 8451072, &#39;currency&#39;: &#39;MXN&#39;},
+   &#39;dateSigned&#39;: &#39;2016-12-30T00:00:00Z&#39;}]}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Funcionarios-que-intervienen-en-contrataciones">Funcionarios que intervienen en contrataciones<a class="anchor-link" href="#Funcionarios-que-intervienen-en-contrataciones"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mydb</span><span class="o">.</span><span class="n">func_contrat</span><span class="o">.</span><span class="n">count_documents</span><span class="p">({})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>113795</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mydb</span><span class="o">.</span><span class="n">func_contrat</span><span class="o">.</span><span class="n">find_one</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;_id&#39;: ObjectId(&#39;5deb255d723b95da59c6a01b&#39;),
+ &#39;id&#39;: &#39;c6dbd706-b539-476f-a400-4dd69ed4a757&#39;,
+ &#39;fechaCaptura&#39;: &#39;&#39;,
+ &#39;ejercicioFiscal&#39;: 2017,
+ &#39;periodoEjercicio&#39;: {&#39;fechaInicial&#39;: &#39;2017/01/01&#39;,
+  &#39;fechaFinal&#39;: &#39;2017/12/31&#39;},
+ &#39;idRamo&#39;: 6,
+ &#39;ramo&#39;: &#39;HACIENDA Y CRÉDITO PÚBLICO&#39;,
+ &#39;nombres&#39;: None,
+ &#39;primerApellido&#39;: None,
+ &#39;segundoApellido&#39;: None,
+ &#39;genero&#39;: None,
+ &#39;institucionDependencia&#39;: {&#39;siglas&#39;: &#39;CNBV&#39;,
+  &#39;nombre&#39;: &#39;COMISIÓN NACIONAL BANCARIA Y DE VALORES&#39;,
+  &#39;clave&#39;: &#39;6/B00&#39;},
+ &#39;puesto&#39;: {&#39;nombre&#39;: &#39;SUBDIRECTOR DE MEJORA A&#39;, &#39;nivel&#39;: None},
+ &#39;tipoArea&#39;: [&#39;R&#39;],
+ &#39;nivelResponsabilidad&#39;: [&#39;A&#39;, &#39;T&#39;],
+ &#39;tipoProcedimiento&#39;: 1,
+ &#39;tipoActos&#39;: &#39;CONTRATACIONES&#39;,
+ &#39;superiorInmediato&#39;: {&#39;nombres&#39;: None,
+  &#39;primerApellido&#39;: None,
+  &#39;segundoApellido&#39;: None,
+  &#39;puesto&#39;: {&#39;nombre&#39;: None, &#39;nivel&#39;: None}}}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nombre_func_contrat</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;nombres&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;primerApellido&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;segundoApellido&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+                       <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">mydb</span><span class="o">.</span><span class="n">func_contrat</span><span class="o">.</span><span class="n">find</span><span class="p">({},</span> <span class="p">{</span><span class="s1">&#39;_id&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;nombres&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;primerApellido&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;segundoApellido&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">})</span> <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;nombres&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;primerApellido&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;segundoApellido&quot;</span><span class="p">]])]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Funcionarios-sancionados">Funcionarios sancionados<a class="anchor-link" href="#Funcionarios-sancionados"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mydb</span><span class="o">.</span><span class="n">serv_sanc</span><span class="o">.</span><span class="n">count_documents</span><span class="p">({})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3575</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mydb</span><span class="o">.</span><span class="n">serv_sanc</span><span class="o">.</span><span class="n">find_one</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;_id&#39;: ObjectId(&#39;5deb27a2432e395ca7ba4a62&#39;),
+ &#39;nombres&#39;: &#39;ZACARIAS&#39;,
+ &#39;primerApellido&#39;: &#39;PEREZ&#39;,
+ &#39;segundoApellido&#39;: &#39;GARCIA&#39;,
+ &#39;institucionDependencia&#39;: {&#39;nombre&#39;: &#39;PROCURADURIA GENERAL DE LA REPUBLICA&#39;,
+  &#39;siglas&#39;: &#39; &#39;},
+ &#39;autoridadSancionadora&#39;: &#39;ORGANO INTERNO DE CONTROL&#39;,
+ &#39;expediente&#39;: &#39;520/99&#39;,
+ &#39;resolucion&#39;: {&#39;fechaResolucion&#39;: &#39;17/11/2000&#39;},
+ &#39;tipoSancion&#39;: &#39;INHABILITACION&#39;,
+ &#39;inhabilitacion&#39;: {&#39;fechaInicial&#39;: &#39;17/11/2000&#39;,
+  &#39;fechaFinal&#39;: &#39;16/11/2020&#39;,
+  &#39;observaciones&#39;: None},
+ &#39;multa&#39;: {&#39;monto&#39;: None, &#39;moneda&#39;: &#39;MXN&#39;},
+ &#39;causaMotivoHechos&#39;: &#39;ABUSO DE AUTORIDAD&#39;,
+ &#39;puesto&#39;: &#39;AGENTE DE LA POLICIA JUDICIAL FEDERAL&#39;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nombre_serv_sanc</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;nombres&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;primerApellido&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;segundoApellido&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">mydb</span><span class="o">.</span><span class="n">serv_sanc</span><span class="o">.</span><span class="n">find</span><span class="p">({},</span> <span class="p">{</span><span class="s1">&#39;_id&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;nombres&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;primerApellido&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;segundoApellido&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">})]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">casos_func</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;contactPoint&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">casos_contratos</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;parties&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;roles&#39;</span><span class="p">]</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;procuringEntity&#39;</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="n">casos_func</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">nombre_serv_sanc</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>set()</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">yt</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_contactos</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">nombre_serv_sanc</span><span class="p">)))</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">yt</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>10</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">yt</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;MIGUEL ANGEL TORRES HERNANDEZ&#39;,
+ &#39;AGUSTIN TOLEDO GADEA&#39;,
+ &#39;OSCAR CHAVEZ MARTINEZ&#39;,
+ &#39;JOSE LUIS CHAVEZ FLORES&#39;,
+ &#39;MARIO HERNANDEZ DIAZ&#39;,
+ &#39;RODRIGO MALDONADO SAHAGUN&#39;,
+ &#39;ERIKA BENITEZ GARCIA&#39;,
+ &#39;FRANCISCO FIERRO SILVA&#39;,
+ &#39;JOSE LUIS GARCIA RODRIGUEZ&#39;,
+ &#39;JOSE DE LA CRUZ RAMIREZ&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Particulares-sancionados">Particulares sancionados<a class="anchor-link" href="#Particulares-sancionados"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mydb</span><span class="o">.</span><span class="n">part_sanc</span><span class="o">.</span><span class="n">count_documents</span><span class="p">({})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1853</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mydb</span><span class="o">.</span><span class="n">part_sanc</span><span class="o">.</span><span class="n">find_one</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;_id&#39;: ObjectId(&#39;5deb27d0715998a251b6be6b&#39;),
+ &#39;fechaCaptura&#39;: &#39;2019-08-22&#39;,
+ &#39;expediente&#39;: &#39;000270074/2017&#39;,
+ &#39;nombreRazonSocial&#39;: &#39;CONSTRUCCIÓN ESPECIALIZADA Y TECNOLÓGICA DE MÉXICO, S.A. DE C.V.&#39;,
+ &#39;rfc&#39;: &#39;ACV990407&#39;,
+ &#39;telefono&#39;: &#39;01 961 61 5 30 09&#39;,
+ &#39;domicilio&#39;: {&#39;clave&#39;: &#39;MX&#39;},
+ &#39;tipoSancion&#39;: &#39;ECONOMICA E INHABILITACIÓN&#39;,
+ &#39;institucionDependencia&#39;: {&#39;nombre&#39;: &#39;SECRETARIA DE LA FUNCIÓN PÚBLICA&#39;,
+  &#39;siglas&#39;: &#39;SFP&#39;},
+ &#39;tipoFalta&#39;: &#39;&#39;,
+ &#39;causaMotivoHechos&#39;: &#39;NO ENTREGAR LA OBRA EN LA FECHA COMPROMETIDA PARA ELLO, ESTO ES EL 24 DE SEPTIEMBRE DE 2014&#39;,
+ &#39;objetoContrato&#39;: &#39;&#39;,
+ &#39;autoridadSancionadora&#39;: &#39;SECRETARIA DE LA FUNCIÓN PÚBLICA&#39;,
+ &#39;responsableSancion&#39;: {&#39;nombres&#39;: &#39;MARÍA GUADALUPE VARGAS ÁLVAREZ&#39;,
+  &#39;primerApellido&#39;: &#39;&#39;,
+  &#39;segundoApellido&#39;: &#39;&#39;},
+ &#39;resolucion&#39;: {&#39;sentido&#39;: &#39;SANCIONATORIA CON MULTA E INHABILITACIÓN&#39;},
+ &#39;fechaNotificacion&#39;: &#39;2019-08-14&#39;,
+ &#39;multa&#39;: {&#39;monto&#39;: &#39;504675.00&#39;, &#39;moneda&#39;: &#39;MXN&#39;},
+ &#39;plazo&#39;: {&#39;fechaInicial&#39;: &#39;2019-08-23&#39;},
+ &#39;observaciones&#39;: None}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc_sanc</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;rfc&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">mydb</span><span class="o">.</span><span class="n">part_sanc</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;rfc&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;$ne&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}},</span> <span class="p">{</span><span class="s1">&#39;_id&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;rfc&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Red-Mitchell">Red Mitchell<a class="anchor-link" href="#Red-Mitchell"> </a></h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result1</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">contrataciones</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;contracts&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;$exists&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}},</span>
+                    <span class="p">[</span><span class="s1">&#39;ocid&#39;</span><span class="p">,</span> <span class="s1">&#39;parties.id&#39;</span><span class="p">,</span> <span class="s1">&#39;parties.roles&#39;</span><span class="p">,</span> <span class="s1">&#39;parties.contactPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;contracts.value.amount&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">])</span>
+
+<span class="n">l1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">result1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ocid_tenderer</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ocid&#39;</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">l1</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;parties&#39;</span><span class="p">]</span>
+                     <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;roles&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">&#39;tenderer&#39;</span><span class="p">,</span> <span class="s1">&#39;supplier&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;tenderer&#39;</span><span class="p">]]],</span>
+                             <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ocid&#39;</span><span class="p">,</span> <span class="s1">&#39;tenderer_id&#39;</span><span class="p">],</span>
+                            <span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ocid&#39;</span><span class="p">)</span>
+<span class="n">ocid_tenderer</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tenderer_id</th>
+    </tr>
+    <tr>
+      <th>ocid</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ocds-07smqs-1003803</th>
+      <td>E9C1C827AE1234CCF7AC4D9070BB597C</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1003123</th>
+      <td>SCA031118BX7</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1003123</th>
+      <td>SAU0505307M9</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1003123</th>
+      <td>SCK070618C21</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1009245</th>
+      <td>R&amp;S811221KR6</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ocid_funcionario</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ocid&#39;</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;contactPoint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+                                  <span class="n">c</span><span class="p">[</span><span class="s1">&#39;contracts&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">][</span><span class="s1">&#39;amount&#39;</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+                                 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">l1</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;parties&#39;</span><span class="p">]</span>
+                     <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;roles&#39;</span><span class="p">]</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;procuringEntity&#39;</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ocid&#39;</span><span class="p">,</span> <span class="s1">&#39;funcionario_id&#39;</span><span class="p">,</span> <span class="s1">&#39;uc_id&#39;</span><span class="p">,</span> <span class="s1">&#39;valor_contrato&#39;</span><span class="p">,</span> <span class="s1">&#39;fecha&#39;</span><span class="p">])</span>\
+                <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ocid&#39;</span><span class="p">)</span>
+
+<span class="n">ocid_dependencia</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;ocid&#39;</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+                                 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">l1</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;parties&#39;</span><span class="p">]</span>
+                     <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;roles&#39;</span><span class="p">]</span><span class="o">==</span><span class="p">[</span><span class="s1">&#39;buyer&#39;</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ocid&#39;</span><span class="p">,</span> <span class="s1">&#39;dep_id&#39;</span><span class="p">])</span>\
+                <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ocid&#39;</span><span class="p">)</span>
+
+<span class="n">ocid_funcionario</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>funcionario_id</th>
+      <th>uc_id</th>
+      <th>valor_contrato</th>
+      <th>fecha</th>
+    </tr>
+    <tr>
+      <th>ocid</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ocds-07smqs-1003803</th>
+      <td>José Gabriel Ramos Martínez</td>
+      <td>SAT970701NN3-006E00002</td>
+      <td>8451072.00</td>
+      <td>2016-02-19T01:09:18Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1003123</th>
+      <td>Ignacio Romero Sánchez</td>
+      <td>PGR850101RC6-017000017</td>
+      <td>168000.00</td>
+      <td>2016-02-19T01:49:22Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1009245</th>
+      <td>Juan Fernando Meza Zavala</td>
+      <td>STP401231P53-014000999</td>
+      <td>420689.55</td>
+      <td>2016-02-26T05:33:08Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1012355</th>
+      <td>Luis Eduardo Vega Becerra</td>
+      <td>CNU800928K31-018E00999</td>
+      <td>20000.00</td>
+      <td>2016-03-02T01:58:39Z</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1025654</th>
+      <td>Marco Antonio Brito Vidales</td>
+      <td>IAA6210025R4-006A00996</td>
+      <td>10604000.00</td>
+      <td>2016-03-18T06:40:28Z</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ocid_tender_fun</span> <span class="o">=</span> <span class="n">ocid_tenderer</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">ocid_funcionario</span><span class="p">,</span> <span class="n">ocid_dependencia</span><span class="p">])</span>
+<span class="n">ocid_tender_fun</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tenderer_id</th>
+      <th>funcionario_id</th>
+      <th>uc_id</th>
+      <th>valor_contrato</th>
+      <th>fecha</th>
+      <th>dep_id</th>
+    </tr>
+    <tr>
+      <th>ocid</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ocds-07smqs-1001024</th>
+      <td>ELE9012281G2</td>
+      <td>Evelyn López Valverde</td>
+      <td>LIC950821M84-020VST003</td>
+      <td>1.152540e+05</td>
+      <td>2016-03-15T01:02:50Z</td>
+      <td>LICONSA-231</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1001040</th>
+      <td>HIG090519H30</td>
+      <td>Nicolas Gonzalez Bustos</td>
+      <td>HIM871203BS0-012NBG001</td>
+      <td>2.603075e+07</td>
+      <td>2016-02-16T02:44:58Z</td>
+      <td>HIM-163</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1001984</th>
+      <td>282910F3163E9D7DBC543E53CD9347B6</td>
+      <td>Nicolas Gonzalez Bustos</td>
+      <td>HIM871203BS0-012NBG001</td>
+      <td>1.071380e+05</td>
+      <td>2016-02-17T04:42:35Z</td>
+      <td>HIM-163</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1002362</th>
+      <td>IPS040121S66</td>
+      <td>Nicolas Gonzalez Bustos</td>
+      <td>HIM871203BS0-012NBG001</td>
+      <td>2.115000e+05</td>
+      <td>2016-02-17T07:30:57Z</td>
+      <td>HIM-163</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-1003123</th>
+      <td>SCA031118BX7</td>
+      <td>Ignacio Romero Sánchez</td>
+      <td>PGR850101RC6-017000017</td>
+      <td>1.680000e+05</td>
+      <td>2016-02-19T01:49:22Z</td>
+      <td>PGR-251</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-999514</th>
+      <td>CPC131113AT4</td>
+      <td>Luis Enrique Mendoza Flores</td>
+      <td>IMS421231I45-050GYR026</td>
+      <td>7.317600e+04</td>
+      <td>2016-02-12T01:34:46Z</td>
+      <td>IMSS-192</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-999514</th>
+      <td>96A74A55F4E5DAEC0797B59049D8EC81</td>
+      <td>Luis Enrique Mendoza Flores</td>
+      <td>IMS421231I45-050GYR026</td>
+      <td>7.317600e+04</td>
+      <td>2016-02-12T01:34:46Z</td>
+      <td>IMSS-192</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-999514</th>
+      <td>TGH130612IK1</td>
+      <td>Luis Enrique Mendoza Flores</td>
+      <td>IMS421231I45-050GYR026</td>
+      <td>7.317600e+04</td>
+      <td>2016-02-12T01:34:46Z</td>
+      <td>IMSS-192</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-999514</th>
+      <td>SIN011023UC8</td>
+      <td>Luis Enrique Mendoza Flores</td>
+      <td>IMS421231I45-050GYR026</td>
+      <td>7.317600e+04</td>
+      <td>2016-02-12T01:34:46Z</td>
+      <td>IMSS-192</td>
+    </tr>
+    <tr>
+      <th>ocds-07smqs-999514</th>
+      <td>GMC09121623A</td>
+      <td>Luis Enrique Mendoza Flores</td>
+      <td>IMS421231I45-050GYR026</td>
+      <td>7.317600e+04</td>
+      <td>2016-02-12T01:34:46Z</td>
+      <td>IMSS-192</td>
+    </tr>
+  </tbody>
+</table>
+<p>726038 rows × 6 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ocid_tender_fun</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dir_datos</span><span class="si">}</span><span class="s1">/ocid_tender_fun.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/2020/01/20/redes-contratos-compranet.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Intentando aplicar ciencia de datos a las ciencias sociales.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
