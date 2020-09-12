@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://blog.jjsantoso.com/about/" />
 <meta property="og:site_name" content="Blog de Juan Santos" />
 <script type="application/ld+json">
-{"url":"http://blog.jjsantoso.com/about/","@type":"WebSite","headline":"Bio","name":"Blog de Juan Santos","description":"Intentando aplicar ciencia de datos a las ciencias sociales.","@context":"https://schema.org"}</script>
+{"description":"Intentando aplicar ciencia de datos a las ciencias sociales.","url":"http://blog.jjsantoso.com/about/","@type":"WebSite","headline":"Bio","name":"Blog de Juan Santos","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://blog.jjsantoso.com/feed.xml" title="Blog de Juan Santos" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
 <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
@@ -65,7 +65,7 @@ window.onload = wrap_img;
     });
 </script>
 </head>
-<body><header class="site-header" role="banner">
+<body><header class="site-header">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Blog de Juan Santos</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -107,21 +107,23 @@ window.onload = wrap_img;
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">Blog de Juan Santos</h2>
-
     <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">Blog de Juan Santos</li></ul>
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
       </div>
-
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jjsantos01"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jjsantos01</span></a></li><li><a href="https://www.twitter.com/jjsantoso"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jjsantoso</span></a></li></ul>
-</div>
-
-      <div class="footer-col footer-col-3">
+      <div class="footer-col">
         <p>Intentando aplicar ciencia de datos a las ciencias sociales.</p>
       </div>
     </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
 
   </div>
 
