@@ -1,1 +1,1 @@
-Sitemap: https://jjsantos01.github.io/jjsantosoblog/sitemap.xml
+Sitemap: http://blog.jjsantoso.com/sitemap.xml
