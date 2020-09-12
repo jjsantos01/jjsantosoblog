@@ -64,6 +64,8 @@ plugins:
   - jekyll-sitemap
   - jemoji
 
+remote_theme: jekyll/minima
+
 titles_from_headings:
   enabled:     true
   strip_title: true
