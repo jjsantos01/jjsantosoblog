@@ -10,7 +10,7 @@ title: Blog de Juan Santos
 description: Intentando aplicar ciencia de datos a las ciencias sociales.
 github_username: jjsantos01
 # you can comment the below line out if your repo name is not different than your baseurl
-github_repo: "blog"
+github_repo: "jjsantosoblog"
 
 # OPTIONAL: override baseurl and url if using a custom domain
 url: "http://blog.jjsantoso.com" # the base hostname & protocol for your site, e.g. http://example.com
