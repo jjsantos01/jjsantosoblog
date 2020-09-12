@@ -45,16 +45,20 @@ exclude:
   - Makefile
 
 # Everything below here should be left alone. Modifications may break fastpages
+future: true
 theme: minima
 plugins:
   - jekyll-feed
   - jekyll-gist
   - jekyll-octicons
-  - jekyll-github-metadata
   - jekyll-toc
   - jekyll-twitter-plugin
   - jekyll-relative-links
   - jekyll-seo-tag
+  - jekyll-remote-theme
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jemoji
 
 titles_from_headings:
   enabled:     true
