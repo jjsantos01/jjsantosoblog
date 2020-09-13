@@ -10,13 +10,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Cómo leer y escribir archivos de Excel con estructuras complicadas usando Pandas" />
 <meta property="og:description" content="Cómo leer y escribir archivos de Excel con estructuras complicadas usando Pandas" />
-<link rel="canonical" href="http://blog.jjsantoso.com/pandas/" />
-<meta property="og:url" content="http://blog.jjsantoso.com/pandas/" />
+<link rel="canonical" href="http://blog.jjsantoso.com/pandas-excel/" />
+<meta property="og:url" content="http://blog.jjsantoso.com/pandas-excel/" />
 <meta property="og:site_name" content="Blog de Juan Santos" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-09-09T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"http://blog.jjsantoso.com/pandas/","@type":"BlogPosting","headline":"Trabajando con archivos de Excel complejos en Pandas","dateModified":"2020-09-09T00:00:00-05:00","datePublished":"2020-09-09T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.jjsantoso.com/pandas/"},"description":"Cómo leer y escribir archivos de Excel con estructuras complicadas usando Pandas","@context":"https://schema.org"}</script>
+{"url":"http://blog.jjsantoso.com/pandas-excel/","@type":"BlogPosting","headline":"Trabajando con archivos de Excel complejos en Pandas","dateModified":"2020-09-09T00:00:00-05:00","datePublished":"2020-09-09T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.jjsantoso.com/pandas-excel/"},"description":"Cómo leer y escribir archivos de Excel con estructuras complicadas usando Pandas","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://blog.jjsantoso.com/feed.xml" title="Blog de Juan Santos" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
 <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
@@ -130,10 +130,17 @@ window.onload = wrap_img;
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <blockquote>
-<p>Elaborado por Juan Javier Santos Ochoa (<a href="https://twitter.com/jjsantoso">@jjsantoso</a>)
-Pandas es la biblioteca por excelencia para trabajar con datos tabulares en Python. Muchos de estos datos, especialmente los que vienen de instituciones públicas, están en formato de Excel, que en ocasiones pueden ser particularmente difíciles de leer por su estructura con celdas combinadas. En esta entrada veremos cómo usar algunas de las opciones y trucos de Pandas para leer estos archivos complejos de forma efectiva.
-Es necesario tener instaladas las bibliotecas <code>pandas</code> y <code>xlrd</code>.</p>
+<p>Elaborado por Juan Javier Santos Ochoa (<a href="https://twitter.com/jjsantoso">@jjsantoso</a>)</p>
 </blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pandas es la biblioteca por excelencia para trabajar con datos tabulares en Python. Muchos de estos datos, especialmente los que vienen de instituciones públicas, están en formato de Excel, que en ocasiones pueden ser particularmente difíciles de leer por su estructura con celdas combinadas. En esta entrada veremos cómo usar algunas de las opciones y trucos de Pandas para leer estos archivos complejos de forma efectiva.
+Es necesario tener instaladas las bibliotecas <code>pandas</code> y <code>xlrd</code>.</p>
 <p>Como ejemplo usaremos los tabulados del mercado laboral que publica el INEGI para México. Estos datos se pueden descargar desde su página: <a href="https://www.inegi.org.mx/programas/enoe/15ymas/default.html#Tabulados">https://www.inegi.org.mx/programas/enoe/15ymas/default.html#Tabulados</a> . En particular, usaremos los tabulados del primer trimestre de 2020 para el estado de Aguascalientes. Acá puedes <a href="http://jjsantoso.com/blog/datos/2020_trim_1_Entidad_Aguascalientes.xls">decargar el archivo</a> que uso en este notebook y acá uno con <a href="http://jjsantoso.com/blog/datos/indicadores_laborales_estados_2020_trim_1.zip">todos los estados</a>.</p>
 
 </div>
@@ -2269,7 +2276,7 @@ Es necesario tener instaladas las bibliotecas <code>pandas</code> y <code>xlrd</
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/pandas/" hidden></a>
+</script><a class="u-url" href="/pandas-excel/" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
