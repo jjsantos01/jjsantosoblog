@@ -1,0 +1,2303 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Trabajando con archivos de Excel complejos en Pandas | Blog de Juan Santos</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Trabajando con archivos de Excel complejos en Pandas" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Cómo leer y escribir archivos de Excel con estructuras complicadas usando Pandas" />
+<meta property="og:description" content="Cómo leer y escribir archivos de Excel con estructuras complicadas usando Pandas" />
+<link rel="canonical" href="http://blog.jjsantoso.com/pandas/" />
+<meta property="og:url" content="http://blog.jjsantoso.com/pandas/" />
+<meta property="og:site_name" content="Blog de Juan Santos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-09T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"http://blog.jjsantoso.com/pandas/","@type":"BlogPosting","headline":"Trabajando con archivos de Excel complejos en Pandas","dateModified":"2020-09-09T00:00:00-05:00","datePublished":"2020-09-09T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.jjsantoso.com/pandas/"},"description":"Cómo leer y escribir archivos de Excel con estructuras complicadas usando Pandas","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://blog.jjsantoso.com/feed.xml" title="Blog de Juan Santos" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Blog de Juan Santos</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">Bio</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Trabajando con archivos de Excel complejos en Pandas</h1><p class="page-description">Cómo leer y escribir archivos de Excel con estructuras complicadas usando Pandas</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-09-09T00:00:00-05:00" itemprop="datePublished">
+        Sep 9, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      14 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#pandas">pandas</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-09-09-Trabajando con archivos de Excel.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>Elaborado por Juan Javier Santos Ochoa (<a href="https://twitter.com/jjsantoso">@jjsantoso</a>)
+Pandas es la biblioteca por excelencia para trabajar con datos tabulares en Python. Muchos de estos datos, especialmente los que vienen de instituciones públicas, están en formato de Excel, que en ocasiones pueden ser particularmente difíciles de leer por su estructura con celdas combinadas. En esta entrada veremos cómo usar algunas de las opciones y trucos de Pandas para leer estos archivos complejos de forma efectiva.
+Es necesario tener instaladas las bibliotecas <code>pandas</code> y <code>xlrd</code>.</p>
+</blockquote>
+<p>Como ejemplo usaremos los tabulados del mercado laboral que publica el INEGI para México. Estos datos se pueden descargar desde su página: <a href="https://www.inegi.org.mx/programas/enoe/15ymas/default.html#Tabulados">https://www.inegi.org.mx/programas/enoe/15ymas/default.html#Tabulados</a> . En particular, usaremos los tabulados del primer trimestre de 2020 para el estado de Aguascalientes. Acá puedes <a href="http://jjsantoso.com/blog/datos/2020_trim_1_Entidad_Aguascalientes.xls">decargar el archivo</a> que uso en este notebook y acá uno con <a href="http://jjsantoso.com/blog/datos/indicadores_laborales_estados_2020_trim_1.zip">todos los estados</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>El archivo luce de la siguiente forma visto en Excel.</p>
+<p><span style="color:red">Encabezado</span>:</p>
+<p><img src="/images/copied_from_nb/my_icons/vista_excel_complejo_1.png" alt="img1"></p>
+<p><span style="color:red">Final del archivo</span>:</p>
+<p><img src="/images/copied_from_nb/my_icons/vista_excel_complejo_2.png" alt="img2"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Podemos ver que la estructura de los datos es bastante compleja. Algunos de los desafíos de este archivo son:</p>
+<ul>
+<li>El encabezado de la tabla de datos no empieza desde la primera fila, sino a partir de la fila 6</li>
+<li>El encabezado está conformado por 3 filas (la 6, 7 y 8) con diferentes niveles de información. Por ejemplo, el primer nivel contiene los valores "Enero-Marzo 2020", "Coeficientes de Variación (%)", "Errores Estándar" e "Intervalos de Confianza al 90%". El segundo nivel solo contiene valores para las columnas que están bajo "Intervalos de Confianza al 90%". El tercer nivel es la desagregación por sexo, junto con el total, excepto en la columna "Intervalos de Confianza al 90%", donde representa los límites inferiores y superiores.</li>
+<li>Hay hasta 4 niveles de desagregación de los indicadores, que vienen especificados en las columnas A, B, C y D. Estos niveles expresan jerarquía entre las categorías. Por ejemplo, la celda C14 hace referencia a la población desocupada, que hace parte de la PEA (B12) y de la población de 15 años y más (A11)</li>
+<li>Después que la tabla de datos termina, hay un montón de notas al pie y comentarios en las celdas siguientes, que pueden ser entendidas como datos.</li>
+<li>Las variables de las que nos interesa obtener información están como filas, cuando quisiéramos que fueran columnas.</li>
+</ul>
+<p>Queda muy claro que estos datos distan mucho de tener una estructura <a href="https://es.wikipedia.org/wiki/Tidy_data"><em>Tidy</em></a>.</p>
+<p>En ocasiones ante una estructura tan compleja, lo más fácil es hacer manualmente los cambios necesarios para que la tabla quede en un formato mucho más entendible para nuestro programa que va a leer los datos. Esto es válido cuando solo hay que modificar uno o pocos archivos, pero si se trata de un proceso que se tiene que aplicar para muchos archivos o se va a estar haciendo de manera recurrente tenemos que pensar en una forma de automatizar el preprocesamiento.</p>
+<p>Afortunadamente Pandas cuenta con características que nos ayudan mucho con este tipo de archivos que tienen múltiples niveles en las filas y en las columnas. Esto coincide bastante bien con las características de <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/advanced.html">Multindex</a> y Multicolumn de los dataframes.</p>
+<p>Empecemos importando los datos y viendo cómo lucen si los cargamos tal cual como vienen.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">'datos/2020_trim_1_Entidad_Aguascalientes.xls'</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>INEGI. Encuesta Nacional de Ocupación y Empleo. Indicadores estratégicos. Primer trimestre de 2020</th>
+      <th>Unnamed: 1</th>
+      <th>Unnamed: 2</th>
+      <th>Unnamed: 3</th>
+      <th>Unnamed: 4</th>
+      <th>Unnamed: 5</th>
+      <th>Unnamed: 6</th>
+      <th>Unnamed: 7</th>
+      <th>Unnamed: 8</th>
+      <th>Unnamed: 9</th>
+      <th>Unnamed: 10</th>
+      <th>Unnamed: 11</th>
+      <th>Unnamed: 12</th>
+      <th>Unnamed: 13</th>
+      <th>Unnamed: 14</th>
+      <th>Unnamed: 15</th>
+      <th>Unnamed: 16</th>
+      <th>Unnamed: 17</th>
+      <th>Unnamed: 18</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Indicadores Estratégicos de Ocupación y Empleo...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Entidad Federativa:</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Aguascalientes</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>INDICADOR</td>
+      <td>Enero - Marzo  2020</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Coeficientes de Variación (%)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Errores Estándar</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Intervalos de Confianza al 90%</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Podemos hacer muy poco con esto, no hay nombres en las columnas y hay valores nulos por todos lados. Veamos la parte final del dataframe, donde tenemos todas las notas al pie, que realmente no es información que necesitamos para el análisis.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>INEGI. Encuesta Nacional de Ocupación y Empleo. Indicadores estratégicos. Primer trimestre de 2020</th>
+      <th>Unnamed: 1</th>
+      <th>Unnamed: 2</th>
+      <th>Unnamed: 3</th>
+      <th>Unnamed: 4</th>
+      <th>Unnamed: 5</th>
+      <th>Unnamed: 6</th>
+      <th>Unnamed: 7</th>
+      <th>Unnamed: 8</th>
+      <th>Unnamed: 9</th>
+      <th>Unnamed: 10</th>
+      <th>Unnamed: 11</th>
+      <th>Unnamed: 12</th>
+      <th>Unnamed: 13</th>
+      <th>Unnamed: 14</th>
+      <th>Unnamed: 15</th>
+      <th>Unnamed: 16</th>
+      <th>Unnamed: 17</th>
+      <th>Unnamed: 18</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>296</th>
+      <td>14</td>
+      <td>Se consideran "personas con interés para traba...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>297</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>298</th>
+      <td>Las estimaciones que aparecen en este cuadro e...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>299</th>
+      <td>Nivel de precisión de las estimaciones:</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>300</th>
+      <td>Alta, CV en el rango de (0,15)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>301</th>
+      <td>Moderada, CV en el rango de [15, 30)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>302</th>
+      <td>Baja, CV de 30% en adelante</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Para empezar a arreglar un poco las cosas, usemos las opción <code>header</code> que nos permite especificar cuáles son las filas que son el encabezado de los datos. Si tuvieran un formato <code>tidy</code> entonces solo necesitaríamos una fila como header, pero en este caso tenemos 3 niveles para el header. Pandas nos permite especificar varios niveles si a la opción <code>header</code> le pasamos una lista con los número de las filas (contando desde 0).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">'datos/2020_trim_1_Entidad_Aguascalientes.xls'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Unnamed: 0_level_0</th>
+      <th>Unnamed: 1_level_0</th>
+      <th>Unnamed: 2_level_0</th>
+      <th>INDICADOR</th>
+      <th colspan="3" halign="left">Enero - Marzo  2020</th>
+      <th colspan="3" halign="left">Coeficientes de Variación (%)</th>
+      <th colspan="3" halign="left">Errores Estándar</th>
+      <th colspan="6" halign="left">Intervalos de Confianza al 90%</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Unnamed: 0_level_1</th>
+      <th>Unnamed: 1_level_1</th>
+      <th>Unnamed: 2_level_1</th>
+      <th>Unnamed: 3_level_1</th>
+      <th>Unnamed: 4_level_1</th>
+      <th>Unnamed: 5_level_1</th>
+      <th>Unnamed: 6_level_1</th>
+      <th>Unnamed: 7_level_1</th>
+      <th>Unnamed: 8_level_1</th>
+      <th>Unnamed: 9_level_1</th>
+      <th>Unnamed: 10_level_1</th>
+      <th>Unnamed: 11_level_1</th>
+      <th>Unnamed: 12_level_1</th>
+      <th colspan="2" halign="left">Total</th>
+      <th colspan="2" halign="left">Hombres</th>
+      <th colspan="2" halign="left">Mujeres</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Unnamed: 0_level_2</th>
+      <th>Unnamed: 1_level_2</th>
+      <th>Unnamed: 2_level_2</th>
+      <th>Unnamed: 3_level_2</th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+      <th>LIIC</th>
+      <th>LSIC</th>
+      <th>LIIC</th>
+      <th>LSIC</th>
+      <th>LIIC</th>
+      <th>LSIC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>I.  Población total 1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1363581.0</td>
+      <td>661998.0</td>
+      <td>701583.0</td>
+      <td>1.423850</td>
+      <td>1.77911</td>
+      <td>1.43904</td>
+      <td>19415.0</td>
+      <td>11777</td>
+      <td>10096</td>
+      <td>1.33164e+06</td>
+      <td>1.39552e+06</td>
+      <td>642624</td>
+      <td>681372</td>
+      <td>684975</td>
+      <td>718191</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2. Población de 15 años y más</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1014307.0</td>
+      <td>484719.0</td>
+      <td>529588.0</td>
+      <td>1.350378</td>
+      <td>1.6399</td>
+      <td>1.4333</td>
+      <td>13696.0</td>
+      <td>7948</td>
+      <td>7590</td>
+      <td>991775</td>
+      <td>1.03684e+06</td>
+      <td>471643</td>
+      <td>497795</td>
+      <td>517102</td>
+      <td>542074</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>El resultado que obtenemos es un dataframe con 3 niveles de columnas (Multicolumn). Ahora al menos los datos empiezan donde deberían. Hagamos también que la tabla termine donde debe terminar. Para eso usamos la opción <code>skipfooter</code> a la que le especificamos el número de filas que debe ignorar partiendo desde la última hacia arriba. En este caso son 16 filas con contenido que no nos interesa.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">'datos/2020_trim_1_Entidad_Aguascalientes.xls'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">skipfooter</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Unnamed: 0_level_0</th>
+      <th>Unnamed: 1_level_0</th>
+      <th>Unnamed: 2_level_0</th>
+      <th>INDICADOR</th>
+      <th colspan="3" halign="left">Enero - Marzo  2020</th>
+      <th colspan="3" halign="left">Coeficientes de Variación (%)</th>
+      <th colspan="3" halign="left">Errores Estándar</th>
+      <th colspan="6" halign="left">Intervalos de Confianza al 90%</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Unnamed: 0_level_1</th>
+      <th>Unnamed: 1_level_1</th>
+      <th>Unnamed: 2_level_1</th>
+      <th>Unnamed: 3_level_1</th>
+      <th>Unnamed: 4_level_1</th>
+      <th>Unnamed: 5_level_1</th>
+      <th>Unnamed: 6_level_1</th>
+      <th>Unnamed: 7_level_1</th>
+      <th>Unnamed: 8_level_1</th>
+      <th>Unnamed: 9_level_1</th>
+      <th>Unnamed: 10_level_1</th>
+      <th>Unnamed: 11_level_1</th>
+      <th>Unnamed: 12_level_1</th>
+      <th colspan="2" halign="left">Total</th>
+      <th colspan="2" halign="left">Hombres</th>
+      <th colspan="2" halign="left">Mujeres</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Unnamed: 0_level_2</th>
+      <th>Unnamed: 1_level_2</th>
+      <th>Unnamed: 2_level_2</th>
+      <th>Unnamed: 3_level_2</th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+      <th>LIIC</th>
+      <th>LSIC</th>
+      <th>LIIC</th>
+      <th>LSIC</th>
+      <th>LIIC</th>
+      <th>LSIC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>277</th>
+      <td>NaN</td>
+      <td>Tasas calculadas contra la población ocupada n...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>278</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Tasa de ocupación en el sector informal 2 (TOSI2)</td>
+      <td>NaN</td>
+      <td>20.1963</td>
+      <td>22.8466</td>
+      <td>16.3304</td>
+      <td>4.116332</td>
+      <td>4.48344</td>
+      <td>6.14149</td>
+      <td>0.831347</td>
+      <td>1.02432</td>
+      <td>1.00293</td>
+      <td>18.829</td>
+      <td>21.564</td>
+      <td>21.162</td>
+      <td>24.532</td>
+      <td>14.681</td>
+      <td>17.98</td>
+    </tr>
+    <tr>
+      <th>279</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Tasa de informalidad laboral 2 (TIL2)</td>
+      <td>NaN</td>
+      <td>39.3077</td>
+      <td>37.4318</td>
+      <td>42.0439</td>
+      <td>2.655421</td>
+      <td>3.20142</td>
+      <td>3.24678</td>
+      <td>1.043784</td>
+      <td>1.19835</td>
+      <td>1.36507</td>
+      <td>37.591</td>
+      <td>41.025</td>
+      <td>35.461</td>
+      <td>39.403</td>
+      <td>39.798</td>
+      <td>44.289</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora el dataframe termina donde está el último indicador, que es "Tasa de informalidad laboral 2 (TIL2)".</p>
+<p>Ahora continuaremos con la opción <code>index_col</code> que le permite a Pandas entender que las primeras 4 columnas serán el índice del dataframe. Lo mejor es que además entiende la estructura jerárquica que está implícita en las celdas combinadas.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">'datos/2020_trim_1_Entidad_Aguascalientes.xls'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">skipfooter</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>INDICADOR</th>
+      <th colspan="3" halign="left">Enero - Marzo  2020</th>
+      <th colspan="3" halign="left">Coeficientes de Variación (%)</th>
+      <th colspan="3" halign="left">Errores Estándar</th>
+      <th colspan="6" halign="left">Intervalos de Confianza al 90%</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Unnamed: 4_level_1</th>
+      <th>Unnamed: 5_level_1</th>
+      <th>Unnamed: 6_level_1</th>
+      <th>Unnamed: 7_level_1</th>
+      <th>Unnamed: 8_level_1</th>
+      <th>Unnamed: 9_level_1</th>
+      <th>Unnamed: 10_level_1</th>
+      <th>Unnamed: 11_level_1</th>
+      <th>Unnamed: 12_level_1</th>
+      <th colspan="2" halign="left">Total</th>
+      <th colspan="2" halign="left">Hombres</th>
+      <th colspan="2" halign="left">Mujeres</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+      <th>LIIC</th>
+      <th>LSIC</th>
+      <th>LIIC</th>
+      <th>LSIC</th>
+      <th>LIIC</th>
+      <th>LSIC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">10. Tasas</th>
+      <th rowspan="2" valign="top">Tasas calculadas contra la población ocupada</th>
+      <th>Tasa de ocupación en el sector informal 1 (TOSI1)</th>
+      <th>Mediana</th>
+      <td>19.4007</td>
+      <td>21.4890</td>
+      <td>16.1900</td>
+      <td>4.109763</td>
+      <td>4.49951</td>
+      <td>6.14659</td>
+      <td>0.797323</td>
+      <td>0.9669</td>
+      <td>0.995131</td>
+      <td>18.089</td>
+      <td>20.712</td>
+      <td>19.898</td>
+      <td>23.08</td>
+      <td>14.553</td>
+      <td>17.827</td>
+    </tr>
+    <tr>
+      <th>Tasa de informalidad laboral 1 (TIL1)</th>
+      <th>Mediana</th>
+      <td>40.9383</td>
+      <td>40.0765</td>
+      <td>42.2632</td>
+      <td>2.532868</td>
+      <td>2.97923</td>
+      <td>3.20628</td>
+      <td>1.036912</td>
+      <td>1.19397</td>
+      <td>1.35508</td>
+      <td>39.233</td>
+      <td>42.644</td>
+      <td>38.112</td>
+      <td>42.041</td>
+      <td>40.034</td>
+      <td>44.492</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">Tasas calculadas contra la población ocupada no agropecuaria</th>
+      <th>Tasa de informalidad laboral 1 (TIL1)</th>
+      <th>Mediana</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Tasa de ocupación en el sector informal 2 (TOSI2)</th>
+      <th>Mediana</th>
+      <td>20.1963</td>
+      <td>22.8466</td>
+      <td>16.3304</td>
+      <td>4.116332</td>
+      <td>4.48344</td>
+      <td>6.14149</td>
+      <td>0.831347</td>
+      <td>1.02432</td>
+      <td>1.00293</td>
+      <td>18.829</td>
+      <td>21.564</td>
+      <td>21.162</td>
+      <td>24.532</td>
+      <td>14.681</td>
+      <td>17.98</td>
+    </tr>
+    <tr>
+      <th>Tasa de informalidad laboral 2 (TIL2)</th>
+      <th>Mediana</th>
+      <td>39.3077</td>
+      <td>37.4318</td>
+      <td>42.0439</td>
+      <td>2.655421</td>
+      <td>3.20142</td>
+      <td>3.24678</td>
+      <td>1.043784</td>
+      <td>1.19835</td>
+      <td>1.36507</td>
+      <td>37.591</td>
+      <td>41.025</td>
+      <td>35.461</td>
+      <td>39.403</td>
+      <td>39.798</td>
+      <td>44.289</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En este caso nos interesa obtener las estimaciones de los indicadores y no los coeficientes de variación y los otros cálculos. Estos datos están bajo la columna "Enero - Marzo  2020", así que ya que tenemos encabezados es fácil obtenerlos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">'Enero - Marzo  2020'</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Unnamed: 4_level_1</th>
+      <th>Unnamed: 5_level_1</th>
+      <th>Unnamed: 6_level_1</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">I.  Población total 1</th>
+      <th rowspan="2" valign="top">NaN</th>
+      <th rowspan="2" valign="top">NaN</th>
+      <th>NaN</th>
+      <td>1363581.0</td>
+      <td>661998.0</td>
+      <td>701583.0</td>
+    </tr>
+    <tr>
+      <th>NaN</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">2. Población de 15 años y más</th>
+      <th>NaN</th>
+      <th>NaN</th>
+      <th>NaN</th>
+      <td>1014307.0</td>
+      <td>484719.0</td>
+      <td>529588.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Población económicamente activa (PEA)</th>
+      <th>NaN</th>
+      <th>NaN</th>
+      <td>603802.0</td>
+      <td>366686.0</td>
+      <td>237116.0</td>
+    </tr>
+    <tr>
+      <th>Ocupada</th>
+      <th>NaN</th>
+      <td>583762.0</td>
+      <td>353706.0</td>
+      <td>230056.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Queda sobrando un nivel que en realidad no necesitamos porque no agrega nada de información <code>['Unnamed: 4_level_1', 'Unnamed: 5_level_1', 'Unnamed: 6_level_1']</code>. Este lo podemos eliminar con el método <code>.droplevel()</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">valores</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Enero - Marzo  2020'</span><span class="p">]</span><span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">valores</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">I.  Población total 1</th>
+      <th rowspan="2" valign="top">NaN</th>
+      <th rowspan="2" valign="top">NaN</th>
+      <th>NaN</th>
+      <td>1363581.0</td>
+      <td>661998.0</td>
+      <td>701583.0</td>
+    </tr>
+    <tr>
+      <th>NaN</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">2. Población de 15 años y más</th>
+      <th>NaN</th>
+      <th>NaN</th>
+      <th>NaN</th>
+      <td>1014307.0</td>
+      <td>484719.0</td>
+      <td>529588.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Población económicamente activa (PEA)</th>
+      <th>NaN</th>
+      <th>NaN</th>
+      <td>603802.0</td>
+      <td>366686.0</td>
+      <td>237116.0</td>
+    </tr>
+    <tr>
+      <th>Ocupada</th>
+      <th>NaN</th>
+      <td>583762.0</td>
+      <td>353706.0</td>
+      <td>230056.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ya tenemos un resultado bastante útil. Todavía nos quedan algunos ajustes que hacer. Primero, hay que eliminar las filas que solo contienen valores nulos</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">valores</span> <span class="o">=</span> <span class="n">valores</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">'Total'</span><span class="p">,</span> <span class="s1">'Hombres'</span><span class="p">,</span> <span class="s1">'Mujeres'</span><span class="p">])</span>
+<span class="n">valores</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>I.  Población total 1</th>
+      <th>NaN</th>
+      <th>NaN</th>
+      <th>NaN</th>
+      <td>1363581.0</td>
+      <td>661998.0</td>
+      <td>701583.0</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">2. Población de 15 años y más</th>
+      <th>NaN</th>
+      <th>NaN</th>
+      <th>NaN</th>
+      <td>1014307.0</td>
+      <td>484719.0</td>
+      <td>529588.0</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">Población económicamente activa (PEA)</th>
+      <th>NaN</th>
+      <th>NaN</th>
+      <td>603802.0</td>
+      <td>366686.0</td>
+      <td>237116.0</td>
+    </tr>
+    <tr>
+      <th>Ocupada</th>
+      <th>NaN</th>
+      <td>583762.0</td>
+      <td>353706.0</td>
+      <td>230056.0</td>
+    </tr>
+    <tr>
+      <th>Desocupada</th>
+      <th>NaN</th>
+      <td>20040.0</td>
+      <td>12980.0</td>
+      <td>7060.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora pongamos nombres a los niveles para que sea fácil identificarlos. También cambiemos los <code>NaN</code> que hay en el índice por un valor de texto, como por ejemplo "Total". Esto ayuda porque pandas no maneja muy bien valores nulos en el índice.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">valores</span> <span class="o">=</span> <span class="n">valores</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'nivel_1'</span><span class="p">,</span> <span class="s1">'nivel_2'</span><span class="p">,</span> <span class="s1">'nivel_3'</span><span class="p">,</span> <span class="s1">'nivel_4'</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'sexo'</span><span class="p">])</span>\
+                <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">'Total'</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="n">valores</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>sexo</th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+    </tr>
+    <tr>
+      <th>nivel_1</th>
+      <th>nivel_2</th>
+      <th>nivel_3</th>
+      <th>nivel_4</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>I.  Población total 1</th>
+      <th>Total</th>
+      <th>Total</th>
+      <th>Total</th>
+      <td>1363581.0</td>
+      <td>661998.0</td>
+      <td>701583.0</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">2. Población de 15 años y más</th>
+      <th>Total</th>
+      <th>Total</th>
+      <th>Total</th>
+      <td>1014307.0</td>
+      <td>484719.0</td>
+      <td>529588.0</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">Población económicamente activa (PEA)</th>
+      <th>Total</th>
+      <th>Total</th>
+      <td>603802.0</td>
+      <td>366686.0</td>
+      <td>237116.0</td>
+    </tr>
+    <tr>
+      <th>Ocupada</th>
+      <th>Total</th>
+      <td>583762.0</td>
+      <td>353706.0</td>
+      <td>230056.0</td>
+    </tr>
+    <tr>
+      <th>Desocupada</th>
+      <th>Total</th>
+      <td>20040.0</td>
+      <td>12980.0</td>
+      <td>7060.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Y bueno, ya con esto prácticamente podemos obtener el valor de cualquiera de los indicadores. Por ejemplo, si queremos la "Población económicamente activa (PEA)"</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pea</span> <span class="o">=</span> <span class="n">valores</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s1">'2. Población de 15 años y más'</span><span class="p">,</span> <span class="s1">'Población económicamente activa (PEA)'</span><span class="p">)]</span>
+<span class="n">pea</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:1: PerformanceWarning: indexing past lexsort depth may impact performance.
+  """Entry point for launching an IPython kernel.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sexo</th>
+      <th>Total</th>
+      <th>Hombres</th>
+      <th>Mujeres</th>
+    </tr>
+    <tr>
+      <th>nivel_3</th>
+      <th>nivel_4</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Total</th>
+      <th>Total</th>
+      <td>603802.0</td>
+      <td>366686.0</td>
+      <td>237116.0</td>
+    </tr>
+    <tr>
+      <th>Ocupada</th>
+      <th>Total</th>
+      <td>583762.0</td>
+      <td>353706.0</td>
+      <td>230056.0</td>
+    </tr>
+    <tr>
+      <th>Desocupada</th>
+      <th>Total</th>
+      <td>20040.0</td>
+      <td>12980.0</td>
+      <td>7060.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En este resultado el <code>nivel_4</code> es innecesario, así que lo podemos eliminar. En general, podemos eliminar cualquier nivel que no aporte información para quedarnos con una estructura más sencilla. Además modificamos la estructura para que sea tidy y cada columna sea una variable</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pea</span><span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">T</span>\
+    <span class="o">.</span><span class="n">add_prefix</span><span class="p">(</span><span class="s1">'poblacion_'</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>nivel_3</th>
+      <th>sexo</th>
+      <th>poblacion_Total</th>
+      <th>poblacion_Ocupada</th>
+      <th>poblacion_Desocupada</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Total</td>
+      <td>603802.0</td>
+      <td>583762.0</td>
+      <td>20040.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Hombres</td>
+      <td>366686.0</td>
+      <td>353706.0</td>
+      <td>12980.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Mujeres</td>
+      <td>237116.0</td>
+      <td>230056.0</td>
+      <td>7060.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Podemos intentar con otro indicador como la <code>Tasa de informalidad laboral 1 (TIL1)</code>, haciendo algunas otras modificaciones:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">valores</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s1">'10. Tasas'</span><span class="p">,</span> <span class="s1">'Tasas calculadas contra la población ocupada'</span><span class="p">,</span> <span class="s1">'Tasa de informalidad laboral 1 (TIL1)'</span><span class="p">)]</span>\
+    <span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s1">'sexo'</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">'til_1'</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="s1">'nivel_4'</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:1: PerformanceWarning: indexing past lexsort depth may impact performance.
+  """Entry point for launching an IPython kernel.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sexo</th>
+      <th>til_1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Total</td>
+      <td>40.9383</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Hombres</td>
+      <td>40.0765</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Mujeres</td>
+      <td>42.2632</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Podemos convertir este procedimiento en una función para que podamos obtener estas variables para cualquier estado. Por ejemplo, para obtener la población económicamente activa creamos esta función que depende solo del nombre del estado (como aparece en el archivo de INEGI que descargué)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">obtiene_pea</span><span class="p">(</span><span class="n">edo</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">f</span><span class="s1">'datos/2020_trim_1_Entidad_</span><span class="si">{</span><span class="n">edo</span><span class="si">}</span><span class="s1">.xls'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">skipfooter</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    <span class="n">pea</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Enero - Marzo  2020'</span><span class="p">]</span><span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">'Total'</span><span class="p">,</span> <span class="s1">'Hombres'</span><span class="p">,</span> <span class="s1">'Mujeres'</span><span class="p">])</span>\
+        <span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'nivel_1'</span><span class="p">,</span> <span class="s1">'nivel_2'</span><span class="p">,</span> <span class="s1">'nivel_3'</span><span class="p">,</span> <span class="s1">'nivel_4'</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'sexo'</span><span class="p">])</span>\
+        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">'Total'</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>\
+        <span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s1">'2. Población de 15 años y más'</span><span class="p">,</span> <span class="s1">'Población económicamente activa (PEA)'</span><span class="p">)]</span>\
+        <span class="o">.</span><span class="n">droplevel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">T</span>\
+        <span class="o">.</span><span class="n">add_prefix</span><span class="p">(</span><span class="s1">'poblacion_'</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>\
+        <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">estado</span><span class="o">=</span><span class="n">edo</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span> <span class="s1">' '</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pea</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Probamos la función en otro estado y nos da el resultado esperado:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">obtiene_pea</span><span class="p">(</span><span class="s1">'Oaxaca'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>nivel_3</th>
+      <th>sexo</th>
+      <th>poblacion_Desocupada</th>
+      <th>poblacion_Ocupada</th>
+      <th>poblacion_Total</th>
+      <th>estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Total</td>
+      <td>30743.0</td>
+      <td>1766690.0</td>
+      <td>1797433.0</td>
+      <td>Oaxaca</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Hombres</td>
+      <td>18948.0</td>
+      <td>999821.0</td>
+      <td>1018769.0</td>
+      <td>Oaxaca</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Mujeres</td>
+      <td>11795.0</td>
+      <td>766869.0</td>
+      <td>778664.0</td>
+      <td>Oaxaca</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Acá por ejemplo, obtenemos la pea para los estados del Sur-Sureste mexicano:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pea_sur</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">obtiene_pea</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'Oaxaca'</span><span class="p">,</span> <span class="s1">'Chiapas'</span><span class="p">,</span> <span class="s1">'Tabasco'</span><span class="p">,</span> <span class="s1">'Campeche'</span><span class="p">,</span> <span class="s1">'Quintana_Roo'</span><span class="p">,</span> <span class="s1">'Yucatán'</span><span class="p">]],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pea_sur</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>nivel_3</th>
+      <th>sexo</th>
+      <th>poblacion_Desocupada</th>
+      <th>poblacion_Ocupada</th>
+      <th>poblacion_Total</th>
+      <th>estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Total</td>
+      <td>30743.0</td>
+      <td>1766690.0</td>
+      <td>1797433.0</td>
+      <td>Oaxaca</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Hombres</td>
+      <td>18948.0</td>
+      <td>999821.0</td>
+      <td>1018769.0</td>
+      <td>Oaxaca</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Mujeres</td>
+      <td>11795.0</td>
+      <td>766869.0</td>
+      <td>778664.0</td>
+      <td>Oaxaca</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Total</td>
+      <td>55562.0</td>
+      <td>2068483.0</td>
+      <td>2124045.0</td>
+      <td>Chiapas</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Hombres</td>
+      <td>32413.0</td>
+      <td>1417037.0</td>
+      <td>1449450.0</td>
+      <td>Chiapas</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Mujeres</td>
+      <td>23149.0</td>
+      <td>651446.0</td>
+      <td>674595.0</td>
+      <td>Chiapas</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Total</td>
+      <td>57702.0</td>
+      <td>1031968.0</td>
+      <td>1089670.0</td>
+      <td>Tabasco</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Hombres</td>
+      <td>31558.0</td>
+      <td>643777.0</td>
+      <td>675335.0</td>
+      <td>Tabasco</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Mujeres</td>
+      <td>26144.0</td>
+      <td>388191.0</td>
+      <td>414335.0</td>
+      <td>Tabasco</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Total</td>
+      <td>12364.0</td>
+      <td>435961.0</td>
+      <td>448325.0</td>
+      <td>Campeche</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Hombres</td>
+      <td>7750.0</td>
+      <td>269822.0</td>
+      <td>277572.0</td>
+      <td>Campeche</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Mujeres</td>
+      <td>4614.0</td>
+      <td>166139.0</td>
+      <td>170753.0</td>
+      <td>Campeche</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Total</td>
+      <td>25607.0</td>
+      <td>851473.0</td>
+      <td>877080.0</td>
+      <td>Quintana_Roo</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Hombres</td>
+      <td>14241.0</td>
+      <td>525859.0</td>
+      <td>540100.0</td>
+      <td>Quintana_Roo</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Mujeres</td>
+      <td>11366.0</td>
+      <td>325614.0</td>
+      <td>336980.0</td>
+      <td>Quintana_Roo</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Total</td>
+      <td>21992.0</td>
+      <td>1086089.0</td>
+      <td>1108081.0</td>
+      <td>Yucatán</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Hombres</td>
+      <td>11421.0</td>
+      <td>651820.0</td>
+      <td>663241.0</td>
+      <td>Yucatán</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Mujeres</td>
+      <td>10571.0</td>
+      <td>434269.0</td>
+      <td>444840.0</td>
+      <td>Yucatán</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>De esta manera logré obtener los indicadores que necesitaba de un archivo que parecía imposible de aprovechar en su estado original.</p>
+<p>Lo que más quería destacar en esta entrada es que Pandas, con su estructura de <code>multindex</code>, puede facilitar mucho leer archivos de Excel cuya estructura incluye celdas combinadas y anidadas. No hay garantía de que siempra se pueda leer adecuadamente archivos de Excel muy complejos, pero es bueno saber que tampoco está todo perdido si llega a tus manos uno de estos mosntruos.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="jjsantos01/jjsantosoblog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/pandas/" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Intentando aplicar ciencia de datos a las ciencias sociales.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
