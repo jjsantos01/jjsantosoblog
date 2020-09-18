@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Generando archivos de Excel con formatos y gráficas usando Python | Blog de Juan Santos</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Generando archivos de Excel con formatos y gráficas usando Python" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Cómo exportar datos a archivos de Excel configurando el estilo de las celdas usando Pandas" />
+<meta property="og:description" content="Cómo exportar datos a archivos de Excel configurando el estilo de las celdas usando Pandas" />
+<link rel="canonical" href="http://blog.jjsantoso.com/excel-formato-graficas/" />
+<meta property="og:url" content="http://blog.jjsantoso.com/excel-formato-graficas/" />
+<meta property="og:site_name" content="Blog de Juan Santos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-18T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"http://blog.jjsantoso.com/excel-formato-graficas/","@type":"BlogPosting","headline":"Generando archivos de Excel con formatos y gráficas usando Python","dateModified":"2020-09-18T00:00:00-05:00","datePublished":"2020-09-18T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.jjsantoso.com/excel-formato-graficas/"},"description":"Cómo exportar datos a archivos de Excel configurando el estilo de las celdas usando Pandas","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://blog.jjsantoso.com/feed.xml" title="Blog de Juan Santos" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-177879700-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Blog de Juan Santos</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">Bio</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Generando archivos de Excel con formatos y gráficas usando Python</h1><p class="page-description">Cómo exportar datos a archivos de Excel configurando el estilo de las celdas usando Pandas</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-09-18T00:00:00-05:00" itemprop="datePublished">
+        Sep 18, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      13 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#pandas">pandas</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Aplicar-formato-a-las-celdas">Aplicar formato a las celdas </a></li>
+<li class="toc-entry toc-h2"><a href="#Formato-condicional">Formato condicional </a></li>
+<li class="toc-entry toc-h2"><a href="#Gráficas-en-Excel">Gráficas en Excel </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-09-18-exporta-excel-con-estilo.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>Elaborado por Juan Javier Santos Ochoa (<a href="https://twitter.com/jjsantoso">@jjsantoso</a>)</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Excel es un tipo de archivo muy común para compartir datos. No a todos les encanta, pero tiene la ventaja de que es muy popular y muchas personas no familiarizadas con la programación lo usan para su análisis. Una de las funciones de Excel que no es fácil de replicar con otras herramientas es la posibilidad de aplicar estilo a las celdas y generar tablas o reportes más actractivos para presentar los datos. En esta entrada veremos cómo, usando Python, podemos exportar datos a archivos de Excel aplicando estilos y formatos a las celdas.</p>
+<p>Como ejemplo usaremos los datos de <a href="http://datatopics.worldbank.org/world-development-indicators/">indicadores de desarrollo del Banco Mundial</a>. En su página puedes ver y descargar mucha información.  Acá puedes <a href="http://jjsantoso.com/blog/datos/datos_excel_estilo.zip">decargar los archivos</a> que en particular uso en esta entrada. Descárgalos y guárdalos en una carpeta llamada datos.</p>
+<p>Lo que haremos es crear fichas para los metadatos que sean más fáciles de leer, ya que leer esta información tal como viene en el archivo original es un poco difícil. La idea es pasar de esto:</p>
+<p><img src="/images/copied_from_nb/imagenes/wd1_vista_metadatos_1.png" alt=""></p>
+<p>a esto:</p>
+<p><img src="/images/copied_from_nb/imagenes/ficha_metadato_vista_5.png" alt=""></p>
+<p>Además, usaremos el formato condicional para establecer detalles como el color de las celdas dependiendo de sus valores. Luego, como bonus, aprovechando que ya sabremos usar <code>xlsxwriter</code>, veremos cómo crear gráficas que se guardan dentro del archivo de Excel.</p>
+<p>Para seguir este tutorial es necesario tener instaladas las bibliotecas <code>pandas</code> y <code>xlsxwriter</code>. La biblioteca <a href="https://xlsxwriter.readthedocs.io/">xlsxwriter</a> es excelente y está muy bien documentada por su autor. La mayor parte de lo que aquí hacemos se basa en sus ejemplos.  <code>xlsxwriter</code> se instala usando <code>pip</code></p>
+
+<pre><code>pip install XlsxWriter</code></pre>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">xlsxwriter</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">xlsxwriter</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">xlsxwriter</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>xlsxwriter 1.2.7
+pandas 0.24.2
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por brevedad solo leeremos las 10 primeras filas del archivo que contienen los metadatos.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'datos/WDISeries.csv'</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
+<span class="n">metadata</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Series Code</th>
+      <th>Topic</th>
+      <th>Indicator Name</th>
+      <th>Short definition</th>
+      <th>Long definition</th>
+      <th>Unit of measure</th>
+      <th>Periodicity</th>
+      <th>Base Period</th>
+      <th>Other notes</th>
+      <th>Aggregation method</th>
+      <th>...</th>
+      <th>Notes from original source</th>
+      <th>General comments</th>
+      <th>Source</th>
+      <th>Statistical concept and methodology</th>
+      <th>Development relevance</th>
+      <th>Related source links</th>
+      <th>Other web links</th>
+      <th>Related indicators</th>
+      <th>License Type</th>
+      <th>Unnamed: 20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AG.AGR.TRAC.NO</td>
+      <td>Environment: Agricultural production</td>
+      <td>Agricultural machinery, tractors</td>
+      <td></td>
+      <td>Agricultural machinery refers to the number of...</td>
+      <td></td>
+      <td>Annual</td>
+      <td></td>
+      <td></td>
+      <td>Sum</td>
+      <td>...</td>
+      <td></td>
+      <td></td>
+      <td>Food and Agriculture Organization, electronic ...</td>
+      <td>A tractor provides the power and traction to m...</td>
+      <td>Agricultural land covers more than one-third o...</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>CC BY-4.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AG.CON.FERT.PT.ZS</td>
+      <td>Environment: Agricultural production</td>
+      <td>Fertilizer consumption (% of fertilizer produc...</td>
+      <td></td>
+      <td>Fertilizer consumption measures the quantity o...</td>
+      <td></td>
+      <td>Annual</td>
+      <td></td>
+      <td></td>
+      <td>Weighted average</td>
+      <td>...</td>
+      <td></td>
+      <td></td>
+      <td>Food and Agriculture Organization, electronic ...</td>
+      <td>Fertilizer consumption measures the quantity o...</td>
+      <td>Factors such as the green revolution, has led ...</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>CC BY-4.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AG.CON.FERT.ZS</td>
+      <td>Environment: Agricultural production</td>
+      <td>Fertilizer consumption (kilograms per hectare ...</td>
+      <td></td>
+      <td>Fertilizer consumption measures the quantity o...</td>
+      <td></td>
+      <td>Annual</td>
+      <td></td>
+      <td></td>
+      <td>Weighted average</td>
+      <td>...</td>
+      <td></td>
+      <td></td>
+      <td>Food and Agriculture Organization, electronic ...</td>
+      <td>Fertilizer consumption measures the quantity o...</td>
+      <td>Factors such as the green revolution, has led ...</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>CC BY-4.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AG.LND.AGRI.K2</td>
+      <td>Environment: Land use</td>
+      <td>Agricultural land (sq. km)</td>
+      <td></td>
+      <td>Agricultural land refers to the share of land ...</td>
+      <td></td>
+      <td>Annual</td>
+      <td></td>
+      <td></td>
+      <td>Sum</td>
+      <td>...</td>
+      <td></td>
+      <td></td>
+      <td>Food and Agriculture Organization, electronic ...</td>
+      <td>Agricultural land constitutes only a part of a...</td>
+      <td>Agricultural land covers more than one-third o...</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>CC BY-4.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AG.LND.AGRI.ZS</td>
+      <td>Environment: Land use</td>
+      <td>Agricultural land (% of land area)</td>
+      <td></td>
+      <td>Agricultural land refers to the share of land ...</td>
+      <td></td>
+      <td>Annual</td>
+      <td></td>
+      <td></td>
+      <td>Weighted average</td>
+      <td>...</td>
+      <td></td>
+      <td></td>
+      <td>Food and Agriculture Organization, electronic ...</td>
+      <td>Agriculture is still a major sector in many ec...</td>
+      <td>Agricultural land covers more than one-third o...</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>CC BY-4.0</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aplicar-formato-a-las-celdas">
+<a class="anchor" href="#Aplicar-formato-a-las-celdas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aplicar formato a las celdas<a class="anchor-link" href="#Aplicar-formato-a-las-celdas"> </a>
+</h2>
+<p>A continuación vamos a crear un libro (workbook) con <code>xlsxwriter</code> llamado <code>fichas_metadatos.xlsx</code>. A este libro le agregamos una hoja (worksheet).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">workbook</span> <span class="o">=</span> <span class="n">xlsxwriter</span><span class="o">.</span><span class="n">Workbook</span><span class="p">(</span><span class="sa">f</span><span class="s1">'datos/fichas_metadatos.xlsx'</span><span class="p">)</span>
+<span class="n">worksheet</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_worksheet</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Empezaremos a configurar el tamaño de las filas y columnas de la hoja. Esto lo hacemos con los métodos <code>.set_column()</code> y <code>.set_row()</code>. En <code>.set_column()</code> es importante especificar un rango, incluso si es una sola columna, de lo contrario obtendríamos un error. Las unidades son las mismas que usa Excel para fijar el ancho y alto de las celdas. Cuando terminamos de editar cerramos el libro con <code>workbook.close()</code> y esto escribe el contenido al archivo.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'B:B'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'C:C'</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'D:D'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'E:E'</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># Cambiamos tamaños de filas</span>
+<span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">34</span><span class="p">)</span>
+<span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">)</span>
+<span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">workbook</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Así se ve el resultado hasta ahora:
+<img src="/images/copied_from_nb/imagenes/ficha_metadato_vista_2.png" alt="">
+Las celdas no tienen contenido pero sí tienen tamaños diferentes.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora vamos a combinar varias celdas y escribir algo de contenido.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">xlsxwriter</span><span class="o">.</span><span class="n">Workbook</span><span class="p">(</span><span class="sa">f</span><span class="s1">'datos/fichas_metadatos.xlsx'</span><span class="p">)</span> <span class="k">as</span> <span class="n">workbook</span><span class="p">:</span>
+    <span class="n">worksheet</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_worksheet</span><span class="p">()</span>
+    <span class="c1"># Cambiamos tamaños de columnas y filas</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'B:B'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'C:C'</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'D:D'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'E:E'</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">34</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    
+    <span class="c1"># Escribimos título</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">merge_range</span><span class="p">(</span><span class="s1">'B1:E1'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Indicator Name'</span><span class="p">])</span>
+    <span class="c1"># fila 2</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B2'</span><span class="p">,</span> <span class="s1">'Código de serie:'</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'C2'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Series Code'</span><span class="p">])</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'D2'</span><span class="p">,</span> <span class="s1">'Tópico:'</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'E2'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Topic'</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Con el método <code>.merge_range()</code> combinamos las celdas en el rango <code>B1:E1</code> en una sola celda. Además, escribimos en esta misma celda el contenido del nombre del indicador (Indicator Name) del primer indicador que está en el DataFrame <code>metadata</code>. </li>
+<li>Con el método <code>.write()</code> escribimos contenido específico para cada una de las celdas en las siguientes filas. Por ejemplo, en la celda <code>B2</code> escribimos el texto <code>Código de serie:</code> y en <code>C2</code> escribimos el código del indicador (Series Code) que viene en la primera fila del indicador. En las celdas <code>D2</code> y <code>E2</code> escribimos el tópico del indicador. </li>
+<li>Aquí también cambiamos un poco la sintaxis para abrir el libro usando la expresion <code>with ... as ...:</code>. De esta forma todas las operaciones deben quedar bajo la indentación y no hay necesidad de cerrar explícitamente el libro. 
+El resultado se ve así:
+<img src="/images/copied_from_nb/imagenes/ficha_metadato_vista_3.png" alt="">
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora continuamos escribiendo otras variables en las filas.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">xlsxwriter</span><span class="o">.</span><span class="n">Workbook</span><span class="p">(</span><span class="sa">f</span><span class="s1">'datos/fichas_metadatos.xlsx'</span><span class="p">)</span> <span class="k">as</span> <span class="n">workbook</span><span class="p">:</span>
+    <span class="n">worksheet</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_worksheet</span><span class="p">()</span>
+    <span class="c1"># Cambiamos tamaños de columnas y filas</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'B:B'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'C:C'</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'D:D'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'E:E'</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">34</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    
+    <span class="c1"># Escribimos título</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">merge_range</span><span class="p">(</span><span class="s1">'B1:E1'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Indicator Name'</span><span class="p">])</span>
+    <span class="c1"># fila 2</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B2'</span><span class="p">,</span> <span class="s1">'Código de serie:'</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'C2'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Series Code'</span><span class="p">])</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'D2'</span><span class="p">,</span> <span class="s1">'Tópico:'</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'E2'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Topic'</span><span class="p">])</span>
+    <span class="c1"># fila 3</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B3'</span><span class="p">,</span> <span class="s1">'Agregación:'</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'C3'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Aggregation method'</span><span class="p">])</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'D3'</span><span class="p">,</span> <span class="s1">'Periodicidad:'</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'E3'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Periodicity'</span><span class="p">])</span>
+    <span class="c1"># fila 4</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B4'</span><span class="p">,</span> <span class="s1">'Definición:'</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">merge_range</span><span class="p">(</span><span class="s1">'C4:E4'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Long definition'</span><span class="p">])</span>
+    <span class="c1"># fila 5</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B5'</span><span class="p">,</span> <span class="s1">'Fuente:'</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">merge_range</span><span class="p">(</span><span class="s1">'C5:E5'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Source'</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/imagenes/ficha_metadato_vista_4.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ya que tenemos el contenido de las celdas, lo que nos falta es el aplicar formato para que se vea más atractivo.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">xlsxwriter</span><span class="o">.</span><span class="n">Workbook</span><span class="p">(</span><span class="sa">f</span><span class="s1">'datos/fichas_metadatos.xlsx'</span><span class="p">)</span> <span class="k">as</span> <span class="n">workbook</span><span class="p">:</span>
+    <span class="n">worksheet</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_worksheet</span><span class="p">()</span>
+    <span class="c1"># Cambiamos tamaños de columnas y filas</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'B:B'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'C:C'</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'D:D'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'E:E'</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">34</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="c1"># Formato de titulo</span>
+    <span class="n">formato_titulo</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span>
+        <span class="s1">'bold'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">'border'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'center'</span><span class="p">,</span>
+        <span class="s1">'valign'</span><span class="p">:</span> <span class="s1">'vcenter'</span><span class="p">,</span>
+        <span class="s1">'fg_color'</span><span class="p">:</span> <span class="s1">'#333f4f'</span><span class="p">,</span>
+        <span class="s1">'font_color'</span><span class="p">:</span> <span class="s1">'white'</span><span class="p">,</span>
+        <span class="s1">'text_wrap'</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+    <span class="c1"># Formato de variables</span>
+    <span class="n">formato_variables</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span>
+        <span class="s1">'bold'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">'border'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'left'</span><span class="p">,</span>
+        <span class="s1">'valign'</span><span class="p">:</span> <span class="s1">'top'</span><span class="p">,</span>
+        <span class="s1">'fg_color'</span><span class="p">:</span> <span class="s1">'#ddebf7'</span><span class="p">,</span>
+        <span class="s1">'font_color'</span><span class="p">:</span> <span class="s1">'black'</span><span class="p">,</span>
+        <span class="s1">'text_wrap'</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+    <span class="c1"># Formato del texto normal</span>
+    <span class="n">formato_normal</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span>
+        <span class="s1">'border'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'left'</span><span class="p">,</span>
+        <span class="s1">'valign'</span><span class="p">:</span> <span class="s1">'top'</span><span class="p">,</span>
+        <span class="s1">'text_wrap'</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+
+    <span class="c1"># Escribimos título</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">merge_range</span><span class="p">(</span><span class="s1">'B1:E1'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Indicator Name'</span><span class="p">],</span> <span class="n">formato_titulo</span><span class="p">)</span>
+    <span class="c1"># fila 2</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B2'</span><span class="p">,</span> <span class="s1">'Código de serie:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'C2'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Series Code'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'D2'</span><span class="p">,</span> <span class="s1">'Tópico:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'E2'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Topic'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+    <span class="c1"># fila 3</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B3'</span><span class="p">,</span> <span class="s1">'Agregación:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'C3'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Aggregation method'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'D3'</span><span class="p">,</span> <span class="s1">'Periodicidad:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'E3'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Periodicity'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+    <span class="c1"># fila 4</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B4'</span><span class="p">,</span> <span class="s1">'Definición:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">merge_range</span><span class="p">(</span><span class="s1">'C4:E4'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Long definition'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+    <span class="c1"># fila 5</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B5'</span><span class="p">,</span> <span class="s1">'Fuente:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">merge_range</span><span class="p">(</span><span class="s1">'C5:E5'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Source'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Para ello debemos definir los formatos en el libro con el método <code>workbook.add_format()</code> al que le pasamos un diccionaro con las opciones de formato, como por ejemplo si queremos que el texto aparezca en <strong>negrita</strong>, que esté alineado al centro, el color del texto y el del fondo de la celda. Todas las opciones disponibles y más ejemplos se pueden encontrar en la <a href="https://xlsxwriter.readthedocs.io/tutorial02.html">documentación de <code>xlsxwriter</code></a>.</p>
+<p>Aquí definimos tres tipos de formato: el formato para el nombre del indicador (formato_titulo), el formato para las celdas que tienen el nombre de la variable (formato_variables) y el formato para escribir la información (formato_normal). Para aplicar el formato a una celda, o a un conjunto de ellas, debemos pasar el objeto formato como tercer input al método <code>worksheet.write()</code>.
+Y así luce el resultado final:</p>
+<p><img src="/images/copied_from_nb/imagenes/ficha_metadato_vista_5.png" alt=""></p>
+<p>Estas fichas son mucho más fáciles de leer que en el formato original.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Para finalizar esta parte solo nos queda iterar sobre todo el dataframe y crear una ficha de metadato para cada indicador, cada una en una hoja diferente:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">xlsxwriter</span><span class="o">.</span><span class="n">Workbook</span><span class="p">(</span><span class="sa">f</span><span class="s1">'datos/fichas_metadatos.xlsx'</span><span class="p">)</span> <span class="k">as</span> <span class="n">workbook</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">metadata</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="c1"># agrega nueva ahoja</span>
+        <span class="n">worksheet</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_worksheet</span><span class="p">()</span>
+        <span class="c1"># nombre de la hoja</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fila</span><span class="p">,</span> <span class="s1">'Series Code'</span><span class="p">]</span>
+        <span class="c1"># Cambiamos tamaños de columnas y filas</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'B:B'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'C:C'</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'D:D'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'E:E'</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">34</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">set_row</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+        <span class="c1"># Formato de titulo</span>
+        <span class="n">formato_titulo</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span>
+            <span class="s1">'bold'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">'border'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'center'</span><span class="p">,</span>
+            <span class="s1">'valign'</span><span class="p">:</span> <span class="s1">'vcenter'</span><span class="p">,</span>
+            <span class="s1">'fg_color'</span><span class="p">:</span> <span class="s1">'#333f4f'</span><span class="p">,</span>
+            <span class="s1">'font_color'</span><span class="p">:</span> <span class="s1">'white'</span><span class="p">,</span>
+            <span class="s1">'text_wrap'</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+        <span class="c1"># Formato de variables</span>
+        <span class="n">formato_variables</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span>
+            <span class="s1">'bold'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">'border'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'left'</span><span class="p">,</span>
+            <span class="s1">'valign'</span><span class="p">:</span> <span class="s1">'top'</span><span class="p">,</span>
+            <span class="s1">'fg_color'</span><span class="p">:</span> <span class="s1">'#ddebf7'</span><span class="p">,</span>
+            <span class="s1">'font_color'</span><span class="p">:</span> <span class="s1">'black'</span><span class="p">,</span>
+            <span class="s1">'text_wrap'</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+        <span class="c1"># Formato del texto normal</span>
+        <span class="n">formato_normal</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span>
+            <span class="s1">'border'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">'align'</span><span class="p">:</span> <span class="s1">'left'</span><span class="p">,</span>
+            <span class="s1">'valign'</span><span class="p">:</span> <span class="s1">'top'</span><span class="p">,</span>
+            <span class="s1">'text_wrap'</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+
+        <span class="c1"># Escribimos título</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">merge_range</span><span class="p">(</span><span class="s1">'B1:E1'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fila</span><span class="p">,</span> <span class="s1">'Indicator Name'</span><span class="p">],</span> <span class="n">formato_titulo</span><span class="p">)</span>
+        <span class="c1"># fila 2</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B2'</span><span class="p">,</span> <span class="s1">'Código de serie:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'C2'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fila</span><span class="p">,</span> <span class="s1">'Series Code'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'D2'</span><span class="p">,</span> <span class="s1">'Tópico:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'E2'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fila</span><span class="p">,</span> <span class="s1">'Topic'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+        <span class="c1"># fila 3</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B3'</span><span class="p">,</span> <span class="s1">'Agregación:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'C3'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fila</span><span class="p">,</span> <span class="s1">'Aggregation method'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'D3'</span><span class="p">,</span> <span class="s1">'Periodicidad:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'E3'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fila</span><span class="p">,</span> <span class="s1">'Periodicity'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+        <span class="c1"># fila 4</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B4'</span><span class="p">,</span> <span class="s1">'Definición:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">merge_range</span><span class="p">(</span><span class="s1">'C4:E4'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fila</span><span class="p">,</span> <span class="s1">'Long definition'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+        <span class="c1"># fila 5</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'B5'</span><span class="p">,</span> <span class="s1">'Fuente:'</span><span class="p">,</span> <span class="n">formato_variables</span><span class="p">)</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">merge_range</span><span class="p">(</span><span class="s1">'C5:E5'</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">fila</span><span class="p">,</span> <span class="s1">'Source'</span><span class="p">],</span> <span class="n">formato_normal</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Formato-condicional">
+<a class="anchor" href="#Formato-condicional" aria-hidden="true"><span class="octicon octicon-link"></span></a>Formato condicional<a class="anchor-link" href="#Formato-condicional"> </a>
+</h2>
+<p><code>xlsxwriter</code> también tiene la opción de aplicar <a href="https://xlsxwriter.readthedocs.io/working_with_conditional_formats.html">formato condicional</a>, esto es que el formato de la celda varíe dependiendo del valor de la celda. Esto es útil cuando reportamos datos y queremos, por ejemplo, que el color de la celda esté relacionado con su valor, de forma que un valor más alto da un color más intenso. Esto se puede hacer directamente en Excel como menciona <a href="https://xlsxwriter.readthedocs.io/working_with_conditional_formats.html">este tutorial</a>.</p>
+<p>Para ver cómo funciona usaremos los datos de uno de los indicadores de desarrollo que vimos antes. El indicador es el de porcentaje de la tierra que es de uso agrícola y se encuentra en el archivo <code>indicador_tierra_agro.csv</code>. El dataframe que creamos se llama <code>datos</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">datos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'datos/indicador_tierra_agro.csv'</span><span class="p">)</span>\
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">datos</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Country Name</th>
+      <th>Country Code</th>
+      <th>Indicator Name</th>
+      <th>Indicator Code</th>
+      <th>1960</th>
+      <th>1961</th>
+      <th>1962</th>
+      <th>1963</th>
+      <th>1964</th>
+      <th>1965</th>
+      <th>...</th>
+      <th>2011</th>
+      <th>2012</th>
+      <th>2013</th>
+      <th>2014</th>
+      <th>2015</th>
+      <th>2016</th>
+      <th>2017</th>
+      <th>2018</th>
+      <th>2019</th>
+      <th>Unnamed: 64</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Arab World</td>
+      <td>ARB</td>
+      <td>Agricultural land (% of land area)</td>
+      <td>AG.LND.AGRI.ZS</td>
+      <td>NaN</td>
+      <td>27.835643</td>
+      <td>27.826564</td>
+      <td>27.845522</td>
+      <td>27.847925</td>
+      <td>27.866972</td>
+      <td>...</td>
+      <td>36.440808</td>
+      <td>36.472300</td>
+      <td>36.534503</td>
+      <td>36.607475</td>
+      <td>36.624759</td>
+      <td>36.610850</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Caribbean small states</td>
+      <td>CSS</td>
+      <td>Agricultural land (% of land area)</td>
+      <td>AG.LND.AGRI.ZS</td>
+      <td>NaN</td>
+      <td>5.518775</td>
+      <td>5.526186</td>
+      <td>5.533597</td>
+      <td>5.538538</td>
+      <td>5.484190</td>
+      <td>...</td>
+      <td>6.198839</td>
+      <td>6.186983</td>
+      <td>6.215388</td>
+      <td>6.226504</td>
+      <td>6.245770</td>
+      <td>6.268000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Central Europe and the Baltics</td>
+      <td>CEB</td>
+      <td>Agricultural land (% of land area)</td>
+      <td>AG.LND.AGRI.ZS</td>
+      <td>NaN</td>
+      <td>64.667028</td>
+      <td>64.625380</td>
+      <td>64.540412</td>
+      <td>64.591952</td>
+      <td>64.402941</td>
+      <td>...</td>
+      <td>47.871658</td>
+      <td>47.515760</td>
+      <td>46.958264</td>
+      <td>46.895589</td>
+      <td>46.988619</td>
+      <td>46.715708</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Early-demographic dividend</td>
+      <td>EAR</td>
+      <td>Agricultural land (% of land area)</td>
+      <td>AG.LND.AGRI.ZS</td>
+      <td>NaN</td>
+      <td>35.425733</td>
+      <td>35.400661</td>
+      <td>35.345373</td>
+      <td>35.313357</td>
+      <td>35.283656</td>
+      <td>...</td>
+      <td>41.439188</td>
+      <td>41.511835</td>
+      <td>41.537124</td>
+      <td>41.476279</td>
+      <td>41.464427</td>
+      <td>41.466296</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>East Asia &amp; Pacific</td>
+      <td>EAS</td>
+      <td>Agricultural land (% of land area)</td>
+      <td>AG.LND.AGRI.ZS</td>
+      <td>NaN</td>
+      <td>43.329285</td>
+      <td>43.552552</td>
+      <td>43.807975</td>
+      <td>44.062835</td>
+      <td>44.395486</td>
+      <td>...</td>
+      <td>48.795620</td>
+      <td>48.666721</td>
+      <td>48.340167</td>
+      <td>48.777005</td>
+      <td>47.678013</td>
+      <td>47.783780</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 65 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vamos a seleccionar solo el nombre del país (o grupo de países) y un par de años (2010 y 2016) de datos. Estos los vamos a guardar con formato condicional usando el siguiente código:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="s1">'datos/indicador_agro_formato.xlsx'</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">'xlsxwriter'</span><span class="p">)</span> <span class="k">as</span> <span class="n">excelfile</span><span class="p">:</span>
+    <span class="n">workbook</span> <span class="o">=</span> <span class="n">excelfile</span><span class="o">.</span><span class="n">book</span>
+    <span class="c1"># Agregamos datos al libro</span>
+    <span class="n">sheetname</span> <span class="o">=</span> <span class="s1">'agro'</span>
+    <span class="n">datos</span><span class="p">[[</span><span class="s1">'Country Name'</span><span class="p">,</span> <span class="s1">'2000'</span><span class="p">,</span> <span class="s1">'2016'</span><span class="p">]]</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excelfile</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheetname</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>    
+    <span class="c1"># Definimos formatos</span>
+    <span class="n">formato_porcentaje</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span><span class="s1">'num_format'</span><span class="p">:</span> <span class="s1">'0.0\%'</span><span class="p">,</span> <span class="s1">'font_color'</span><span class="p">:</span> <span class="s1">'#FFFFFF'</span><span class="p">})</span>
+    <span class="n">formato_bg_blanco</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span><span class="s1">'bg_color'</span><span class="p">:</span> <span class="s1">'#FFFFFF'</span><span class="p">})</span>
+    <span class="n">formato_escala</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'type'</span><span class="p">:</span> <span class="s1">'2_color_scale'</span><span class="p">,</span> <span class="s1">'min_color'</span><span class="p">:</span> <span class="s1">'#D9D9D9'</span><span class="p">,</span> <span class="s1">'max_color'</span><span class="p">:</span> <span class="s1">'#808080'</span><span class="p">}</span>
+    <span class="n">worksheet</span> <span class="o">=</span> <span class="n">excelfile</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">sheetname</span><span class="p">]</span>
+    <span class="c1"># Configuramos formato a los datos</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'A:A'</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">formato_bg_blanco</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s1">'B2:C265'</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">formato_porcentaje</span><span class="p">)</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">conditional_format</span><span class="p">(</span><span class="s1">'B2:C265'</span><span class="p">,</span> <span class="n">formato_escala</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Acá algunos detalles de lo que hace:</p>
+<ul>
+<li>En esta ocasión usamos la función <code>pd.ExcelWriter</code> para crear el archivo <code>excelfile</code>, que a su vez tiene un libro (workbook). Usamos el método <code>.to_excel()</code>  para guardar los datos en <code>excelfile</code>.  </li>
+<li>Definimos varios formatos. El primero, <code>formato_porcentaje</code>, es para que los número se vean con el símbolo de porcentaje; el segundo formato, <code>formato_bg_blanco</code>, es para que en la primera columna no se noten las divisiones de las celdas; y el tercero, <code>formato_escala</code>, es para hacer un formato de escala de 2 colores que va desde un color para el valor mínimo hasta otro en el valor máximo. Los valores intermedios reciben colores intermedios según una escala de colores lineal. </li>
+<li>Lo que sigue es aplicar estos formatos a los valores de la hoja donde habíamos guardado los datos. El formato condicional se especifica con el método <code>worksheet.conditional_format()</code>.</li>
+</ul>
+<p>El resultado en Excel es el siguiente:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/imagenes/formato_condicional_vista_1.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Gráficas-en-Excel">
+<a class="anchor" href="#Gr%C3%A1ficas-en-Excel" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gráficas en Excel<a class="anchor-link" href="#Gr%C3%A1ficas-en-Excel"> </a>
+</h2>
+<p>Por último, aprovechando que le entendemos un poco a <code>xlsxwriter</code>, podemos ver cómo hacer gráficas de Excel con los datos del libro. Puede parecer un poco extraño hacer gráficas de Excel usando Python si podemos hacerlas directamente en Python usando una biblioteca como Matplotlib, sin embargo, una ventaja de Excel es que cualquiera puede editar luego las gráficas, mientras que las creadas mediante Matplotlib no son directamente editables.</p>
+<p>En este caso usamos los mismos datos anteriores del indicador de porcentaje de la tierra con uso agrícola para hacer una gráfica de barras.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="s1">'datos/grafica_indicador_agro.xlsx'</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">'xlsxwriter'</span><span class="p">)</span> <span class="k">as</span> <span class="n">excelfile</span><span class="p">:</span>
+    <span class="n">sheet_name</span> <span class="o">=</span> <span class="s1">'agro'</span>
+    <span class="c1"># Guarda los datos en el archivo</span>
+    <span class="n">datos</span><span class="p">[[</span><span class="s1">'Country Name'</span><span class="p">,</span> <span class="s1">'2000'</span><span class="p">,</span> <span class="s1">'2016'</span><span class="p">]]</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excelfile</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheet_name</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># Obtiene el libro y hoja de trabajo</span>
+    <span class="n">workbook</span> <span class="o">=</span> <span class="n">excelfile</span><span class="o">.</span><span class="n">book</span>
+    <span class="n">worksheet</span> <span class="o">=</span> <span class="n">excelfile</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">sheet_name</span><span class="p">]</span>
+    <span class="c1"># Crea un objeto tipo gráfica</span>
+    <span class="n">chart</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_chart</span><span class="p">({</span><span class="s1">'type'</span><span class="p">:</span> <span class="s1">'bar'</span><span class="p">})</span>
+    <span class="c1"># Configura las series</span>
+    <span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">({</span>
+        <span class="s1">'categories'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'=</span><span class="si">{</span><span class="n">sheet_name</span><span class="si">}</span><span class="s1">!$A$2:$A$15'</span><span class="p">,</span>
+        <span class="s1">'values'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'=</span><span class="si">{</span><span class="n">sheet_name</span><span class="si">}</span><span class="s1">!$B$2:$B$15'</span><span class="p">,</span>
+        <span class="s1">'name'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'=</span><span class="si">{</span><span class="n">sheet_name</span><span class="si">}</span><span class="s1">!$B$1'</span><span class="p">,</span>
+        <span class="s1">'gap'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="p">})</span>
+
+    <span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">({</span>
+        <span class="s1">'categories'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'=</span><span class="si">{</span><span class="n">sheet_name</span><span class="si">}</span><span class="s1">!$A$2:$A$15'</span><span class="p">,</span>
+        <span class="s1">'values'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'=</span><span class="si">{</span><span class="n">sheet_name</span><span class="si">}</span><span class="s1">!$C$2:$C$15'</span><span class="p">,</span>
+        <span class="s1">'name'</span><span class="p">:</span> <span class="sa">f</span><span class="s1">'=</span><span class="si">{</span><span class="n">sheet_name</span><span class="si">}</span><span class="s1">!$C$1'</span><span class="p">,</span>
+        <span class="s1">'gap'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="c1"># configura opciones del gráfico</span>
+    <span class="n">chart</span><span class="o">.</span><span class="n">set_size</span><span class="p">({</span><span class="s1">'width'</span><span class="p">:</span> <span class="mi">650</span><span class="p">,</span> <span class="s1">'height'</span><span class="p">:</span> <span class="mi">400</span><span class="p">})</span>
+    <span class="n">chart</span><span class="o">.</span><span class="n">set_title</span><span class="p">({</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'Porcentaje de tierra de uso agrícola'</span><span class="p">,</span> <span class="s1">'name_font'</span><span class="p">:</span>  <span class="p">{</span><span class="s1">'size'</span><span class="p">:</span> <span class="mi">12</span><span class="p">}})</span>
+    <span class="n">chart</span><span class="o">.</span><span class="n">set_x_axis</span><span class="p">({</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'Porcentaje'</span><span class="p">,</span> <span class="s1">'major_gridlines'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'visible'</span><span class="p">:</span> <span class="kc">True</span><span class="p">}})</span>
+    <span class="c1"># Introduce el grafico en la hoja</span>
+    <span class="n">worksheet</span><span class="o">.</span><span class="n">insert_chart</span><span class="p">(</span><span class="s1">'D2'</span><span class="p">,</span> <span class="n">chart</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Para agregar una gráfica creamos un objeto chart usando el método <code>workbook.add_chart()</code>, en este caso especificando que es de tipo barra.</li>
+<li>Al objeto chart le pasamos 2 series, la del año 2010 y la del 2016. Solo seleccionamos las primeras 15 observaciones para no sobrecargar la gráfica. Las categorías son los nombres de los países, columna <code>A</code>, y las especificamos con la sintaxis de Excel para rangos de valores. Hacemos igual con los valores, que están en las columnas <code>B</code> y <code>C</code>. Ponemos los nombres de las series y también la opción <code>gap</code>, esta última para controlar el ancho de las barras.</li>
+<li>Configuramos el tamaño de la gráfica, el título y la etiqueta en el eje x. </li>
+<li>Finalmente introducimos la gráfica en la hoja de los datos, en la celda <code>D2</code>.</li>
+</ul>
+<p>El resultado luce así en Excel:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/imagenes/grafica_excel_vista_1.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pueden encontrar más ejemplos de gráficas en la documentación de <a href="https://xlsxwriter.readthedocs.io/working_with_charts.html">xlsxwriter</a>.</p>
+<p>Con esto terminamos esta entrada cuyo objetivo principal fue introducir las funcionalidades que ofrece <code>xlsxwriter</code> para  crear archivos de Excel con formatos mucho más ricos. A mí me ha servido mucho en mi trabajo, espero que a ti también pueda resultarte útil.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="jjsantos01/jjsantosoblog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/excel-formato-graficas/" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Intentando aplicar ciencia de datos a las ciencias sociales.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
