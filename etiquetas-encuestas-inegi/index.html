@@ -750,7 +750,8 @@ memory usage: 29.9+ MB
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">archivos_catalogo_respuestas</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">'conjunto_de_datos_CB_ENSU_12_2020/catalogos/*.csv'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dir_catalogos</span> <span class="o">=</span> <span class="s1">'conjunto_de_datos_CB_ENSU_12_2020/catalogos/'</span>
+<span class="n">archivos_catalogo_respuestas</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob1</span><span class="p">(</span><span class="n">dir_catalogos</span><span class="p">,</span> <span class="s1">'*.csv'</span><span class="p">)</span>
 <span class="n">archivos_catalogo_respuestas</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 
@@ -766,16 +767,16 @@ memory usage: 29.9+ MB
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>['conjunto_de_datos_CB_ENSU_12_2020/catalogos\\BP1_1.csv',
- 'conjunto_de_datos_CB_ENSU_12_2020/catalogos\\BP1_10_1.csv',
- 'conjunto_de_datos_CB_ENSU_12_2020/catalogos\\BP1_10_2.csv',
- 'conjunto_de_datos_CB_ENSU_12_2020/catalogos\\BP1_10_3.csv',
- 'conjunto_de_datos_CB_ENSU_12_2020/catalogos\\BP1_10_4.csv',
- 'conjunto_de_datos_CB_ENSU_12_2020/catalogos\\BP1_10_5.csv',
- 'conjunto_de_datos_CB_ENSU_12_2020/catalogos\\BP1_2_01.csv',
- 'conjunto_de_datos_CB_ENSU_12_2020/catalogos\\BP1_2_02.csv',
- 'conjunto_de_datos_CB_ENSU_12_2020/catalogos\\BP1_2_03.csv',
- 'conjunto_de_datos_CB_ENSU_12_2020/catalogos\\BP1_2_04.csv']</pre>
+<pre>['BP1_1.csv',
+ 'BP1_10_1.csv',
+ 'BP1_10_2.csv',
+ 'BP1_10_3.csv',
+ 'BP1_10_4.csv',
+ 'BP1_10_5.csv',
+ 'BP1_2_01.csv',
+ 'BP1_2_02.csv',
+ 'BP1_2_03.csv',
+ 'BP1_2_04.csv']</pre>
 </div>
 
 </div>
@@ -802,7 +803,7 @@ memory usage: 29.9+ MB
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dicc_respuestas</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\\</span><span class="s1">'</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">4</span><span class="p">]:</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'latin1'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\\</span><span class="s1">'</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">4</span><span class="p">])[</span><span class="s1">'descrip'</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">archivos_catalogo_respuestas</span>
+    <span class="n">f</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]:</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">dir_catalogos</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'latin1'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="n">f</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">])[</span><span class="s1">'descrip'</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">archivos_catalogo_respuestas</span>
 <span class="p">}</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dicc_respuestas</span><span class="p">)[:</span><span class="mi">500</span><span class="p">])</span>
 </pre></div>
