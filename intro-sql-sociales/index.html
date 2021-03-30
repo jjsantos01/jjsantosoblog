@@ -1,0 +1,4243 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Introducción a bases de datos relacionales y SQL para científicos sociales | Blog de Juan Santos</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Introducción a bases de datos relacionales y SQL para científicos sociales" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Conceptos fundamentales para entender qué es SQL y por qué deberíamos usarlo" />
+<meta property="og:description" content="Conceptos fundamentales para entender qué es SQL y por qué deberíamos usarlo" />
+<link rel="canonical" href="http://blog.jjsantoso.com/intro-sql-sociales/" />
+<meta property="og:url" content="http://blog.jjsantoso.com/intro-sql-sociales/" />
+<meta property="og:site_name" content="Blog de Juan Santos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-30T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"http://blog.jjsantoso.com/intro-sql-sociales/","@type":"BlogPosting","headline":"Introducción a bases de datos relacionales y SQL para científicos sociales","dateModified":"2021-03-30T00:00:00-05:00","datePublished":"2021-03-30T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.jjsantoso.com/intro-sql-sociales/"},"description":"Conceptos fundamentales para entender qué es SQL y por qué deberíamos usarlo","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://blog.jjsantoso.com/feed.xml" title="Blog de Juan Santos" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-177879700-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Blog de Juan Santos</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">Bio</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Introducción a bases de datos relacionales y SQL para científicos sociales</h1><p class="page-description">Conceptos fundamentales para entender qué es SQL y por qué deberíamos usarlo</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-03-30T00:00:00-05:00" itemprop="datePublished">
+        Mar 30, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      29 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#sql">sql</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Introducción">Introducción </a></li>
+<li class="toc-entry toc-h2"><a href="#Limitantes-de-la-forma-usual-de-trabajar">Limitantes de la forma usual de trabajar </a></li>
+<li class="toc-entry toc-h1"><a href="#Sistemas-de-administración-de-bases-de-datos.">Sistemas de administración de bases de datos. </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Bases-de-datos-relacionales">Bases de datos relacionales </a></li>
+<li class="toc-entry toc-h2"><a href="#Structured-Query-Language-(SQL)">Structured Query Language (SQL) </a></li>
+<li class="toc-entry toc-h2"><a href="#SQL-vs-NoSQL">SQL vs NoSQL </a></li>
+<li class="toc-entry toc-h2"><a href="#Cuando-usar-una-DBMS">Cuando usar una DBMS </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#SQLite">SQLite </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Cliente">Cliente </a></li>
+<li class="toc-entry toc-h2"><a href="#Abrir-una-base-de-datos">Abrir una base de datos </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Consultas-SQL">Consultas SQL </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#SELECT">SELECT </a></li>
+<li class="toc-entry toc-h2"><a href="#LIMIT">LIMIT </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Práctica">Práctica </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#WHERE">WHERE </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Práctica">Práctica </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#seleccionar-valores-nulos">seleccionar valores nulos </a></li>
+<li class="toc-entry toc-h2"><a href="#ORDER-BY">ORDER BY </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Funciones-y-operaciones-con-columnas">Funciones y operaciones con columnas </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Práctica">Práctica </a></li>
+<li class="toc-entry toc-h2"><a href="#CASE-WHEN">CASE WHEN </a></li>
+<li class="toc-entry toc-h2"><a href="#Práctica">Práctica </a></li>
+<li class="toc-entry toc-h2"><a href="#DISTINCT">DISTINCT </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Agregaciones-y-agrupaciones">Agregaciones y agrupaciones </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Práctica">Práctica </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Uniones">Uniones </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Práctica">Práctica </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Referencias">Referencias </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-03-30-introduccion_bases_datos_y_sql.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introducción">
+<a class="anchor" href="#Introducci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introducción<a class="anchor-link" href="#Introducci%C3%B3n"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En ciencias sociales trabajamos mucho con datos para hacer investigación cuantitativa. Casi siempre, nuestros inicio en el manejo de datos se da en cursos de estadística, por lo que las funciones que necesitamos aprender son leer, procesar y reestructurar datos para luego visualizar variables y estimar modelos estadísticos. Como parte de nuestra práctica, normalmente guardamos la información en formatos de archivos como XLSX (Excel), CSV (comma separated values), TXT (texto plano), DTA (Stata), SAV (SPSS), Rdata (R) y trabajamos con Software de análisis de datos como Stata, R, SPSS, Python, SAS, entre otros. Además, solemos estructurar nuestra información de forma tal que toda quede en una única tabla. Llamemos a estas practicas como la <strong>"forma usual de trabajar"</strong>.</p>
+<p>Esta forma usual de trabajar tiene ventajas para nosotros porque nos facilita concentrarnos en procesar y analizar datos, en lugar de preocuparnos por la administración de la información. La mayoría de las veces se trata de tareas que solo ejecutaremos unas pocas veces en nuestra computadora y en las que no es necesario que otras personas puedan acceder a nuestros datos. Además, suele ser información que no se actualiza de forma continua y de una escala relativamente pequeña. Sin embargo, cuando nos enfrentamos a alguna de las situaciones que acabdo de describir anteriormente, ya no es tan conveniente seguir este flujo de trabajo. Pese a que existen desde hace mucho otras formas de trabajar cuando el proceso de manejo de datos se vuelve más complejo, normalmente desconocemos por completo otras alternativas. Una de esas alternativas son las bases de datos relacionales.</p>
+<p>A lo largo de esta sesión veremos cuáles son las situaciones en las que podemos considerar el uso de base de datos relacionales, cuáles son sus características y cómo podemos consultarlas. Empecemos primero viendo con un poco más de detalles las limitantes en la forma usual de trabajar .</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Limitantes-de-la-forma-usual-de-trabajar">
+<a class="anchor" href="#Limitantes-de-la-forma-usual-de-trabajar" aria-hidden="true"><span class="octicon octicon-link"></span></a>Limitantes de la forma usual de trabajar<a class="anchor-link" href="#Limitantes-de-la-forma-usual-de-trabajar"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<p><strong>Dificultad para leer y actualizar los datos</strong>: Los archivos planos (csv, txt) o binarios (Excel, Rdata, dta, etc) son difíciles de leer y actualizar. Siempre que se leen se debe abrir el archivo completo, aunque solo se necesite trabajar con unas pocas observaciones. Además, para agregar nuevos registros se requiere primero cargar todos los datos en memoria y luego volverlos a escribir nuevamente al disco, lo que es un proceso computacionalmente muy costoso.</p>
+</li>
+<li>
+<p><strong>Imposibilidad para modificar por varios usuarios</strong>: Estos archivos normalmente solo están disponibles de forma local (en nuestra computadora), por lo que solo pueden ser usados por un usuario a la vez. Una vez un usuario hace modificaciones, es difícil mantener a los demás usuarios con la información actualizada. Aún peor, si varios usuarios modifican los datos de forma individual, luego es muy difícil conciliar las diferentes versiones. Si bien existen alternativas en la nube (hojas de cálculo de Google, Excel online), estas están diseñadas para trabajar de forma interactiva, no programática.</p>
+</li>
+<li>
+<p><strong>No hay validación de datos</strong>: no hay una forma fácil de validar o aplicar restricciones sobre los datos nuevos que se ingresan en la base de datos. Una validación puede ser, por ejemplo, si tengo una variable numérica, no puedo guardar ahí un dato que es de texto, u otro  ejemplo es verificar que un nuevo valor que voy a ingresar esté dentro de un catálogo de opciones predeterminadas.</p>
+</li>
+<li>
+<p><strong>Falta de autenticación y permisos</strong>: no hay mecanismos para controlar qué usuarios pueden acceder a la información y qué facultades tienen para modificarla.</p>
+</li>
+<li>
+<p><strong>No asegura atomicidad de las transacciones</strong> : La atomicidad se refiere a que al hacer un conjunto de operaciones en una base de datos, ante un fallo el resultado no puede quedar a medias, el proceso se hace completo o no se hace nada.</p>
+</li>
+<li>
+<p><strong>Los datos deben caber en memoria RAM</strong>: la mayoría de software estadísticos deben leer los datos y guardarlo en la memoria RAM para poder trabajar con ellos, por lo que hay un límite sobre la cantidad de información que se puede analizar.</p>
+</li>
+<li>
+<p><strong>Redundancia</strong>: cuando se intenta que toda la información de un proyecto esté en una sola tabla de datos, muchas veces es necesario repetir la información.</p>
+</li>
+</ul>
+<p>Todas estas limitaciones pueden ser abordadas usando sistemas de administración de bases de datos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Sistemas-de-administración-de-bases-de-datos.">
+<a class="anchor" href="#Sistemas-de-administraci%C3%B3n-de-bases-de-datos." aria-hidden="true"><span class="octicon octicon-link"></span></a>Sistemas de administración de bases de datos.<a class="anchor-link" href="#Sistemas-de-administraci%C3%B3n-de-bases-de-datos."> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Antes que nada, hay que aclarar algo. En ciencias sociales le llamamos base de datos a cualquier archivo que contenga datos, pero tecnicamente esto no es correcto. Los ingenieros de sistemas entienden algo más complejo cuando se habla de bases de datos. Hay cierta ambiguedad en el término, pero cuando hablamos de bases de datos normalmente hacemos referencia a los Sistemas de Administración de Bases de Datos (DBMS, por sus siglas en inglés) que son sitemas que simplifican la administración de los datos de una forma organizada y consistente. Otras veces el término base de datos puede hacer referencia a un conjunto de datos guardado en un DBMS. Aunque se suelen usar indistintamente, tratemos de dar una definción a cada concepto:</p>
+<ul>
+<li>
+<p><strong>Base de datos</strong>: es una colección estructurada de datos sobre <strong>entidades</strong> y sus <strong>relaciones</strong>. Modela objetos de la vida real -entidades y relaciones- y captura su estructura en formas que permiten que estas entidades y relaciones puedan ser consultadas para hacer análisis.</p>
+</li>
+<li>
+<p><strong>Sistema de administración de bases de datos (DBMS)</strong>: es un software diseñado para guardar bases de datos de forma segura y manejarlas eficientemente, además de cumplir con otras tareas de mantenimiento y consulta de las entidades y relaciones que la base de datos representa. Hay muchos tipos de DBMS que tienen funciones especiales para diferentes casos de uso.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bases-de-datos-relacionales">
+<a class="anchor" href="#Bases-de-datos-relacionales" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bases de datos relacionales<a class="anchor-link" href="#Bases-de-datos-relacionales"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En una base de datos relacional tenemos <strong>tablas</strong> que representan distintas entidades y <strong>relaciones</strong> que indican relaciones entre los objetos guardados en las tablas.</p>
+<ul>
+<li>Una tabla es un arreglo en filas y columnas, donde cada fila representa una observación y cada columna es un atributo de las observaciones. Es como una hoja de excel. <ul>
+<li>Las columnas, también conocidas como <strong>campos</strong>, tienen un nombre y un <strong>tipo</strong>, que indica el tipo de información que se puede guardar (número, texto, fecha, etc). Todos los datos de una columna deben ser del mismo tipo. </li>
+<li>Toda tabla debería tener una columna que es conocida como la <strong>llave primaria</strong> (<em>primary key</em> o PK) que debe tener un valor único dentro de la tabla y permite identificar a cada observación. Usualmente es un número entero.</li>
+</ul>
+</li>
+<li>Las relaciones son vínculos entre un objeto de una tabla y uno o varios objetos en otras tablas. <ul>
+<li>La relación entre tablas permite guardar estructuras de datos muy complejas de forma mucho más sencillas.</li>
+<li>Hay varios tipos de relaciones: uno a uno, uno a muchos y muchos a muchos.</li>
+<li>Cuando se crea una relación se genera un <strong>llave externa</strong> (<em>Foreign Key</em> o FK) en la tabla.</li>
+</ul>
+</li>
+</ul>
+<p>A la información que comprende las tablas, los campos de las tablas junto con el tipo de dato y las relaciones entre las tablas se le conoce como el <strong>esquema</strong> de la base de datos. Toda esta información se puede de comprender de forma mucho más fácil mediante un diagrama conocido como <strong>diagrama Entidad-Relación</strong>.</p>
+<p>Es muy importante cuando se trabaja con una base de datos pensar en cada tabla como una <strong>entidad</strong>, esto es como si fuera el objeto independiente más sencillo con el que podemos trabajar, y luego crear las relaciones entre las entidades.</p>
+<p>Como ejemplo de estos conceptos pensemos en una escuela donde se ofrece cursos a los alumnos, y estos cursos son dictados por profesores. Tenemos entonces tres entidades: <em>cursos</em>, <em>profesores</em> y <em>estudiantes</em>. Cada una de estas entidades es una tabla que tiene distintos atributos y además hay una relación clara entre ellas: todo curso tiene un profesor y uno o varios alumnos. El diagrama entidad-relación es el siguiente:</p>
+<p><img src="imagenes/intro_sql_1.png" alt="image.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Las tablas con los datos se verían de la siguiente manera:</p>
+<p><img src="/images/copied_from_nb/imagenes/intro_sql_2.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Structured-Query-Language-(SQL)">
+<a class="anchor" href="#Structured-Query-Language-(SQL)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Structured Query Language (SQL)<a class="anchor-link" href="#Structured-Query-Language-(SQL)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>SQL (pronunciado como sicuel o ese-cu-ele) es un lenguaje para manejar bases de datos. Sirve para crear, modificar y eliminar bases de datos, tablas, campos, datos, así como también para consultar los elementos dentro de una base de datos. SQL es realmente un estándar, ya que cada DBMS tiene su propio lenguaje y funciones, sin embargo, casi todas las bases de datos relacionales soportan las características básicas de SQL, aunque con ligeras variaciones.</p>
+<p>Este tutorial trataremos más adelante cómo hacer consultas de información con SQL. En otro se tratará la definición de bases de datos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="SQL-vs-NoSQL">
+<a class="anchor" href="#SQL-vs-NoSQL" aria-hidden="true"><span class="octicon octicon-link"></span></a>SQL vs NoSQL<a class="anchor-link" href="#SQL-vs-NoSQL"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Los DBMS se suelen clasificar en dos grandes grupos: SQL y NoSQL. Cuando los datos con los que trabajamos son <em>estructurados</em> es decir, tienen un equema que puede ser facilmente representados en tablas con filas y columnas, entonces se usan DBMS relacionales conocidos como SQL. Entre los más populares están:</p>
+<ul>
+<li>SQLite</li>
+<li>MySQL</li>
+<li>PostgreSQL</li>
+<li>MariaDB</li>
+<li>Oracle Database.</li>
+<li>Google BigQuery</li>
+</ul>
+<p>Por otro lado, existen otros DBMS conocidos como NoSQL (<em>Not only SQL</em>) que son adecuados cuando los datos son no estructurados, es decir no tienen una estructura definida y cada observación puede constar de distintos campos y de tipos de datos mucho más complejos. Normalmente se usan cuando se trata de bases de datos muy grandes o que representan datos especiales, como por ejemplo las redes. Estas bases de datos suelen tener sus propios lenguajes de consulta, diferentes a SQL. Entre las más populares están:</p>
+<ul>
+<li>MongoDB</li>
+<li>Neo4J</li>
+<li>Cassandra</li>
+<li>Redis</li>
+</ul>
+<p>La decisión sobre qué tipo de base de datos es la mejor dependerá siempre del proyecto específico en el que se trabaje y las tareas que se requieran.
+En este tutorial usaremos <a href="https://www.sqlite.org/index.html">SQLite</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Cuando-usar-una-DBMS">
+<a class="anchor" href="#Cuando-usar-una-DBMS" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cuando usar una DBMS<a class="anchor-link" href="#Cuando-usar-una-DBMS"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Si hemos estudiado alguna carrera de ciencias sociales, probablemente nos costará trabajo empezar a crear y administrar nuestras propias bases de datos porque hay reglas y protocolos  para los que se requiere mucha práctica para aprender a ejecutar correctamente. El diseño y puesta en producción de una base de datos debe hacerlo alguien con experiencia.</p>
+<p>Aún cuando puede ser cierto que nosotros nunca vayamos a crear una base de datos desde cero, es necesario que aprendamos los fundamentos de las bases de datos por varias razones.</p>
+<ol>
+<li>El modelo relacional es una forma poderosa de organizar la información. </li>
+<li>Cada vez es más común el uso de SQL dentro de proyectos de ciencia de datos.</li>
+<li>Si alguna vez tienes que proveer datos para un sistema de base de datos, podrás entender mejor cómo pasar la información al encargado de su administración.</li>
+<li>Si entiendes sus ventajas podrás recomendarlo en los casos en que es conveniente su uso.</li>
+</ol>
+<p>Sobre este último punto, deberíamos optar por usar un DBMS en cualquiera de las siguientes situaciones:</p>
+<ul>
+<li>Requerimos consultar o actualizar los datos de forma constante.</li>
+<li>Los datos deben ser consultados o editados por varios usuarios de forma remota.</li>
+<li>Tenemos información que está en muchos archivos pero que está relacionada, y que ademas debe cumplir con ciertas restricciones, como asegurar que los valores pertenezcan a un catálogo.</li>
+<li>Necesitamos analizar datos muy grandes que no caben en memoria RAM.</li>
+<li>Cuando creamos un producto basado en datos para producción, por ejemplo páginas web o aplicaciones de escritorio.</li>
+<li>Necesitamos autenticación de usuarios y/o diferentes permisos para administrar los datos.</li>
+<li>Cuando necesitamos garantizar atomicidad.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="SQLite">
+<a class="anchor" href="#SQLite" aria-hidden="true"><span class="octicon octicon-link"></span></a>SQLite<a class="anchor-link" href="#SQLite"> </a>
+</h1>
+<blockquote>
+<p>La mayor parte del contenido de aquí en adelante fue tomado de:<a href="https://datacarpentry.org/sql-socialsci/">Data Management with SQL for Social Scientists</a></p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En este tutorial veremos una corta introducción a los comandos más comunes para consultar la información de una base de datos. Hacer consultas es una tarea relativamente sencilla que todos deberíamos aprender.</p>
+<p>Para esto usaremos SQlite, que es un DBMS sencillo, adecuado para aplicaciones locales que requieren tipos de datos básicos y pocas funciones avanzadas. No provee un sistema de autenticación y permisos y tampoco soporta escritura de varias conexiones al mismo tiempo, pero es fácil de iniciar y ayuda a mostrar las principales características del lenguaje de consulta. Aunque no es adecuado para aplicaciones empresariales, puede ser buena opción para hacer análisis de datos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Cliente">
+<a class="anchor" href="#Cliente" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cliente<a class="anchor-link" href="#Cliente"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Los clientes son programas que permiten conectarse a bases de datos y efectuar operaciones sobre ellas a través de una interfaz de usuario.</p>
+<p>Usaremos el cliente <strong>DB Browser for SQLite</strong> una aplicación ligera que puede ser descargada desde su página web: <a href="https://sqlitebrowser.org/dl/">https://sqlitebrowser.org/dl/</a></p>
+<p>Una vez instalado se puede buscar en los programas como DB Browser (SQLite).</p>
+<p><img src="/images/copied_from_nb/imagenes/intro_sql_3.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Abrir-una-base-de-datos">
+<a class="anchor" href="#Abrir-una-base-de-datos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abrir una base de datos<a class="anchor-link" href="#Abrir-una-base-de-datos"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Usaremos una base de datos sobre cultivos del proyecto <a href="http://www.safi-research.org/">SAFI (Studying African Farmer-led Irrigation)</a>. Los datos vienen en el archivo "SQL_SAFI.sqlite", que también puede ser descargado desde <a href="https://datacarpentry.org/sql-socialsci/data/SQL_SAFI.sqlite">https://datacarpentry.org/sql-socialsci/data/SQL_SAFI.sqlite</a>. Esta base de datos consta de 4 tablas que describen un conjunto de granjas (Farms), parcelas (Plots) y cultivos (Crops &amp; crops_rice_old).</li>
+<li>Vamos al cliente y hacemos clic en el botón de "Open Database". Buscamos en nuestros archivos y seleccionamos ""SQL_SAFI.sqlite""</li>
+<li>Cuando se abre, en la pestaña "Database Structure" veremos lo siguiente:</li>
+</ul>
+<p><img src="/images/copied_from_nb/imagenes/intro_sql_4.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Tenemos 4 tablas: Crops, Farms, Plots y crops_rice_old.</li>
+<li>Si damos clic sobre las $&gt;$ de cada tabla podremos ver los campos  que tiene cada una y su tipo:</li>
+</ul>
+<p><img src="/images/copied_from_nb/imagenes/intro_sql_5.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Al seleccionar la pestaña "Browse Data" se puede ver la tabla con los datos.</li>
+</ul>
+<p><img src="/images/copied_from_nb/imagenes/intro_sql_6.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Consultas-SQL">
+<a class="anchor" href="#Consultas-SQL" aria-hidden="true"><span class="octicon octicon-link"></span></a>Consultas SQL<a class="anchor-link" href="#Consultas-SQL"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Para consultar la información usamos el lenguaje SQL. </li>
+<li>Toda consulta SQL debe llevar al menos dos comandos: SELECT y FROM<ul>
+<li>con SELECT especificamos las columnas que queremos recuperar</li>
+<li>con FROM especificamos la tabla que vamos a consultar</li>
+</ul>
+</li>
+</ul>
+<p>Un ejemplo de consulta es:</p>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">Crops</span>
+</pre></div>
+<ul>
+<li>Los comandos de SQL normalmente se escriben en mayúsculas, aunque no es necesario, pero así se distingue mejor cuáles con los comandos de los nombres las variable o tablas. </li>
+</ul>
+<p><img src="/images/copied_from_nb/imagenes/intro_sql_7.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Tampoco es necesario escribirlos en líneas separadas, pero se hace más legible así.</li>
+<li>Vamos a la pestaña "Execute SQL" de DB Browser y copiamos el siguiente código:<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">Crops</span>
+</pre></div>
+</li>
+<li>La instrucción se ejecuta con el botón ▶ del menú.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Obtenemos como resultado una tabla con todas las filas y columnas de la tabla Crops:</p>
+<p><img src="/images/copied_from_nb/imagenes/intro_sql_8.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>El resultado de una consulta SQL siempre es una tabla.</li>
+<li>A continuación veremos los comandos más populares para consultar la información.</li>
+<li>Puedes seguir este tutorial usando DB Browser o también si tienes instalada la distribución de Python de <a href="https://www.anaconda.com/products/individual">Anaconda</a>, puedes instalar la extensión <a href="https://pypi.org/project/ipython-sql/">ipython-sql</a> que permite ejecutar SQL dentro de un Jupyter Notebook.</li>
+<li>Si sigues en DB browser, debes copiar el código de cada celda sin la primera fila (%%sql)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Esta instrucción solo funciona dentro de un Jupyter Notebook</span>
+<span class="c1"># pip install ipython-sql</span>
+<span class="o">%</span><span class="k">load_ext</span> sql
+<span class="o">%</span><span class="k">sql</span> sqlite:///SQL_SAFI.sqlite
+<span class="o">%</span><span class="k">config</span> SqlMagic.displaylimit=10
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="SELECT">
+<a class="anchor" href="#SELECT" aria-hidden="true"><span class="octicon octicon-link"></span></a>SELECT<a class="anchor-link" href="#SELECT"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Con SELECT especificamos los nombres de las columnas que queremos que nos retorne la consulta.</li>
+<li>Podemos especificar uno o varios nombres de columnas, separados por comas.</li>
+<li>El * quiere decir que retorne todas las columnas.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT id, Country, A06_province
+FROM Farms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Country</th>
+        <th>A06_province</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">350 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Las variables pueden ser renombrar en el resultado usando la palabra AS</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT Country AS pais, A06_province AS provincia
+FROM Farms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>pais</th>
+        <th>provincia</th>
+    </tr>
+    <tr>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>Moz</td>
+        <td>Manica</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">350 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="LIMIT">
+<a class="anchor" href="#LIMIT" aria-hidden="true"><span class="octicon octicon-link"></span></a>LIMIT<a class="anchor-link" href="#LIMIT"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Especifica el número máximo de filas a retornar</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT *
+FROM Farms
+LIMIT 5
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Country</th>
+        <th>A01_interview_date</th>
+        <th>A03_quest_no</th>
+        <th>A04_start</th>
+        <th>A05_end</th>
+        <th>A06_province</th>
+        <th>A07_district</th>
+        <th>A08_ward</th>
+        <th>A09_village</th>
+        <th>A11_years_farm</th>
+        <th>A12_agr_assoc</th>
+        <th>B_no_membrs</th>
+        <th>_members_count</th>
+        <th>B11_remittance_money</th>
+        <th>B16_years_liv</th>
+        <th>B17_parents_liv</th>
+        <th>B18_sp_parents_liv</th>
+        <th>B19_grand_liv</th>
+        <th>B20_sp_grand_liv</th>
+        <th>C01_respondent_roof_type</th>
+        <th>C02_respondent_wall_type</th>
+        <th>C03_respondent_floor_type</th>
+        <th>C04_window_type</th>
+        <th>C05_buildings_in_compound</th>
+        <th>C06_rooms</th>
+        <th>C07_other_buildings</th>
+        <th>D_no_plots</th>
+        <th>D_plots_count</th>
+        <th>E01_water_use</th>
+        <th>E_no_group_count</th>
+        <th>E_yes_group_count</th>
+        <th>E17_no_enough_water</th>
+        <th>E18_months_no_water</th>
+        <th>E19_period_use</th>
+        <th>E20_exper_other</th>
+        <th>E21_other_meth</th>
+        <th>E22_res_change</th>
+        <th>E23_memb_assoc</th>
+        <th>E24_resp_assoc</th>
+        <th>E25_fees_water</th>
+        <th>E26_affect_conflicts</th>
+        <th>F04_need_money</th>
+        <th>F05_money_source</th>
+        <th>F05_money_source_other</th>
+        <th>F08_emply_lab</th>
+        <th>F09_du_labour</th>
+        <th>F10_liv_owned</th>
+        <th>F10_liv_owned_other</th>
+        <th>F_liv_count</th>
+        <th>F12_poultry</th>
+        <th>F13_du_look_aftr_cows</th>
+        <th>F14_items_owned</th>
+        <th>G01_no_meals</th>
+        <th>G02_months_lack_food</th>
+        <th>G03_no_food_mitigation</th>
+        <th>gps:Latitude</th>
+        <th>gps:Longitude</th>
+        <th>gps:Altitude</th>
+        <th>gps:Accuracy</th>
+        <th>instanceID</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Moz</td>
+        <td>17/11/2016</td>
+        <td>1</td>
+        <td>2017-03-23T09:49:57.000Z</td>
+        <td>2017-04-02T17:29:08.000Z</td>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>God</td>
+        <td>11</td>
+        <td>no</td>
+        <td>3</td>
+        <td>3</td>
+        <td>no</td>
+        <td>4</td>
+        <td>no</td>
+        <td>yes</td>
+        <td>no</td>
+        <td>yes</td>
+        <td>grass</td>
+        <td>muddaub</td>
+        <td>earth</td>
+        <td>no</td>
+        <td>1</td>
+        <td>1</td>
+        <td>no</td>
+        <td>2</td>
+        <td>2</td>
+        <td>no</td>
+        <td>2.0</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>no</td>
+        <td>no</td>
+        <td>['poultry']</td>
+        <td>None</td>
+        <td>1</td>
+        <td>yes</td>
+        <td>no</td>
+        <td>['bicycle', 'television', 'solar_panel', 'table']</td>
+        <td>2</td>
+        <td>['Jan']</td>
+        <td>['na', 'rely_less_food', 'reduce_meals', 'day_night_hungry']</td>
+        <td>-19.11225943</td>
+        <td>33.48345609</td>
+        <td>698.0</td>
+        <td>14.0</td>
+        <td>uuid:ec241f2c-0609-46ed-b5e8-fe575f6cefef</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Moz</td>
+        <td>17/11/2016</td>
+        <td>1</td>
+        <td>2017-04-02T09:48:16.000Z</td>
+        <td>2017-04-02T17:26:19.000Z</td>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>God</td>
+        <td>2</td>
+        <td>yes</td>
+        <td>7</td>
+        <td>7</td>
+        <td>no</td>
+        <td>9</td>
+        <td>yes</td>
+        <td>yes</td>
+        <td>yes</td>
+        <td>yes</td>
+        <td>grass</td>
+        <td>muddaub</td>
+        <td>earth</td>
+        <td>no</td>
+        <td>1</td>
+        <td>1</td>
+        <td>no</td>
+        <td>3</td>
+        <td>3</td>
+        <td>yes</td>
+        <td>None</td>
+        <td>3.0</td>
+        <td>yes</td>
+        <td>['Aug', 'Sept']</td>
+        <td>2.0</td>
+        <td>yes</td>
+        <td>no</td>
+        <td>None</td>
+        <td>yes</td>
+        <td>no</td>
+        <td>no</td>
+        <td>once</td>
+        <td>no</td>
+        <td>None</td>
+        <td>None</td>
+        <td>yes</td>
+        <td>no</td>
+        <td>['oxen', 'cows', 'goats']</td>
+        <td>None</td>
+        <td>3</td>
+        <td>yes</td>
+        <td>no</td>
+        <td>['cow_cart', 'bicycle', 'radio', 'cow_plough', 'solar_panel', 'solar_torch', 'table', 'mobile_phone']</td>
+        <td>2</td>
+        <td>['Jan', 'Sept', 'Oct', 'Nov', 'Dec']</td>
+        <td>['na', 'reduce_meals', 'restrict_adults', 'borrow_food', 'seek_government']</td>
+        <td>-19.11247712</td>
+        <td>33.48341568</td>
+        <td>690.0</td>
+        <td>19.0</td>
+        <td>uuid:099de9c9-3e5e-427b-8452-26250e840d6e</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Moz</td>
+        <td>17/11/2016</td>
+        <td>3</td>
+        <td>2017-04-02T14:35:26.000Z</td>
+        <td>2017-04-02T17:26:53.000Z</td>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>God</td>
+        <td>40</td>
+        <td>no</td>
+        <td>10</td>
+        <td>10</td>
+        <td>no</td>
+        <td>15</td>
+        <td>no</td>
+        <td>no</td>
+        <td>no</td>
+        <td>no</td>
+        <td>mabatisloping</td>
+        <td>burntbricks</td>
+        <td>cement</td>
+        <td>yes</td>
+        <td>1</td>
+        <td>1</td>
+        <td>no</td>
+        <td>1</td>
+        <td>1</td>
+        <td>no</td>
+        <td>1.0</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>no</td>
+        <td>yes</td>
+        <td>['none']</td>
+        <td>None</td>
+        <td>1</td>
+        <td>yes</td>
+        <td>no</td>
+        <td>['solar_torch']</td>
+        <td>2</td>
+        <td>['Jan', 'Feb', 'Mar', 'Oct', 'Nov', 'Dec']</td>
+        <td>['na', 'restrict_adults', 'lab_ex_food']</td>
+        <td>-19.1121076</td>
+        <td>33.48344998</td>
+        <td>674.0</td>
+        <td>13.0</td>
+        <td>uuid:193d7daf-9582-409b-bf09-027dd36f9007</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Moz</td>
+        <td>17/11/2016</td>
+        <td>4</td>
+        <td>2017-04-02T14:55:18.000Z</td>
+        <td>2017-04-02T17:27:16.000Z</td>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>God</td>
+        <td>6</td>
+        <td>no</td>
+        <td>7</td>
+        <td>7</td>
+        <td>no</td>
+        <td>6</td>
+        <td>no</td>
+        <td>no</td>
+        <td>no</td>
+        <td>no</td>
+        <td>mabatisloping</td>
+        <td>burntbricks</td>
+        <td>earth</td>
+        <td>no</td>
+        <td>1</td>
+        <td>1</td>
+        <td>no</td>
+        <td>3</td>
+        <td>3</td>
+        <td>no</td>
+        <td>3.0</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>no</td>
+        <td>yes</td>
+        <td>['oxen', 'cows']</td>
+        <td>None</td>
+        <td>2</td>
+        <td>yes</td>
+        <td>no</td>
+        <td>['bicycle', 'radio', 'cow_plough', 'solar_panel', 'mobile_phone']</td>
+        <td>2</td>
+        <td>['Sept', 'Oct', 'Nov', 'Dec']</td>
+        <td>['na', 'reduce_meals', 'restrict_adults', 'lab_ex_food']</td>
+        <td>-19.11222901</td>
+        <td>33.48342395</td>
+        <td>679.0</td>
+        <td>5.0</td>
+        <td>uuid:148d1105-778a-4755-aa71-281eadd4a973</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Moz</td>
+        <td>17/11/2016</td>
+        <td>5</td>
+        <td>2017-04-02T15:10:35.000Z</td>
+        <td>2017-04-02T17:27:35.000Z</td>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>God</td>
+        <td>18</td>
+        <td>no</td>
+        <td>7</td>
+        <td>7</td>
+        <td>no</td>
+        <td>40</td>
+        <td>yes</td>
+        <td>no</td>
+        <td>yes</td>
+        <td>no</td>
+        <td>grass</td>
+        <td>burntbricks</td>
+        <td>earth</td>
+        <td>no</td>
+        <td>1</td>
+        <td>1</td>
+        <td>no</td>
+        <td>2</td>
+        <td>2</td>
+        <td>no</td>
+        <td>2.0</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>no</td>
+        <td>no</td>
+        <td>['oxen', 'cows', 'goats', 'poultry']</td>
+        <td>None</td>
+        <td>4</td>
+        <td>yes</td>
+        <td>no</td>
+        <td>['motorcyle', 'radio', 'cow_plough', 'mobile_phone']</td>
+        <td>2</td>
+        <td>['Aug', 'Sept', 'Oct', 'Nov']</td>
+        <td>['na', 'go_forest', 'migrate']</td>
+        <td>-19.11221722</td>
+        <td>33.48342524</td>
+        <td>689.0</td>
+        <td>10.0</td>
+        <td>uuid:2c867811-9696-4966-9866-f35c3e97d02d</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Práctica">
+<a class="anchor" href="#Pr%C3%A1ctica" aria-hidden="true"><span class="octicon octicon-link"></span></a>Práctica<a class="anchor-link" href="#Pr%C3%A1ctica"> </a>
+</h3>
+<ul>
+<li>Escribe una consulta que retorne las primeras 5 filas de la tabla <code>Farms</code> solo con las columnas Id, y B16 a B20</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="WHERE">
+<a class="anchor" href="#WHERE" aria-hidden="true"><span class="octicon octicon-link"></span></a>WHERE<a class="anchor-link" href="#WHERE"> </a>
+</h2>
+<ul>
+<li>Este comando sirve para imponer una o varias condiciones. El resultado retornará solo las observaciones que cumplan con los criterios especificados.</li>
+<li>Se pueden usar operadores como $=$, $&gt;$, $&lt;$, $&lt;=$, $&gt;=$, $&lt;&gt;$</li>
+<li>Para especificar más de una condición se pueden usar los operadores lógicos AND y OR</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT  Id, B16_years_liv
+FROM Farms
+WHERE B16_years_liv &gt; 25
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>B16_years_liv</th>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>40</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>38</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>70</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>30</td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td>47</td>
+    </tr>
+    <tr>
+        <td>27</td>
+        <td>36</td>
+    </tr>
+    <tr>
+        <td>32</td>
+        <td>69</td>
+    </tr>
+    <tr>
+        <td>33</td>
+        <td>34</td>
+    </tr>
+    <tr>
+        <td>35</td>
+        <td>45</td>
+    </tr>
+    <tr>
+        <td>43</td>
+        <td>29</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">118 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Varias condiciones</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT  Id
+FROM Farms
+WHERE B17_parents_liv = 'yes' 
+    AND B18_sp_parents_liv = 'yes' 
+    AND B19_grand_liv = 'yes' 
+    AND B20_sp_grand_liv = 'yes' 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+    </tr>
+    <tr>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>8</td>
+    </tr>
+    <tr>
+        <td>15</td>
+    </tr>
+    <tr>
+        <td>16</td>
+    </tr>
+    <tr>
+        <td>19</td>
+    </tr>
+    <tr>
+        <td>20</td>
+    </tr>
+    <tr>
+        <td>22</td>
+    </tr>
+    <tr>
+        <td>26</td>
+    </tr>
+    <tr>
+        <td>31</td>
+    </tr>
+    <tr>
+        <td>33</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">81 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT Id, B16_years_liv
+FROM Farms
+WHERE B16_years_liv &gt; 50 AND B16_years_liv &lt; 60
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>B16_years_liv</th>
+    </tr>
+    <tr>
+        <td>48</td>
+        <td>58</td>
+    </tr>
+    <tr>
+        <td>68</td>
+        <td>52</td>
+    </tr>
+    <tr>
+        <td>101</td>
+        <td>52</td>
+    </tr>
+    <tr>
+        <td>276</td>
+        <td>51</td>
+    </tr>
+    <tr>
+        <td>334</td>
+        <td>51</td>
+    </tr>
+    <tr>
+        <td>346</td>
+        <td>55</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Se puede usar el operador BETWEEN para especificar un rango de valores.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT Id, B16_years_liv
+FROM Farms
+WHERE B16_years_liv BETWEEN 51 AND 59
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>B16_years_liv</th>
+    </tr>
+    <tr>
+        <td>48</td>
+        <td>58</td>
+    </tr>
+    <tr>
+        <td>68</td>
+        <td>52</td>
+    </tr>
+    <tr>
+        <td>101</td>
+        <td>52</td>
+    </tr>
+    <tr>
+        <td>276</td>
+        <td>51</td>
+    </tr>
+    <tr>
+        <td>334</td>
+        <td>51</td>
+    </tr>
+    <tr>
+        <td>346</td>
+        <td>55</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Se puede usar el operador IN para especificar una lista de valores.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT Id, B16_years_liv
+FROM Farms
+WHERE B16_years_liv IN (51, 52, 53, 54, 55, 56, 57, 58, 59)
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>B16_years_liv</th>
+    </tr>
+    <tr>
+        <td>48</td>
+        <td>58</td>
+    </tr>
+    <tr>
+        <td>68</td>
+        <td>52</td>
+    </tr>
+    <tr>
+        <td>101</td>
+        <td>52</td>
+    </tr>
+    <tr>
+        <td>276</td>
+        <td>51</td>
+    </tr>
+    <tr>
+        <td>334</td>
+        <td>51</td>
+    </tr>
+    <tr>
+        <td>346</td>
+        <td>55</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Al poner varias condiciones, es recomendable agruparlas con paréntesis para evitar confusiones.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT  Id
+FROM Farms
+WHERE (B17_parents_liv = 'yes' OR B18_sp_parents_liv = 'yes') AND B16_years_liv &gt; 60
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+    </tr>
+    <tr>
+        <td>8</td>
+    </tr>
+    <tr>
+        <td>32</td>
+    </tr>
+    <tr>
+        <td>77</td>
+    </tr>
+    <tr>
+        <td>97</td>
+    </tr>
+    <tr>
+        <td>224</td>
+    </tr>
+    <tr>
+        <td>349</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Práctica">
+<a class="anchor" href="#Pr%C3%A1ctica" aria-hidden="true"><span class="octicon octicon-link"></span></a>Práctica<a class="anchor-link" href="#Pr%C3%A1ctica"> </a>
+</h3>
+<ul>
+<li>Escribe una consulta con la tabla <code>Farms</code> que retorne las columnas <code>Id</code>, <code>A09_village</code>, <code>A11_years_farm</code>, <code>B16_years_liv</code>. Filtra las filas para quedarnos solo con las filas donde el valor de <code>A09_village</code> es <code>God</code> o <code>Ruaca</code>. Adicionalmente, solo queremos valores de <code>A11_years_farm</code> entre 20 y 30 y valores de <code>B16_years_liv</code> mayores que 40.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="seleccionar-valores-nulos">
+<a class="anchor" href="#seleccionar-valores-nulos" aria-hidden="true"><span class="octicon octicon-link"></span></a>seleccionar valores nulos<a class="anchor-link" href="#seleccionar-valores-nulos"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Para seleccionar observaciones que tienen valores nulos se usa la condición IS NULL. </li>
+<li>Para seleccionar los que son no nulos se usa IS NOT NULL</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT B16_years_liv, F14_items_owned
+FROM Farms
+WHERE F14_items_owned IS NULL
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>B16_years_liv</th>
+        <th>F14_items_owned</th>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>22</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>60</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>41</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>49</td>
+        <td>None</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">34 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT B16_years_liv, F14_items_owned
+FROM Farms
+WHERE F14_items_owned NOT NULL
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>B16_years_liv</th>
+        <th>F14_items_owned</th>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>['bicycle', 'television', 'solar_panel', 'table']</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>['cow_cart', 'bicycle', 'radio', 'cow_plough', 'solar_panel', 'solar_torch', 'table', 'mobile_phone']</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>['solar_torch']</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>['bicycle', 'radio', 'cow_plough', 'solar_panel', 'mobile_phone']</td>
+    </tr>
+    <tr>
+        <td>40</td>
+        <td>['motorcyle', 'radio', 'cow_plough', 'mobile_phone']</td>
+    </tr>
+    <tr>
+        <td>38</td>
+        <td>['motorcyle', 'cow_plough']</td>
+    </tr>
+    <tr>
+        <td>70</td>
+        <td>['motorcyle', 'bicycle', 'television', 'radio', 'cow_plough', 'solar_panel', 'solar_torch', 'table', 'fridge']</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>['television', 'solar_panel', 'solar_torch']</td>
+    </tr>
+    <tr>
+        <td>23</td>
+        <td>['cow_cart', 'motorcyle', 'bicycle', 'television', 'radio', 'cow_plough', 'solar_panel', 'solar_torch', 'table']</td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>['radio', 'cow_plough']</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">316 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="ORDER-BY">
+<a class="anchor" href="#ORDER-BY" aria-hidden="true"><span class="octicon octicon-link"></span></a>ORDER BY<a class="anchor-link" href="#ORDER-BY"> </a>
+</h2>
+<ul>
+<li>Esta instrucción sirve para ordenar las filas de la tabla</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT Id, A09_village, A11_years_farm, B16_years_liv
+FROM Farms
+WHERE A09_village = 'God'
+ORDER BY A11_years_farm
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>A09_village</th>
+        <th>A11_years_farm</th>
+        <th>B16_years_liv</th>
+    </tr>
+    <tr>
+        <td>83</td>
+        <td>God</td>
+        <td>1</td>
+        <td>43</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>God</td>
+        <td>2</td>
+        <td>9</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>God</td>
+        <td>3</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>118</td>
+        <td>God</td>
+        <td>3</td>
+        <td>13</td>
+    </tr>
+    <tr>
+        <td>76</td>
+        <td>God</td>
+        <td>5</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>God</td>
+        <td>6</td>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>God</td>
+        <td>6</td>
+        <td>20</td>
+    </tr>
+    <tr>
+        <td>18</td>
+        <td>God</td>
+        <td>6</td>
+        <td>20</td>
+    </tr>
+    <tr>
+        <td>88</td>
+        <td>God</td>
+        <td>6</td>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>God</td>
+        <td>7</td>
+        <td>8</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">43 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Se puede especificar el orden ascendente o descendente con ASC o DESC, respectivamente.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT Id, A09_village, A11_years_farm, B16_years_liv
+FROM Farms
+WHERE A09_village = 'God'
+ORDER BY A11_years_farm DESC
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>A09_village</th>
+        <th>A11_years_farm</th>
+        <th>B16_years_liv</th>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>God</td>
+        <td>40</td>
+        <td>15</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>God</td>
+        <td>30</td>
+        <td>30</td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td>God</td>
+        <td>24</td>
+        <td>47</td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>God</td>
+        <td>24</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>82</td>
+        <td>God</td>
+        <td>24</td>
+        <td>24</td>
+    </tr>
+    <tr>
+        <td>40</td>
+        <td>God</td>
+        <td>23</td>
+        <td>23</td>
+    </tr>
+    <tr>
+        <td>39</td>
+        <td>God</td>
+        <td>22</td>
+        <td>22</td>
+    </tr>
+    <tr>
+        <td>41</td>
+        <td>God</td>
+        <td>22</td>
+        <td>22</td>
+    </tr>
+    <tr>
+        <td>103</td>
+        <td>God</td>
+        <td>22</td>
+        <td>22</td>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>God</td>
+        <td>22</td>
+        <td>22</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">43 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Se puede ordenar por varias variables</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT Id, A09_village, A11_years_farm, B16_years_liv
+FROM Farms
+WHERE A09_village = 'God'
+ORDER BY A11_years_farm ASC , B16_years_liv DESC
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>A09_village</th>
+        <th>A11_years_farm</th>
+        <th>B16_years_liv</th>
+    </tr>
+    <tr>
+        <td>83</td>
+        <td>God</td>
+        <td>1</td>
+        <td>43</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>God</td>
+        <td>2</td>
+        <td>9</td>
+    </tr>
+    <tr>
+        <td>118</td>
+        <td>God</td>
+        <td>3</td>
+        <td>13</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>God</td>
+        <td>3</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>76</td>
+        <td>God</td>
+        <td>5</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>God</td>
+        <td>6</td>
+        <td>20</td>
+    </tr>
+    <tr>
+        <td>18</td>
+        <td>God</td>
+        <td>6</td>
+        <td>20</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>God</td>
+        <td>6</td>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td>88</td>
+        <td>God</td>
+        <td>6</td>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td>84</td>
+        <td>God</td>
+        <td>7</td>
+        <td>48</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">43 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>En conjunto con LIMIT nos puede dar el top N</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT Id, A09_village, A11_years_farm, B16_years_liv
+FROM Farms
+WHERE A09_village = 'God'
+ORDER BY A11_years_farm DESC
+LIMIT 3
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>A09_village</th>
+        <th>A11_years_farm</th>
+        <th>B16_years_liv</th>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>God</td>
+        <td>40</td>
+        <td>15</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>God</td>
+        <td>30</td>
+        <td>30</td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td>God</td>
+        <td>24</td>
+        <td>47</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Funciones-y-operaciones-con-columnas">
+<a class="anchor" href="#Funciones-y-operaciones-con-columnas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Funciones y operaciones con columnas<a class="anchor-link" href="#Funciones-y-operaciones-con-columnas"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Es posible hacer algunas operaciones aritméticas entre columnas</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT B16_years_liv * 100
+FROM Farms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>B16_years_liv * 100</th>
+    </tr>
+    <tr>
+        <td>400</td>
+    </tr>
+    <tr>
+        <td>900</td>
+    </tr>
+    <tr>
+        <td>1500</td>
+    </tr>
+    <tr>
+        <td>600</td>
+    </tr>
+    <tr>
+        <td>4000</td>
+    </tr>
+    <tr>
+        <td>300</td>
+    </tr>
+    <tr>
+        <td>3800</td>
+    </tr>
+    <tr>
+        <td>7000</td>
+    </tr>
+    <tr>
+        <td>600</td>
+    </tr>
+    <tr>
+        <td>2300</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">350 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT B_no_membrs * B16_years_liv AS total_years
+FROM Farms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>total_years</th>
+    </tr>
+    <tr>
+        <td>12</td>
+    </tr>
+    <tr>
+        <td>63</td>
+    </tr>
+    <tr>
+        <td>150</td>
+    </tr>
+    <tr>
+        <td>42</td>
+    </tr>
+    <tr>
+        <td>280</td>
+    </tr>
+    <tr>
+        <td>9</td>
+    </tr>
+    <tr>
+        <td>228</td>
+    </tr>
+    <tr>
+        <td>840</td>
+    </tr>
+    <tr>
+        <td>48</td>
+    </tr>
+    <tr>
+        <td>276</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">350 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>También se pueden usar funciones predeterminadas que transforman las variables. Hay funciones para números, para texto, para fechas, etc.</li>
+<li>La lista de funciones que se puede usar en SQLite están se pueden consultar en <a href="https://sqlite.org/lang_corefunc.html">https://sqlite.org/lang_corefunc.html</a>
+</li>
+<li>Por ejemplo, la función ROUND() redondea los valores de una columna.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT ROUND(D02_total_plot * 3.14159, 1) AS D02_rounded
+FROM Plots
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>D02_rounded</th>
+    </tr>
+    <tr>
+        <td>1.6</td>
+    </tr>
+    <tr>
+        <td>1.6</td>
+    </tr>
+    <tr>
+        <td>3.1</td>
+    </tr>
+    <tr>
+        <td>4.7</td>
+    </tr>
+    <tr>
+        <td>3.1</td>
+    </tr>
+    <tr>
+        <td>3.1</td>
+    </tr>
+    <tr>
+        <td>3.1</td>
+    </tr>
+    <tr>
+        <td>3.1</td>
+    </tr>
+    <tr>
+        <td>3.1</td>
+    </tr>
+    <tr>
+        <td>4.7</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">844 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>La función SUBSTR() sirve para obtener un subconjunto de caracteres de un texto, dada una posición inicial y un número de caracteres.</li>
+<li>La expresión CAST(variable AS INTEGER) convierte una variable de texto en número entero.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT CAST(SUBSTR(A01_interview_date,7,4) AS INTEGER) AS year
+FROM Farms
+ORDER BY A01_interview_date
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>year</th>
+    </tr>
+    <tr>
+        <td>2017</td>
+    </tr>
+    <tr>
+        <td>2017</td>
+    </tr>
+    <tr>
+        <td>2017</td>
+    </tr>
+    <tr>
+        <td>2017</td>
+    </tr>
+    <tr>
+        <td>2016</td>
+    </tr>
+    <tr>
+        <td>2016</td>
+    </tr>
+    <tr>
+        <td>2016</td>
+    </tr>
+    <tr>
+        <td>2016</td>
+    </tr>
+    <tr>
+        <td>2016</td>
+    </tr>
+    <tr>
+        <td>2016</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">350 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>La expresión $||$ concatena dos variables de texto.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT A12_agr_assoc || ' &amp; ' || B11_remittance_money AS assoc_remittance
+FROM Farms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>assoc_remittance</th>
+    </tr>
+    <tr>
+        <td>no &amp; no</td>
+    </tr>
+    <tr>
+        <td>yes &amp; no</td>
+    </tr>
+    <tr>
+        <td>no &amp; no</td>
+    </tr>
+    <tr>
+        <td>no &amp; no</td>
+    </tr>
+    <tr>
+        <td>no &amp; no</td>
+    </tr>
+    <tr>
+        <td>no &amp; no</td>
+    </tr>
+    <tr>
+        <td>no &amp; no</td>
+    </tr>
+    <tr>
+        <td>yes &amp; no</td>
+    </tr>
+    <tr>
+        <td>no &amp; no</td>
+    </tr>
+    <tr>
+        <td>no &amp; no</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">350 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Cuando se requiere ordenar por una fecha, es necesario convertir el texto en fecha, de lo contrario tendremos un orden que no es el adecuado.</li>
+<li>Se puede usar la función DATE() para pasar de texto a fecha. Para ello es necesario especificar el texto en formato YYYY-MM-DD.</li>
+<li>En el siguiente ejemplo, la variable <code>A01_interview_date</code> está guardada como texto en formato dd/mm/yyy, por tanto, cuando intentamos ordenar por esta variable obtenemos un orden distinto al que esperaríamos.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT A01_interview_date
+FROM Farms
+ORDER BY A01_interview_date
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>A01_interview_date</th>
+    </tr>
+    <tr>
+        <td>01/07/2017</td>
+    </tr>
+    <tr>
+        <td>01/07/2017</td>
+    </tr>
+    <tr>
+        <td>01/07/2017</td>
+    </tr>
+    <tr>
+        <td>01/07/2017</td>
+    </tr>
+    <tr>
+        <td>01/12/2016</td>
+    </tr>
+    <tr>
+        <td>01/12/2016</td>
+    </tr>
+    <tr>
+        <td>01/12/2016</td>
+    </tr>
+    <tr>
+        <td>01/12/2016</td>
+    </tr>
+    <tr>
+        <td>01/12/2016</td>
+    </tr>
+    <tr>
+        <td>01/12/2016</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">350 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>En este caso lo que deberíamos hacer es reformar el texto para que quede en formato yyyy-mm-dd y usar la función DATE() para convertir en fecha.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT A01_interview_date,
+       date(
+       substr(A01_interview_date,7,4) || '-' ||
+       substr(A01_interview_date,4,2) || '-' ||
+       substr(A01_interview_date,1,2)
+       ) AS converted_date
+FROM Farms
+ORDER BY converted_date
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>A01_interview_date</th>
+        <th>converted_date</th>
+    </tr>
+    <tr>
+        <td>16/11/2016</td>
+        <td>2016-11-16</td>
+    </tr>
+    <tr>
+        <td>16/11/2016</td>
+        <td>2016-11-16</td>
+    </tr>
+    <tr>
+        <td>16/11/2016</td>
+        <td>2016-11-16</td>
+    </tr>
+    <tr>
+        <td>16/11/2016</td>
+        <td>2016-11-16</td>
+    </tr>
+    <tr>
+        <td>16/11/2016</td>
+        <td>2016-11-16</td>
+    </tr>
+    <tr>
+        <td>16/11/2016</td>
+        <td>2016-11-16</td>
+    </tr>
+    <tr>
+        <td>16/11/2016</td>
+        <td>2016-11-16</td>
+    </tr>
+    <tr>
+        <td>16/11/2016</td>
+        <td>2016-11-16</td>
+    </tr>
+    <tr>
+        <td>16/11/2016</td>
+        <td>2016-11-16</td>
+    </tr>
+    <tr>
+        <td>16/11/2016</td>
+        <td>2016-11-16</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">350 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Práctica">
+<a class="anchor" href="#Pr%C3%A1ctica" aria-hidden="true"><span class="octicon octicon-link"></span></a>Práctica<a class="anchor-link" href="#Pr%C3%A1ctica"> </a>
+</h2>
+<ul>
+<li>En la tabla <code>Farms</code>, usando la columna <code>A01_interview_date</code>, crea tres nuevas columnas que correspondan al año, mes y día. Luega ordena de forma descendente usando estas tres variables.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="CASE-WHEN">
+<a class="anchor" href="#CASE-WHEN" aria-hidden="true"><span class="octicon octicon-link"></span></a>CASE WHEN<a class="anchor-link" href="#CASE-WHEN"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Con la expresión CASE ... WHEN ... podemos cambiar los valores de una variable por otros al momento de presentar la información</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT Id, B16_years_liv,
+    CASE country
+        WHEN 'Moz' THEN 'Mozambique'
+        WHEN 'Taz' THEN 'Tanzania'
+    ELSE 'Unknown Country'
+       END AS country_fullname
+FROM Farms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>B16_years_liv</th>
+        <th>country_fullname</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>4</td>
+        <td>Mozambique</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>9</td>
+        <td>Mozambique</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>15</td>
+        <td>Mozambique</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>6</td>
+        <td>Mozambique</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>40</td>
+        <td>Mozambique</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>3</td>
+        <td>Mozambique</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>38</td>
+        <td>Mozambique</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>70</td>
+        <td>Mozambique</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>6</td>
+        <td>Mozambique</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>23</td>
+        <td>Mozambique</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">350 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT Id, A11_years_farm,
+       CASE
+            WHEN  A11_years_farm BETWEEN 1 AND 30 THEN '1-30'
+            WHEN  A11_years_farm BETWEEN 31 AND 60 THEN '31-60'
+        ELSE '&gt; 60'       
+        END AS A11_years_farm_range
+FROM Farms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>A11_years_farm</th>
+        <th>A11_years_farm_range</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>11</td>
+        <td>1-30</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>2</td>
+        <td>1-30</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>40</td>
+        <td>31-60</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>6</td>
+        <td>1-30</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>18</td>
+        <td>1-30</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>3</td>
+        <td>1-30</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>20</td>
+        <td>1-30</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>16</td>
+        <td>1-30</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>16</td>
+        <td>1-30</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>22</td>
+        <td>1-30</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">350 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Práctica">
+<a class="anchor" href="#Pr%C3%A1ctica" aria-hidden="true"><span class="octicon octicon-link"></span></a>Práctica<a class="anchor-link" href="#Pr%C3%A1ctica"> </a>
+</h2>
+<ul>
+<li>En la tabla <code>Farms</code>, usando la columna <code>B_no_membrs</code>, crea una nueva variable llamada <code>tamaño_hogar</code> que tenga los siguientes casos:<ul>
+<li>Entre 1 y 4 -&gt; pequeño</li>
+<li>Entre 5 y 10 -&gt; mediano</li>
+<li>Mayor a 10 -&gt; grande</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DISTINCT">
+<a class="anchor" href="#DISTINCT" aria-hidden="true"><span class="octicon octicon-link"></span></a>DISTINCT<a class="anchor-link" href="#DISTINCT"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Podemos seleccionar los valores únicos de una o varias columnas con la expresión DISTINCT.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT DISTINCT A06_province
+FROM Farms;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>A06_province</th>
+    </tr>
+    <tr>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>Nampula</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> <span class="o">%%</span><span class="k">sql</span>
+SELECT DISTINCT A06_province, A07_district
+FROM Farms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>A06_province</th>
+        <th>A07_district</th>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Manica</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Bandula</td>
+    </tr>
+    <tr>
+        <td>Nampula</td>
+        <td>Nampula</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+        <td>Nhamatanda</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+        <td>51</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+        <td>Nhamantanda</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+        <td>Madangua</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+        <td>Nhamatandda</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Vanduzi</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Va</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Agregaciones-y-agrupaciones">
+<a class="anchor" href="#Agregaciones-y-agrupaciones" aria-hidden="true"><span class="octicon octicon-link"></span></a>Agregaciones y agrupaciones<a class="anchor-link" href="#Agregaciones-y-agrupaciones"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Una de las características más útiles de SQL es la capacidad para calcular algunas estadísticas agregadas.</li>
+<li>Para agregar se usan algunas funciones como COUNT(), MAX(), MIN(), AVG()</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT COUNT(A11_years_farm) AS n, MAX(A11_years_farm) AS maximo, MIN(A11_years_farm) AS minimo, ROUND(AVG(A11_years_farm), 2) as promedio
+FROM Farms
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>n</th>
+        <th>maximo</th>
+        <th>minimo</th>
+        <th>promedio</th>
+    </tr>
+    <tr>
+        <td>350</td>
+        <td>60</td>
+        <td>1</td>
+        <td>17.51</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Podemos calcular estadísticas agrupadas usando la expresión GROUP BY</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT
+    A06_province, A07_district, A08_ward, A09_village,
+    COUNT(A11_years_farm) AS n, MAX(A11_years_farm) AS maximo, MIN(A11_years_farm) AS minimo, ROUND(AVG(A11_years_farm), 2) as promedio
+FROM Farms
+GROUP BY A06_province, A07_district, A08_ward, A09_village
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>A06_province</th>
+        <th>A07_district</th>
+        <th>A08_ward</th>
+        <th>A09_village</th>
+        <th>n</th>
+        <th>maximo</th>
+        <th>minimo</th>
+        <th>promedio</th>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>Bandula</td>
+        <td>Chirodzo</td>
+        <td>1</td>
+        <td>12</td>
+        <td>12</td>
+        <td>12.0</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>49</td>
+        <td>1</td>
+        <td>12</td>
+        <td>12</td>
+        <td>12.0</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>Chirodzo</td>
+        <td>36</td>
+        <td>60</td>
+        <td>1</td>
+        <td>17.61</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>God</td>
+        <td>42</td>
+        <td>40</td>
+        <td>1</td>
+        <td>14.67</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>Ruaca</td>
+        <td>45</td>
+        <td>53</td>
+        <td>2</td>
+        <td>15.73</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>Ruaca - Nhamuenda</td>
+        <td>1</td>
+        <td>16</td>
+        <td>16</td>
+        <td>16.0</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Bandula</td>
+        <td>Ruaca-Nhamuenda</td>
+        <td>3</td>
+        <td>21</td>
+        <td>1</td>
+        <td>12.0</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Chirodzo</td>
+        <td>1</td>
+        <td>16</td>
+        <td>16</td>
+        <td>16.0</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>God</td>
+        <td>1</td>
+        <td>24</td>
+        <td>24</td>
+        <td>24.0</td>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Va</td>
+        <td>Vanduzi</td>
+        <td>Belas</td>
+        <td>1</td>
+        <td>16</td>
+        <td>16</td>
+        <td>16.0</td>
+    </tr>
+</table>
+<span style="font-style:italic;text-align:center;">30 rows, truncated to displaylimit of 10</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Para filtrar los resultados de una consulta agregada usamos la declaración HAVING</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT
+    A06_province, A07_district, A08_ward, A09_village,
+    COUNT(A11_years_farm) AS n, MAX(A11_years_farm) AS maximo,
+    MIN(A11_years_farm) AS minimo, ROUND(AVG(A11_years_farm), 2) as promedio,
+    SUM(A11_years_farm) as total
+FROM Farms
+GROUP BY A06_province, A07_district, A08_ward, A09_village
+HAVING promedio &gt; 20
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>A06_province</th>
+        <th>A07_district</th>
+        <th>A08_ward</th>
+        <th>A09_village</th>
+        <th>n</th>
+        <th>maximo</th>
+        <th>minimo</th>
+        <th>promedio</th>
+        <th>total</th>
+    </tr>
+    <tr>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>Manica</td>
+        <td>God</td>
+        <td>1</td>
+        <td>24</td>
+        <td>24</td>
+        <td>24.0</td>
+        <td>24</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+        <td>Nhamatanda</td>
+        <td>91</td>
+        <td>Massequece</td>
+        <td>1</td>
+        <td>45</td>
+        <td>45</td>
+        <td>45.0</td>
+        <td>45</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+        <td>Nhamatanda</td>
+        <td>Lamego</td>
+        <td>Massequese</td>
+        <td>1</td>
+        <td>42</td>
+        <td>42</td>
+        <td>42.0</td>
+        <td>42</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+        <td>Nhamatanda</td>
+        <td>Lamego</td>
+        <td>Ndedja</td>
+        <td>6</td>
+        <td>35</td>
+        <td>10</td>
+        <td>27.5</td>
+        <td>165</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+        <td>Nhamatanda</td>
+        <td>Lamego</td>
+        <td>Nhansato</td>
+        <td>48</td>
+        <td>50</td>
+        <td>3</td>
+        <td>25.94</td>
+        <td>1245</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+        <td>Nhamatanda</td>
+        <td>Lamego</td>
+        <td>Nhansato-Castanheira</td>
+        <td>3</td>
+        <td>37</td>
+        <td>21</td>
+        <td>27.33</td>
+        <td>82</td>
+    </tr>
+    <tr>
+        <td>Sofala</td>
+        <td>Nhamatanda</td>
+        <td>Lomego</td>
+        <td>Massequece</td>
+        <td>1</td>
+        <td>40</td>
+        <td>40</td>
+        <td>40.0</td>
+        <td>40</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Práctica">
+<a class="anchor" href="#Pr%C3%A1ctica" aria-hidden="true"><span class="octicon octicon-link"></span></a>Práctica<a class="anchor-link" href="#Pr%C3%A1ctica"> </a>
+</h2>
+<ul>
+<li>Usando la tabla <code>Plots</code>, calcula la extensión total y número de parcelas de cada granja. <code>Id</code> identifica cada granja y <code>D02_total_plot</code> es la extensión de cada parcela individual.</li>
+<li>Filtra para quedarte solo con aquellas granjas que tienen más de 10 hectáreas en total y además entre 2 y 3 parcelas.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Uniones">
+<a class="anchor" href="#Uniones" aria-hidden="true"><span class="octicon octicon-link"></span></a>Uniones<a class="anchor-link" href="#Uniones"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Hasta el momento hemos estado usando datos de una sola tabla,  pera para muchos casos quisieramos responder preguntas que involucren los datos de más de una tabla.</li>
+<li>Cuando queremos usar los datos de más de una tabla debemos hacer uniones con el comando JOIN. Esta unión se hace en la declaración FROM.</li>
+<li>En la siguiente consulta queremos saber en cuáles granjas con más de 12 miembros se cultiva maíz. La información del número de miembro de la granja está en la tabla Farms, pero la información del tipo de cultivo está en la tabla Crops. Por tanto, debemos hacer un JOIN entre las dos tablas.</li>
+<li>Cuando tenemos más de una tabla es usual renombrar las tablas con la declaración AS, para distinguir las variables que provienen de cada tabla y evitar problemas cuando haya variables con el mismo nombre.</li>
+<li>Con la expresión ON especificamos la variable de cada tabla con la que se hará el emparejamiento.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT 
+    F.Id AS farm_id, F.B_no_membrs as farm_members,
+    C.Id, C.D_curr_crop
+FROM Farms AS F JOIN Crops AS C ON F.Id = C.Id
+WHERE F.B_no_membrs &gt; 12 AND C.D_curr_crop = 'maize'
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>farm_id</th>
+        <th>farm_members</th>
+        <th>Id</th>
+        <th>D_curr_crop</th>
+    </tr>
+    <tr>
+        <td>32</td>
+        <td>19</td>
+        <td>32</td>
+        <td>maize</td>
+    </tr>
+    <tr>
+        <td>92</td>
+        <td>17</td>
+        <td>92</td>
+        <td>maize</td>
+    </tr>
+    <tr>
+        <td>101</td>
+        <td>14</td>
+        <td>101</td>
+        <td>maize</td>
+    </tr>
+    <tr>
+        <td>103</td>
+        <td>15</td>
+        <td>103</td>
+        <td>maize</td>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>15</td>
+        <td>111</td>
+        <td>maize</td>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>15</td>
+        <td>111</td>
+        <td>maize</td>
+    </tr>
+    <tr>
+        <td>124</td>
+        <td>15</td>
+        <td>124</td>
+        <td>maize</td>
+    </tr>
+    <tr>
+        <td>253</td>
+        <td>15</td>
+        <td>253</td>
+        <td>maize</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Se pueden hacer joins con más de 2 tablas. En esta por ejemplo, estamos consultando cuáles son las parcelas que pertenecen a las granjas con más de 12 miembros, cultivan maíz y tienen una extensión mayor a 5 hectáreas.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT 
+    F.Id AS farm_id, F.B_no_membrs AS farm_members,
+    C.Id AS Crops_Id, C.plot_Id AS crops_plot_id, C.D_curr_crop,
+    P.Id , P.plot_id AS plot_id, P.D02_total_plot
+FROM Farms AS F
+        JOIN Crops AS C
+        JOIN Plots AS P
+    ON F.Id = C.Id AND F.Id = P.Id AND C.Id = P.Id
+WHERE F.B_no_membrs &gt; 12 AND C.D_curr_crop = 'maize'  AND P.D02_total_plot &gt; 5
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * sqlite:///SQL_SAFI.sqlite
+Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>farm_id</th>
+        <th>farm_members</th>
+        <th>Crops_Id</th>
+        <th>crops_plot_id</th>
+        <th>D_curr_crop</th>
+        <th>Id</th>
+        <th>plot_id</th>
+        <th>D02_total_plot</th>
+    </tr>
+    <tr>
+        <td>32</td>
+        <td>19</td>
+        <td>32</td>
+        <td>1</td>
+        <td>maize</td>
+        <td>32</td>
+        <td>1</td>
+        <td>10.0</td>
+    </tr>
+    <tr>
+        <td>92</td>
+        <td>17</td>
+        <td>92</td>
+        <td>1</td>
+        <td>maize</td>
+        <td>92</td>
+        <td>1</td>
+        <td>6.0</td>
+    </tr>
+    <tr>
+        <td>92</td>
+        <td>17</td>
+        <td>92</td>
+        <td>1</td>
+        <td>maize</td>
+        <td>92</td>
+        <td>2</td>
+        <td>6.0</td>
+    </tr>
+    <tr>
+        <td>92</td>
+        <td>17</td>
+        <td>92</td>
+        <td>1</td>
+        <td>maize</td>
+        <td>92</td>
+        <td>3</td>
+        <td>6.0</td>
+    </tr>
+    <tr>
+        <td>103</td>
+        <td>15</td>
+        <td>103</td>
+        <td>3</td>
+        <td>maize</td>
+        <td>103</td>
+        <td>1</td>
+        <td>22.0</td>
+    </tr>
+    <tr>
+        <td>103</td>
+        <td>15</td>
+        <td>103</td>
+        <td>3</td>
+        <td>maize</td>
+        <td>103</td>
+        <td>2</td>
+        <td>16.0</td>
+    </tr>
+    <tr>
+        <td>124</td>
+        <td>15</td>
+        <td>124</td>
+        <td>1</td>
+        <td>maize</td>
+        <td>124</td>
+        <td>1</td>
+        <td>7.0</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Práctica">
+<a class="anchor" href="#Pr%C3%A1ctica" aria-hidden="true"><span class="octicon octicon-link"></span></a>Práctica<a class="anchor-link" href="#Pr%C3%A1ctica"> </a>
+</h2>
+<ul>
+<li>Calcula el área total de maíz sembrado actualmente en cada villa. </li>
+<li>Tenga en cuenta que la extensión de cada cultivo (<code>D02_total_plot</code>) está en la tabla <code>Plots</code>, el cultivo actual (<code>D_curr_crop</code>) está en la tabla <code>Crops</code> y la información de la villa (<code>A09_village</code>) en la tabla <code>Farms</code>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Referencias">
+<a class="anchor" href="#Referencias" aria-hidden="true"><span class="octicon octicon-link"></span></a>Referencias<a class="anchor-link" href="#Referencias"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><a href="https://datacarpentry.org/sql-socialsci/">Data Management with SQL for Social Scientists</a></li>
+<li><a href="https://textbook.coleridgeinitiative.org/chap-db.html">Big Data &amp; Social Science. Chpater 4: Databases</a></li>
+<li><a href="https://classroom.udacity.com/courses/ud198">Curso gratuito en Udacity: SQL for Data Analysis</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="jjsantos01/jjsantosoblog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/intro-sql-sociales/" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Intentando aplicar ciencia de datos a las ciencias sociales.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
