@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Introducción a PyQGIS (Python + QGIS) | Blog de Juan Santos</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Introducción a PyQGIS (Python + QGIS)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Automatiza procesos de QGIS usando Python" />
+<meta property="og:description" content="Automatiza procesos de QGIS usando Python" />
+<link rel="canonical" href="http://blog.jjsantoso.com/intro-pyqgis/" />
+<meta property="og:url" content="http://blog.jjsantoso.com/intro-pyqgis/" />
+<meta property="og:site_name" content="Blog de Juan Santos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-03-10T00:00:00-06:00" />
+<script type="application/ld+json">
+{"url":"http://blog.jjsantoso.com/intro-pyqgis/","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.jjsantoso.com/intro-pyqgis/"},"headline":"Introducción a PyQGIS (Python + QGIS)","dateModified":"2022-03-10T00:00:00-06:00","datePublished":"2022-03-10T00:00:00-06:00","description":"Automatiza procesos de QGIS usando Python","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://blog.jjsantoso.com/feed.xml" title="Blog de Juan Santos" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-177879700-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Blog de Juan Santos</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">Bio</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Introducción a PyQGIS (Python + QGIS)</h1><p class="page-description">Automatiza procesos de QGIS usando Python</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-03-10T00:00:00-06:00" itemprop="datePublished">
+        Mar 10, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      16 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#qgis">qgis</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#pyqgis">pyqgis</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          
+          
+          
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Introducción">Introducción </a></li>
+<li class="toc-entry toc-h1"><a href="#La-consola-de-Python-en-QGIS">La consola de Python en QGIS </a></li>
+<li class="toc-entry toc-h1"><a href="#Básicos-de-PyQGIS">Básicos de PyQGIS </a></li>
+<li class="toc-entry toc-h1"><a href="#Operaciones-con/entre-capas">Operaciones con/entre capas </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Centroides">Centroides </a></li>
+<li class="toc-entry toc-h2"><a href="#Validación">Validación </a></li>
+<li class="toc-entry toc-h2"><a href="#Unión-espacial">Unión espacial </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Conclusión">Conclusión </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-03-10-intro_pyqgis.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Introducción">
+<a class="anchor" href="#Introducci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introducción<a class="anchor-link" href="#Introducci%C3%B3n"> </a>
+</h1>
+<p>Últimamente he estado trabajando mucho con <a href="https://www.qgis.org/es/site/">QGIS</a>, el software SIG de código libre indispensable para cualquier analista de datos geográficos. El trabajo que realizaba era muy manual (crear y editar polígonos), pero había ciertos pasos que sentía que podía automatizar, así que decidí aprender al menos un poco de <a href="https://docs.qgis.org/3.16/en/docs/pyqgis_developer_cookbook/index.html">PyQGIS</a> para hacer las tareas repetitivas.</p>
+<p>PyQGIS es la librería de Python para ejecutar tareas dentro de QGIS. Si has usado QGIS seguro que en más de una vez has visto el logo de Python en la barra de herramientas. Python y QGIS tienen una gran integración y aprender a usar PyQGIS es una inversión de tiempo con rendimientos garantizados. Pese a ello, me parece que no es muy fácil iniciar con PyQGIS, incluso si uno ya sabe Python. PyQGIS y su documentación parece que están diseñados más hacia desarrolladores de plugins que hacia usuarios finales. Si uno viene de utilizar herramientas de análisis geográfico más sencillas como <a href="https://geopandas.org/en/stable/">GeoPandas</a> o <a href="https://r-spatial.github.io/sf/">SF</a> seguramente PyQGIS parece muy burocrático o complicado en un principio, pero como en todo, se trata de entender su lógica y poco a poco uno va descubriendo que también es una herramienta muy completa y muy práctica.</p>
+<p>En esta entrada me gustaría mostrar la lógica básica para que alguien que ya tiene conocimentos de la sintaxis de Python y ha trabajado con QGIS pueda empezar a automatizar procesos sencillos con PyQGIS. En particular voy a mostrar un par de ejemplos prácticos aplicando algoritnmos de validación y procesamiento. Aclaro que no soy un experto en QGIS, pero quiero compartir mi aprendizaje al iniciar porque sé que puede haber otras personas en la misma situación.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="La-consola-de-Python-en-QGIS">
+<a class="anchor" href="#La-consola-de-Python-en-QGIS" aria-hidden="true"><span class="octicon octicon-link"></span></a>La consola de Python en QGIS<a class="anchor-link" href="#La-consola-de-Python-en-QGIS"> </a>
+</h1>
+<p>Voy a trabajar desde la interfaz gráfica de QGIS, por lo que obviamente hay que tener <a href="https://www.qgis.org/es/site/forusers/download.html">instalado QGIS</a> en la computadora. En otra entrada mostraré cómo instalar QGIS desde <a href="https://www.anaconda.com/products/individual">Anaconda</a> para trabajar usando <a href="https://jupyter.org/">JupyterLab</a>.</p>
+<p>Una vez instalado y descargado QGIS, abrimos el programa e iniciamos un nuevo proyecto. En la barra de herramientas encontraremos el símbolo de Python. Al hacer clic se abrirá una consola de Python dentro de la ventana de QGIS. Si no ves el ícono, puedes acceder usando el menú en la pestaña <code>complementos &gt;&gt; Consola de Python</code></p>
+<p>Como se ve en la siguiente imagen, la consola se divide en dos secciones, una es la ventana de resultados y la otro es la terminal de Python.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/images/intro_pyqgis_icono_python.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En la terminal puedes escribir código de Python directamente y este se mostrará en la ventana de resultados, por ejemplo, si escribimos en la terminal:</p>
+<div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"¡Hola mundo!"</span><span class="p">)</span>
+</pre></div>
+<p>en la ventana de resultados se imprimirá el comando que escribimos y su resultado</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/images/intro_pyqgis_terminal.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Escrbir código en la terminal no es muy práctico, por eso es mejor usar el editor de scripts, al que se puede acceder al hacer clic en el ícono superior de una hoja con un lápiz. También (me parece) es mejor trabajar en una ventana separada, para ello hacemos clic en el ícono de la parte superior derecha con dos cuadritos (al lado de la X).</p>
+<p>En la nueva configuración, el editor de scripts aparece a la derecha y la ventana de resultados, junto con la terminal, del lado izquierdo. Podemos escribir código en el editor y ejecutarlo haciendo clic en el ícono superior en forma de triángulo verde (o con el atajo de teclado <code>ctrl + shift + e</code>), el resultado se imprime en la ventana de resultados.</p>
+<p>Se puede guardar el script con el ícono de disco, o se puede crear uno nuevo al hacer clic en el símbolo $+$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/images/intro_pyqgis_script_0.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Básicos-de-PyQGIS">
+<a class="anchor" href="#B%C3%A1sicos-de-PyQGIS" aria-hidden="true"><span class="octicon octicon-link"></span></a>Básicos de PyQGIS<a class="anchor-link" href="#B%C3%A1sicos-de-PyQGIS"> </a>
+</h1>
+<p>Dentro de la consola de Python tenemos acceso a las librerías con las funciones importantes para poder manipular elementos de QGIS. Vamos a crear un nuevo script que se llame <code>intro_pyqgis_01.py</code>. En el importamos las funciones (constructores, para ser más precisos) <code>QgsProject, QgsVectorLayer</code> del módulo <code>qgis.core</code>.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsVectorLayer</span>
+</pre></div>
+<p>Como sabemos, en QGIS se usan proyectos que contienen capas (<em>layers</em>). Las capas normalmente hacen referencia a archivos con datos geoespaciales, típicamente Shapefiles o GeoJSON, aunque también puede haber capas de otros tipos. Bueno, esa misma estructura la debemos tener en cuenta en PyQGIS. Debemos trabajar sobre un objeto tipo proyecto que contiene objetos de tipo capas.</p>
+<p>Vamos a iniciar manualmente un nuevo proyecto de QGIS (<code>proyecto &gt;&gt; Nuevo</code>) y lo guardamos en nuestro equipo con el nombre de <code>intro_pyqgis</code>.</p>
+<p>Ahora, vamos al editor de script y creamos una instancia de proyecto a partir del proyecto que actualmente está activo en QGIS:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsVectorLayer</span>
+<span class="n">proyecto</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Al elecutar lo anterior no veremos que nada cambie, solo definimos el objeto proyecto.
+Podemos ecribir la siguiente línea en la terminal para verificar el archivo de proyecto que estamos usando:</p>
+<div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">proyecto</span><span class="o">.</span><span class="n">fileName</span><span class="p">())</span>
+</pre></div>
+<p>Que en mi caso arroja:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">&gt;&gt;</span> <span class="s1">'C:/Users/juan.santos/OneDrive/intro_pyqgis/intro_pyqgis.qgz'</span>
+</pre></div>
+<p>Ahora hay que agregarle datos (capas). Para eso usamos la función <code>QgsVectorLayer</code>, que recibe dos argumentos: ruta del archivo geográfico y nombre de la capa.</p>
+<p>Los datos que usaremos son publicados por el portal de datos abiertos de la Ciudad de México (CDMX):</p>
+<ul>
+<li><a href="https://datos.cdmx.gob.mx/dataset/coloniascdmx">colonias de la CDMX </a></li>
+<li><a href="https://datos.cdmx.gob.mx/dataset/mercados-publicos">Mercados públicos</a></li>
+</ul>
+<p>Como los datos pueden cambiar en el futuro, dejo <a href="https://s3.us-east-2.amazonaws.com/jjsantoso.com/blog/datos/datos.zip">aquí para descarga</a> los que yo usé en particular para este post.</p>
+<p>Ahora sí vamos a añadir una capa con los datos de las colonias de la CDMX que se va a llamar "colonias_cdmx".</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="c1">## intro_pyqgis_01.py</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsVectorLayer</span>
+
+<span class="c1"># Ruta a la carpeta datos</span>
+<span class="n">dir_data</span> <span class="o">=</span> <span class="s2">"datos"</span>
+
+<span class="n">proyecto</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+
+<span class="c1"># Nombre de la capa</span>
+<span class="n">nombre_layer_colonias</span> <span class="o">=</span> <span class="s2">"colonias_cdmx"</span>
+
+<span class="c1"># crea la capa</span>
+<span class="n">layer_colonias</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">dir_data</span><span class="si">}</span><span class="s2">/colonias_iecm_2019/mgpc_2019.shp"</span><span class="p">,</span> <span class="n">nombre_layer_colonias</span><span class="p">)</span>
+
+<span class="c1"># Añade la capa</span>
+<span class="n">proyecto</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer_colonias</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ahora sí veremos que en la ventana principal de QGIS se carga el mapa de colonias.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/images/intro_pyqgis_01.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¡Y así de fácil es cargar datos! Sin embargo, debemos de tener cuidado porque si corremos el mismo script varias veces se cargará la misma capa muchas veces, ya que QGIS permite cargar múltiples veces el mismo archivo.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/images/intro_pyqgis_02.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Para evitar eso, vamos a modificar el script e incluir una pequeña condición que primero verifica si ya existe en el proyecto una capa con el mismo nombre. En caso de que no esxista, entonces carga la capa, si ya existe, entonces no hace nada más. De esta forma podemos ejecutar el archivo <code>intro_pyqgis_01.py</code> tantas veces queramos sin cargar la misma capa.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="c1">## intro_pyqgis_01.py</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsVectorLayer</span>
+
+<span class="c1"># Ruta a la carpeta datos</span>
+<span class="n">dir_data</span> <span class="o">=</span> <span class="s2">"datos"</span>
+
+<span class="n">proyecto</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+
+<span class="c1"># Nombre de la capa</span>
+<span class="n">nombre_layer_colonias</span> <span class="o">=</span> <span class="s2">"colonias_cdmx"</span>
+
+<span class="c1"># crea la capa</span>
+<span class="n">layer_colonias</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">dir_data</span><span class="si">}</span><span class="s2">/colonias_iecm_2019/mgpc_2019.shp"</span><span class="p">,</span> <span class="n">nombre_layer_colonias</span><span class="p">)</span>
+
+<span class="c1"># verifica si la capa ya existe</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">nombre_layer_colonias</span><span class="p">):</span>
+    <span class="c1"># Si no existe, Añade la capa</span>
+    <span class="n">proyecto</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer_colonias</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pues estos (<em>QgsProject</em> y <em>QgsVectorLayer</em>) me parece que son los tipos de objeto más básicos que hay que entender para empezar en PyQGIS (y saber que hay muchos, muchos más tipos de objetos).</p>
+<p>Como todo objeto en Python, los proyectos y capas tienen métodos y atributos. De hecho, tienen muchos métodos y atributos, por lo que es dificil saber qué es lo que uno necesita. Ya vimos por ejemplo, un método para obtener el nombre del archivo del proyecto que estamos usando, y también cómo añadir una capa a un proyecto. Si queremos saber todos los métodos disponibles para un objeto projecto podemos <a href="https://qgis.org/pyqgis/3.0/core/Project/QgsProject.html?highlight=title#module-QgsProject">consultar la documentación</a>.</p>
+<p>De ahí podemos obtener algunos datos útiles para trabajar:</p>
+<div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Número de capas en el proyecto"</span><span class="p">,</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"CRS del proyecto"</span><span class="p">,</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">crs</span><span class="p">()</span><span class="o">.</span><span class="n">description</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Directorio del proyecto"</span><span class="p">,</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">homePath</span><span class="p">())</span>
+</pre></div>
+<p>resultado:</p>
+
+<pre><code>Número de capas en el proyecto 1
+CRS del proyecto WGS 84 / UTM zone 14N
+Directorio del proyecto C:/Users/juan.santos/OneDrive/intro_pyqgis</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Igualmente, de las capas podemos encontrar cosas muy interesantes, como el número de filas y columnas que tienen los datos asociados, o el sistema de coordenadas. Consulta aquí la documentación de los objetos <a href="https://qgis.org/pyqgis/3.0/core/Vector/QgsVectorLayer.html?highlight=qgsvectorlayer#module-QgsVectorLayer"><em>QgsVectorLayer</em></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Número de filas:"</span><span class="p">,</span> <span class="n">layer_colonias</span><span class="o">.</span><span class="n">featureCount</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Número de columnas:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_colonias</span><span class="o">.</span><span class="n">fields</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Sistema de coordenadas:"</span><span class="p">,</span> <span class="n">layer_colonias</span><span class="o">.</span><span class="n">crs</span><span class="p">()</span><span class="o">.</span><span class="n">description</span><span class="p">())</span>
+</pre></div>
+<p>resultado:</p>
+
+<pre><code>Número de filas: 1815
+Número de columnas: 8
+Sistema de coordenadas: WGS 84 / UTM zone 14N</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Así que ya sabemos que hay 1815 colonias incluídas en este archivo y que tiene 8 columnas. ¿Cuál es el nombre de las columnas y de qué tipo son?:</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer_colonias</span><span class="o">.</span><span class="n">fields</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">f</span><span class="o">.</span><span class="n">typeName</span><span class="p">())</span>
+</pre></div>
+<p>resultado:</p>
+
+<pre><code>ENT String
+CVEDT String
+NOMDT String
+DTTOLOC String
+CVEUT String
+NOMUT String
+POB2010 String
+ID Integer</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>También podemos obtener los datos de una fila en particular de la capa con el método <code>.getFeature()</code>. El resultado es un <a href="https://qgis.org/pyqgis/3.0/core/Feature/QgsFeature.html?highlight=qgsfeature#module-QgsFeature">objeto tipo <code>QgsFeature</code></a>. En este caso por ejemplo obtenemos la fila en la posición 11 del archivo y vemos los datos que contiene.</p>
+<div class="highlight"><pre><span></span><span class="n">feature</span> <span class="o">=</span> <span class="n">layer_colonias</span><span class="o">.</span><span class="n">getFeature</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feature</span><span class="o">.</span><span class="n">attributes</span><span class="p">())</span>
+</pre></div>
+<p>resultado:</p>
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">qgis</span><span class="o">.</span><span class="n">_core</span><span class="o">.</span><span class="n">QgsFeature</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x000001A94F2EBB80</span><span class="o">&gt;</span>
+<span class="p">[</span><span class="s1">'9'</span><span class="p">,</span> <span class="s1">'2'</span><span class="p">,</span> <span class="s1">'AZCAPOTZALCO'</span><span class="p">,</span> <span class="s1">'05'</span><span class="p">,</span> <span class="s1">'02-013'</span><span class="p">,</span> <span class="s1">'CUITLÃ</span><span class="se">\x81</span><span class="s1">HUAC 1 Y 2 (U HAB)'</span><span class="p">,</span> <span class="s1">'2449'</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Y así, podemos seguir obteniendo más objetos. Por ejemplo del feature anterior podemos obtener la geometría, que es un <a href="https://qgis.org/pyqgis/3.0/core/Geometry/QgsGeometry.html?highlight=qgsgeometry">objeto tipo <em>QgsGeometry: Multipolygon</em></a>. De la geometría, podemos obtener el centroide, que es un <em>QgsGeometry: Point</em></p>
+<div class="highlight"><pre><span></span><span class="n">geom</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">centroid</span><span class="p">())</span>
+</pre></div>
+<p>resultado:</p>
+
+<pre><code>&lt;QgsGeometry: Point (482445.29628468106966466 2153086.92174857435747981)&gt;</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>y así le vamos entendiendo de a poco, hasta parece sencillo.</p>
+<p>Es muy interesante porque conociendo bien esta lógica podemos integrar muy bien QGIS con las demás herramientas de Python. Por ejemplo, solo por diversión, vamos a hacer una gráfica de la colonia que seleccionamos usando <code>matplotlib</code>, que ya viene instalado dentro del entorno de QGIS.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">coords</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">asJson</span><span class="p">())[</span><span class="s2">"coordinates"</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">coords_centroide</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">centroid</span><span class="p">()</span><span class="o">.</span><span class="n">asJson</span><span class="p">())[</span><span class="s2">"coordinates"</span><span class="p">]</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[[</span><span class="n">xy</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">xy</span> <span class="ow">in</span> <span class="n">coords</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">coords_centroide</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">coords_centroide</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s1">'bo'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">coords_centroide</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">coords_centroide</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">feature</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="s2">"NOMUT"</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/images/intro_pyqgis_03.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/images/esto-lo-hago-pa-divertirme.jpg" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Así queda el script <code>ìntro_pyqgis_01.py</code> completo:</p>
+<div class="highlight"><pre><span></span><span class="c1"># ìntro_pyqgis_01.py</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsVectorLayer</span>
+
+<span class="n">proyecto</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+
+<span class="n">dir_data</span> <span class="o">=</span> <span class="s2">"datos"</span>
+<span class="n">nombre_layer_colonias</span> <span class="o">=</span> <span class="s2">"colonias_cdmx"</span>
+<span class="n">layer_colonias</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">dir_data</span><span class="si">}</span><span class="s2">/colonias_iecm_2019/mgpc_2019.shp"</span><span class="p">,</span> <span class="n">nombre_layer_colonias</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">nombre_layer_colonias</span><span class="p">):</span>
+    <span class="n">proyecto</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer_colonias</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Número de capas en el proyecto:"</span><span class="p">,</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"CRS del proyecto:"</span><span class="p">,</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">crs</span><span class="p">()</span><span class="o">.</span><span class="n">description</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Directorio del proyecto:"</span><span class="p">,</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">homePath</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Número de filas:"</span><span class="p">,</span> <span class="n">layer_colonias</span><span class="o">.</span><span class="n">featureCount</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Número de columnas:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_colonias</span><span class="o">.</span><span class="n">fields</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Sistema de coordenadas:"</span><span class="p">,</span> <span class="n">layer_colonias</span><span class="o">.</span><span class="n">crs</span><span class="p">()</span><span class="o">.</span><span class="n">description</span><span class="p">())</span>
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer_colonias</span><span class="o">.</span><span class="n">fields</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">f</span><span class="o">.</span><span class="n">typeName</span><span class="p">())</span>
+<span class="c1">#</span>
+<span class="n">feature</span> <span class="o">=</span> <span class="n">layer_colonias</span><span class="o">.</span><span class="n">getFeature</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feature</span><span class="o">.</span><span class="n">attributes</span><span class="p">())</span>
+<span class="c1">#</span>
+<span class="n">geom</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">centroid</span><span class="p">())</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">asJson</span><span class="p">())[</span><span class="s2">"coordinates"</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">coords_centroide</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">centroid</span><span class="p">()</span><span class="o">.</span><span class="n">asJson</span><span class="p">())[</span><span class="s2">"coordinates"</span><span class="p">]</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[[</span><span class="n">xy</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">xy</span> <span class="ow">in</span> <span class="n">coords</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">coords_centroide</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">coords_centroide</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s1">'bo'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">coords_centroide</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">coords_centroide</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">feature</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="s2">"NOMUT"</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Operaciones-con/entre-capas">
+<a class="anchor" href="#Operaciones-con/entre-capas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operaciones con/entre capas<a class="anchor-link" href="#Operaciones-con/entre-capas"> </a>
+</h1>
+<p>Uno de los usos que le podemos dar a PyQGIS, y en particular fue la razón por la que lo empecé a usar, es para automatizar operaciones con o entre capas.</p>
+<p>Por ejemplo, yo estaba creando polígonos manualmente y cada tanto tenía que revisar que no tuvieran errores. Inicialmente hacía esto siguiendo la ruta del menú <code>Vectorial &gt;&gt; Herramientas de Geometría &gt;&gt; Comprobar Validez</code> y seleccionaba las opciones para que el algoritmo se ejecutara. Todo esto era repetitivo y además era medio molesto, porque como resultado de la ejecución siempre añadía 3 capas al proyecto, que me tocaba retirar manualmente. Entonces fue cuando descubrí que podía programar la operación de validación y así solo tenía que ejecutar el script cuando lo necesitara. Luego seguí automatizando otras operaciones que eran repetitivas.</p>
+<p>Casi toda operación con capas que se puede hacer usando las opciones del menú de QGIS se puede hacer también usando PyQGIS de una manera relativamente sencilla. Podemos ver todas las operaciones/algoritmos disponibles en el menú <code>Procesos &gt; Caja de herramientas</code>. En la caja de búsqueda podemos buscar alguna operación, por ejemplo, si lo que me interesa es calcular los centroides de una capa escribo <code>centroide</code> y obtengo los algoritmos relacionados:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/images/caja_algoritmos.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Al pasar el cursos por encima de cualquier algoritmo aparece una pequeña nota con el ID del algoritmo en cuestión (<code>native:centroids</code>), lo que nos permitirá identificarlo para trabajar con PyQGIS.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Centroides">
+<a class="anchor" href="#Centroides" aria-hidden="true"><span class="octicon octicon-link"></span></a>Centroides<a class="anchor-link" href="#Centroides"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Para usar estos algoritmos necesitamos importar la librería <code>processing</code>. Con el ID del algoritmo podemos consultar en la terminal la información sobre los parámetros que espera recibir. Creamos un nuevo script con el nombre <code>intro_pyqgis_02.py</code> y ponemos las siguientes líneas:</p>
+<div class="highlight"><pre><span></span><span class="c1"># intro_pyqgis_02.py</span>
+<span class="kn">import</span> <span class="nn">processing</span>
+<span class="n">processing</span><span class="o">.</span><span class="n">algorithmHelp</span><span class="p">(</span><span class="s2">"native:centroids"</span><span class="p">)</span>
+</pre></div>
+<p>que imprimen lo siguiente:</p>
+
+<pre><code>Centroides (native:centroids)
+
+Este algoritmo crea una capa de puntos nueva, con puntos que representan el centroide de las geometrías de la capa de entrada.
+
+Los atributos asociados a cada punto de la capa de salida son los mismos asociados a los objetos originales.
+
+
+----------------
+Input parameters
+----------------
+
+INPUT: Capa de entrada
+
+    Parameter type: QgsProcessingParameterFeatureSource
+
+    Accepted data types:
+        - str: ID de la capa
+        - str: Nombre de capa
+        - str: Fuente de la capa
+        - QgsProcessingFeatureSourceDefinition
+        - QgsProperty
+        - QgsVectorLayer
+
+ALL_PARTS: Crear centroide para cada parte
+
+    Parameter type: QgsProcessingParameterBoolean
+
+    Accepted data types:
+        - bool
+        - int
+        - str
+        - QgsProperty
+
+OUTPUT: Centroides
+
+    Parameter type: QgsProcessingParameterFeatureSink
+
+    Accepted data types:
+        - str: archivo vectorial de destino, ej. 'd:/test.shp'
+        - str: 'memory:' para guardar el resultado en una capa temporal en memoria
+        - str: utilizando prefijo ID del proveedor vectorial y URI de destino, por ejemplo 'postgres:...' para guardar el resultado en una tabla PostGIS
+        - QgsProcessingOutputLayerDefinition
+        - QgsProperty
+
+----------------
+Outputs
+----------------
+
+OUTPUT:  &lt;QgsProcessingOutputVectorLayer&gt;
+    Centroides</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Con esta información sabemos que hay tres parámetros que puede recibir como input este algoritmo:</p>
+<ul>
+<li>INPUT: Es la capa de la que se van a calcular los centroides.</li>
+<li>ALL_PARTS: Indica si se va a crear centroide para cada parte, en caso de que se trate de multipolígonos</li>
+<li>OUTPUT: dónde va a guardar el resultado. Puede ser un archivo o una capa temporal.</li>
+</ul>
+<p>Algunos parámetros pueden ser opcionales. Estos se van a pasar a PyQGIS en un diccionario.</p>
+<p>Así es como podemos ejecutar este algoritmo sobre la capa de <code>colonias_cdmx</code>:</p>
+<div class="highlight"><pre><span></span><span class="c1"># intro_pyqgis_02.py</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsVectorLayer</span>
+<span class="kn">import</span> <span class="nn">processing</span>
+
+<span class="n">proyecto</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+
+<span class="n">dir_data</span> <span class="o">=</span> <span class="s2">"datos"</span>
+<span class="n">nombre_layer_colonias</span> <span class="o">=</span> <span class="s2">"colonias_cdmx"</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">nombre_layer_colonias</span><span class="p">):</span>
+    <span class="n">layer_colonias</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">dir_data</span><span class="si">}</span><span class="s2">/colonias_iecm_2019/mgpc_2019.shp"</span><span class="p">,</span> <span class="n">nombre_layer_colonias</span><span class="p">)</span>
+    <span class="n">proyecto</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer_colonias</span><span class="p">)</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'INPUT'</span> <span class="p">:</span> <span class="n">nombre_layer_colonias</span><span class="p">,</span>
+    <span class="s1">'ALL_PARTS'</span> <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">'OUTPUT'</span> <span class="p">:</span><span class="s1">'TEMPORARY_OUTPUT'</span> 
+<span class="p">}</span>
+
+<span class="n">out</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"native:centroids"</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+</pre></div>
+<p>Que desafortunadamente nos arroja el siguiente error:</p>
+
+<pre><code>_core.QgsProcessingException: Feature (11) from “colonias_cdmx” has invalid geometry. Please fix the geometry or change the Processing setting to the “Ignore invalid input features” option.</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Esto debido a que la capa de colonias tiene errores en su creación :(. En un caso donde la capa no tuviera errores el algoritmo corriera sin problema y el resultado se guadaría en <code>out</code>.</p>
+<p>Ahora usemos el algoritmo <code>qgis:checkvalidity</code> para verificar qué está mal con esta capa.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Validación">
+<a class="anchor" href="#Validaci%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Validación<a class="anchor-link" href="#Validaci%C3%B3n"> </a>
+</h2>
+<p>No voy a ahondar mucho en los detalles de los INPUTS de este algoritmo, pero pueden revisarlo con</p>
+<div class="highlight"><pre><span></span><span class="n">processing</span><span class="o">.</span><span class="n">algorithmHelp</span><span class="p">(</span><span class="s2">"qgis:checkvalidity"</span><span class="p">)</span>
+</pre></div>
+<p>Solo notemos que estoy guardando el resultado en la variable <code>out_validacion</code> y que verifico si el algoritmo detecta características inválidas en la geometría. Si es así, entonces verifico si la capa resultante ya está en el proyecto. Si es así, entonces remuevo la capa existente. Luego, añado la capa que contiene los errores al proyecto. Esta lógica de remover y volver a añadir la capa se justifica porque en teoría yo esperaría que si detecto errores tendría que editar la capa original y luego ir verificando si el error se solucionó.
+Creamos un nuevo script con el nombre <code>intro_pyqgis_03.py</code> y ponemos las siguientes líneas:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="c1"># intro_pyqgis_03.py</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsVectorLayer</span>
+<span class="kn">import</span> <span class="nn">processing</span>
+
+<span class="n">proyecto</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+
+<span class="n">dir_data</span> <span class="o">=</span> <span class="s2">"datos"</span>
+<span class="n">nombre_layer_colonias</span> <span class="o">=</span> <span class="s2">"colonias_cdmx"</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">nombre_layer_colonias</span><span class="p">):</span>
+    <span class="n">layer_colonias</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">dir_data</span><span class="si">}</span><span class="s2">/colonias_iecm_2019/mgpc_2019.shp"</span><span class="p">,</span> <span class="n">nombre_layer_colonias</span><span class="p">)</span>
+    <span class="n">proyecto</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer_colonias</span><span class="p">)</span>
+
+<span class="n">params_validacion</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'ERROR_OUTPUT'</span> <span class="p">:</span> <span class="s1">'TEMPORARY_OUTPUT'</span><span class="p">,</span>
+    <span class="s1">'IGNORE_RING_SELF_INTERSECTION'</span> <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">'INPUT_LAYER'</span> <span class="p">:</span> <span class="n">layer_colonias</span><span class="p">,</span>
+    <span class="s1">'INVALID_OUTPUT'</span> <span class="p">:</span> <span class="s1">'TEMPORARY_OUTPUT'</span><span class="p">,</span>
+    <span class="s1">'METHD'</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">'VALID_OUTPUT'</span> <span class="p">:</span><span class="s1">'TEMPORARY_OUTPUT'</span> 
+<span class="p">}</span>
+
+<span class="n">out_validacion</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"qgis:checkvalidity"</span><span class="p">,</span> <span class="n">params_validacion</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">out_validacion</span><span class="p">[</span><span class="s1">'INVALID_COUNT'</span><span class="p">]:</span>
+    <span class="n">layer_error_existente</span> <span class="o">=</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">out_validacion</span><span class="p">[</span><span class="s1">'ERROR_OUTPUT'</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">layer_error_existente</span><span class="p">:</span>
+        <span class="n">proyecto</span><span class="o">.</span><span class="n">removeMapLayer</span><span class="p">(</span><span class="n">layer_error_existente</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Puntos erróneos'</span><span class="p">,</span> <span class="n">out_validacion</span><span class="p">[</span><span class="s1">'INVALID_COUNT'</span><span class="p">])</span>
+    <span class="n">proyecto</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">out_validacion</span><span class="p">[</span><span class="s1">'ERROR_OUTPUT'</span><span class="p">])</span>
+</pre></div>
+<p>El resultado se ve así:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/images/intro_pyqgis_capa_error.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Se añadió al proyecto la capa (temporal) "Salida Errónea", que tiene 39 puntos señalando dónde hay errores en la capa de "colonias_cdmx". Como son muchos, no los vamos a corregir ahora.</p>
+<p>Pero aún queremos ver el resultado de la operación de centroides a pesar de los errores, así que vamos a usar una opción que nos permite saltarse la validación y ejecutar la operación. Para eso vamos aimportar dos funciones más: <code>QgsProcessingFeatureSourceDefinition</code> y <code>QgsFeatureRequest</code>.</p>
+<p>Creamos un nuevo script con el nombre <code>intro_pyqgis_04.py</code> y ponemos las siguientes líneas:</p>
+<div class="highlight"><pre><span></span><span class="c1"># intro_pyqgis_04.py</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsVectorLayer</span><span class="p">,</span> <span class="n">QgsProcessingFeatureSourceDefinition</span><span class="p">,</span> <span class="n">QgsFeatureRequest</span><span class="p">,</span> <span class="n">QgsVectorFileWriter</span>
+<span class="kn">import</span> <span class="nn">processing</span>
+
+<span class="n">proyecto</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+
+<span class="n">dir_data</span> <span class="o">=</span> <span class="s2">"datos"</span>
+<span class="n">nombre_layer_colonias</span> <span class="o">=</span> <span class="s2">"colonias_cdmx"</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">nombre_layer_colonias</span><span class="p">):</span>
+    <span class="n">layer_colonias</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">dir_data</span><span class="si">}</span><span class="s2">/colonias_iecm_2019/mgpc_2019.shp"</span><span class="p">,</span> <span class="n">nombre_layer_colonias</span><span class="p">)</span>
+    <span class="n">proyecto</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer_colonias</span><span class="p">)</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'INPUT'</span> <span class="p">:</span> <span class="n">QgsProcessingFeatureSourceDefinition</span><span class="p">(</span><span class="n">nombre_layer_colonias</span><span class="p">,</span> <span class="n">selectedFeaturesOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">featureLimit</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">QgsProcessingFeatureSourceDefinition</span><span class="o">.</span><span class="n">FlagOverrideDefaultGeometryCheck</span><span class="p">,</span> <span class="n">geometryCheck</span><span class="o">=</span><span class="n">QgsFeatureRequest</span><span class="o">.</span><span class="n">GeometrySkipInvalid</span><span class="p">),</span>
+    <span class="s1">'ALL_PARTS'</span> <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">'OUTPUT'</span> <span class="p">:</span><span class="s1">'TEMPORARY_OUTPUT'</span> 
+<span class="p">}</span>
+
+<span class="n">out</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"native:centroids"</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+<span class="n">layer_centroides</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="s1">'OUTPUT'</span><span class="p">]</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">layer_centroides</span><span class="o">.</span><span class="n">name</span><span class="p">()):</span>
+    <span class="n">proyecto</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer_centroides</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¡Ahora sí se completó el proceso! y así se ve el resultado:</p>
+<p><img src="/images/copied_from_nb/images/intro_pyqgis_centroides.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por último, si quiero guardar el resultado de la capa de centroides puedo exportarla a un archivo con la siguiente línea:</p>
+<div class="highlight"><pre><span></span><span class="n">QgsVectorFileWriter</span><span class="o">.</span><span class="n">writeAsVectorFormat</span><span class="p">(</span><span class="n">layer_centroides</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">dir_data</span><span class="si">}</span><span class="s2">/centroides_colonias.geojson"</span><span class="p">,</span>  <span class="s1">'utf-8'</span><span class="p">,</span> <span class="n">layer_centroides</span><span class="o">.</span><span class="n">crs</span><span class="p">(),</span> <span class="s1">'GeoJson'</span><span class="p">)</span>
+</pre></div>
+<p>Se puede exportar a varios formatos populares como shapefile, GeoJSON o GeoPackage.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Unión-espacial">
+<a class="anchor" href="#Uni%C3%B3n-espacial" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unión espacial<a class="anchor-link" href="#Uni%C3%B3n-espacial"> </a>
+</h2>
+<p>Por último voy a dejar otro ejemplo de un procesamiento espacial, en este caso, una <a href="https://mappinggis.com/2017/03/como-realizar-una-union-espacial-spatial-join-con-qgis/">unión espacial (spatial join)</a> entre la capa de colonias y una con la ubicación de los mercados públicos de la CDMX. El resultado de esta unión es una capa temporal (<code>Capa Unida</code>) que contiene solo las colonias donde hay al menos un mercado público.</p>
+<p>Creamos un nuevo script con el nombre <code>intro_pyqgis_05.py</code> y ponemos las siguientes líneas:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="c1"># intro_pyqgis_05.py</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="kn">import</span> <span class="n">QgsProject</span><span class="p">,</span> <span class="n">QgsVectorLayer</span><span class="p">,</span> <span class="n">QgsProcessingFeatureSourceDefinition</span><span class="p">,</span> <span class="n">QgsFeatureRequest</span><span class="p">,</span> <span class="n">QgsVectorFileWriter</span>
+<span class="kn">import</span> <span class="nn">processing</span>
+
+<span class="n">proyecto</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+
+<span class="n">dir_data</span> <span class="o">=</span> <span class="s2">"datos"</span>
+<span class="n">nombre_layer_colonias</span> <span class="o">=</span> <span class="s2">"colonias_cdmx"</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">nombre_layer_colonias</span><span class="p">):</span>
+    <span class="n">layer_colonias</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">dir_data</span><span class="si">}</span><span class="s2">/colonias_iecm_2019/mgpc_2019.shp"</span><span class="p">,</span> <span class="n">nombre_layer_colonias</span><span class="p">)</span>
+    <span class="n">proyecto</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer_colonias</span><span class="p">)</span>
+
+<span class="n">nombre_layer_mercados</span> <span class="o">=</span> <span class="s2">"mercados"</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">nombre_layer_mercados</span><span class="p">):</span>
+    <span class="n">layer_mercados</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">dir_data</span><span class="si">}</span><span class="s2">/mercados/mercados_publicos.geojson"</span><span class="p">,</span> <span class="n">nombre_layer_mercados</span><span class="p">)</span>
+    <span class="n">proyecto</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer_mercados</span><span class="p">)</span>
+
+<span class="n">params_sjoin</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'INPUT'</span><span class="p">:</span> <span class="n">QgsProcessingFeatureSourceDefinition</span><span class="p">(</span><span class="n">nombre_layer_colonias</span><span class="p">,</span> <span class="n">selectedFeaturesOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">featureLimit</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">QgsProcessingFeatureSourceDefinition</span><span class="o">.</span><span class="n">FlagOverrideDefaultGeometryCheck</span><span class="p">,</span> <span class="n">geometryCheck</span><span class="o">=</span><span class="n">QgsFeatureRequest</span><span class="o">.</span><span class="n">GeometrySkipInvalid</span><span class="p">),</span>
+    <span class="s1">'JOIN'</span><span class="p">:</span> <span class="n">layer_mercados</span><span class="p">,</span>
+    <span class="s1">'PREDICATE'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">'OUTPUT'</span><span class="p">:</span> <span class="s1">'TEMPORARY_OUTPUT'</span><span class="p">,</span> 
+    <span class="s1">'DISCARD_NONMATCHING'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">out_sjoin</span> <span class="o">=</span> <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"qgis:joinattributesbylocation"</span><span class="p">,</span> <span class="n">params_sjoin</span><span class="p">)</span>
+<span class="n">layer_union</span> <span class="o">=</span> <span class="n">out_sjoin</span><span class="p">[</span><span class="s1">'OUTPUT'</span><span class="p">]</span>
+
+<span class="n">layer_sjoin_existente</span> <span class="o">=</span> <span class="n">proyecto</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">layer_union</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">layer_sjoin_existente</span><span class="p">:</span>
+    <span class="n">proyecto</span><span class="o">.</span><span class="n">removeMapLayer</span><span class="p">(</span><span class="n">layer_sjoin_existente</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Features resultantes'</span><span class="p">,</span> <span class="n">out_sjoin</span><span class="p">[</span><span class="s1">'JOINED_COUNT'</span><span class="p">])</span>
+<span class="n">proyecto</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer_union</span><span class="p">)</span>
+</pre></div>
+<p>El resultado es el siguiente:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/copied_from_nb/images/intro_pyqgis_sjoin.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Conclusión">
+<a class="anchor" href="#Conclusi%C3%B3n" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusión<a class="anchor-link" href="#Conclusi%C3%B3n"> </a>
+</h1>
+<p>Como hemos visto, PyQGIS es una herramienta muy poderosa que nos puede ayudar a automatizar procesos al trabajar con QGIS. Puede que la curva de aprendizaje no sea la más fácil, pero con la documentación y preguntas en internet se puede llegar a realizar la mayoría de tareas cotidianas de un analista de datos geográficos.</p>
+<p>Por último les dejo algunos recursos que he encontrado y me han parecido muy valiosos al seguir este camino:</p>
+<ul>
+<li>El curso de Anita Graser es fantástico: <a href="https://anitagraser.com/pyqgis-101-introduction-to-qgis-python-programming-for-non-programmers/">https://anitagraser.com/pyqgis-101-introduction-to-qgis-python-programming-for-non-programmers/</a>
+</li>
+<li>La documentación oficial: <a href="https://docs.qgis.org/3.16/en/docs/pyqgis_developer_cookbook/index.html">https://docs.qgis.org/3.16/en/docs/pyqgis_developer_cookbook/index.html</a>
+</li>
+<li>Estos videos de José Vivente Pérez Peña: <a href="https://www.youtube.com/watch?v=PvmuLDPo9Eo">Introducción a PyQGIS</a> y <a href="https://www.youtube.com/watch?v=_AJ1e6lotao">Acceso a features en PyQGIS</a>
+</li>
+<li>No lo comentamos aquí, pero PyQGIS también tiene una interfaz llamada iface para manejar la interfaz visual de QGIS. En este video hay una muy buena introducción: <a href="https://gidahatari.com/ih-es/introduccion-a-pyqgis-en-entorno-de-python-dentro-de-qgis">https://gidahatari.com/ih-es/introduccion-a-pyqgis-en-entorno-de-python-dentro-de-qgis</a>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="jjsantos01/jjsantosoblog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/intro-pyqgis/" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Intentando aplicar ciencia de datos a las ciencias sociales.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
