@@ -174,6 +174,8 @@ jupyter lab
 <span class="kn">from</span> <span class="nn">qgis.analysis</span> <span class="kn">import</span> <span class="n">QgsNativeAlgorithms</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"QT_QPA_PLATFORM"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"offscreen"</span> <span class="c1"># Esta línea es necesaria para poder iniciar una instancia QgsApplication(), en caso de que sea necesario</span>
+
 <span class="n">QgsApplication</span><span class="o">.</span><span class="n">setPrefixPath</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">processing</span>
@@ -245,7 +247,7 @@ CVEUT String
 NOMUT String
 POB2010 String
 ID Integer
-&lt;qgis._core.QgsFeature object at 0x7f50c8e07d90&gt;
+&lt;qgis._core.QgsFeature object at 0x7f09dd057400&gt;
 ['9', '2', 'AZCAPOTZALCO', '05', '02-013', 'CUITLÁHUAC 1 Y 2 (U HAB)', '2449', 11]
 &lt;QgsGeometry: Point (482445.29628468106966466 2153086.92174857435747981)&gt;
 </pre>
