@@ -1,0 +1,2863 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Conexión a cubos dinámicos de la DGIS de la Secretaría de Salud (México) | Blog de Juan Santos</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Conexión a cubos dinámicos de la DGIS de la Secretaría de Salud (México)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Pasos para conectarse a los cubos dinámicos de la DGIS de la Secretaría de Salud" />
+<meta property="og:description" content="Pasos para conectarse a los cubos dinámicos de la DGIS de la Secretaría de Salud" />
+<link rel="canonical" href="http://blog.jjsantoso.com/dgis-conexion/" />
+<meta property="og:url" content="http://blog.jjsantoso.com/dgis-conexion/" />
+<meta property="og:site_name" content="Blog de Juan Santos" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-05T00:00:00-05:00" />
+<script type="application/ld+json">
+{"url":"http://blog.jjsantoso.com/dgis-conexion/","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.jjsantoso.com/dgis-conexion/"},"headline":"Conexión a cubos dinámicos de la DGIS de la Secretaría de Salud (México)","dateModified":"2022-07-05T00:00:00-05:00","datePublished":"2022-07-05T00:00:00-05:00","description":"Pasos para conectarse a los cubos dinámicos de la DGIS de la Secretaría de Salud","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://blog.jjsantoso.com/feed.xml" title="Blog de Juan Santos" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-177879700-1','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Blog de Juan Santos</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">Bio</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Conexión a cubos dinámicos de la DGIS de la Secretaría de Salud (México)</h1><p class="page-description">Pasos para conectarse a los cubos dinámicos de la DGIS de la Secretaría de Salud</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-07-05T00:00:00-05:00" itemprop="datePublished">
+        Jul 5, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      17 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#dgis">dgis</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#datos">datos</a>
+        
+      
+      </p>
+    
+
+    
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-07-05-dgis_conexion.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Introducci&#243;n">Introducci&#243;n<a class="anchor-link" href="#Introducci&#243;n"> </a></h1><p>La Secretaría de Salud (SSA) de México publica muchos de sus datos abiertos a través de cubos dinámicos. Si bien los cubos dinámicos tienen la ventaja de que permiten a los usuarios construir consultas complejas, lo cierto es que la tecnologia que usa la SSA es muy antigua y hace prácticamente inaccesibles los datos. Según la <a href="http://www.dgis.salud.gob.mx/descargas/pdf/Guia_de_Instalacion_Cubosvf.pdf">guía de instalación</a>, es necesario usar el navegador Internet Explorer (<a href="https://www.muycomputer.com/2022/06/14/internet-explorer-dice-adios/">que ya fue descontinuado por Microsoft</a>) y además instalar al menos 4 programas y complementos en el navegador. El proceso es simplemente anacrónico.</p>
+<p>Para facilitar el acceso a los cubos y poder obtener un acceso a los datos mucho más detallado, me dí a la tarea de buscar una forma de conectarme directamente a los cubos sin necesidad de usar el tedioso proceso de instalación. A continuación detallo los pasos de cómo lo logré usando Python.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Pasos-para-la-conexi&#243;n">Pasos para la conexi&#243;n<a class="anchor-link" href="#Pasos-para-la-conexi&#243;n"> </a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Primero que todo, es necesario instalar <a href="https://pypi.org/project/adodbapi/">adobapi</a></p>
+
+<pre><code>pip install adodbapi</code></pre>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">adodbapi</span>
+
+
+<span class="k">def</span> <span class="nf">rows_to_df</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Convierte los resultados de una consulta de adobdapi a un DataFrame de Pandas.</span>
+<span class="sd">    rows: resultado de la consulta</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">rows</span><span class="o">.</span><span class="n">columnNames</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">rows</span><span class="o">.</span><span class="n">ado_results</span><span class="p">)))</span>\
+        <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Se necesita descargar el driver de MSOLAP (amd64): <a href="https://docs.microsoft.com/en-us/analysis-services/client-libraries?view=asallproducts-allversions&amp;viewFallbackFrom=sql-server-2017">https://docs.microsoft.com/en-us/analysis-services/client-libraries?view=asallproducts-allversions&amp;viewFallbackFrom=sql-server-2017</a>. No he probado en otros sitemas operativos, pero me parece que solo se puede con Windows.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Es posible que también haya que instalar los drivers que especifica la páginas de DGIS en las instrucciones de instalación (a mí me funcionó sin estos).</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Usamos <code>adodbapi</code> para establecer una conexión con el servidor</li>
+<li>Es necesario especificar la base de datos que se va a consultar, por ejemplo, este es la de muertes maternas.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cubo</span> <span class="o">=</span> <span class="s1">&#39;MATERNAS_2020&#39;</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">adodbapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;Provider=MSOLAP.8;Password=Temp123!;Persist Security Info=True;User ID=SALUD\DGIS15;&#39;</span>
+                        <span class="sa">f</span><span class="s1">&#39;Data Source=pwidgis03.salud.gob.mx;Update Isolation Level=2;Initial Catalog=</span><span class="si">{</span><span class="n">cubo</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Una vez establecida la conexión, se pueden hacer queries usando el lenguaje MDX, que usa algunos comando básicos de SQL aunque es mucho más difícil.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://docs.microsoft.com/en-us/analysis-services/multidimensional-models/mdx/mdx-query-the-basic-query?view=asallproducts-allversions">https://docs.microsoft.com/en-us/analysis-services/multidimensional-models/mdx/mdx-query-the-basic-query?view=asallproducts-allversions</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>La siguiente query permite conocer todas las bases de datos disponibles:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT [catalog_name] FROM $system.DBSCHEMA_CATALOGS&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&lt;SQLrow={catalog_name:&#39;CLUES_2019&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;CLUES_2019_C&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;CONAPO_NACIMIENTOS&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Cubo solo sinba 2020&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Cubo solo sinba 2021&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Cubo solo sinba 2022&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;cubo_lesiones_2017&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;cubo_lesiones_2018&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Cubo_Lesiones2019&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Cubo_pobla_2019_DH&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;CuboLesiones2020&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;CuboLesiones2021&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;CuboLesiones2022&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;CuboSec_18_20&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;CuboSectorial_18_19&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;CuboSectorial_18_20&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Defunciones_hist&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;DEFUNCIONES_PC_2020&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;DERECHOHABIENCIA&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Detecciones&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;EGRESOS&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;egresos_procedimientos_sinba&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;egresos_productos_sinba&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;egresos_sinba&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;EGRESOS2018&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Egresos2019_19&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Egresos2020&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Egresos2021&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Egresos2022&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;IND_DEM_PROY&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Lesiones&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;LESIONES_Historico&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;lesiones_SINBA&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Maternas_2019&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Maternas_2020&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;NACIMIENTOS_2018&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;NACIMIENTOS_2019&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;NACIMIENTOS_2020&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;NACIMIENTOS_2021&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;NACIMIENTOS_2022&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Personal_Salud&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Pob_2018_aseg_nov15&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;POB_MIT_PROYECCIONES&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Poblacion&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;PROCEDIMIENTOS&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;PROCEDIMIENTOS_2019&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;PROY_DEF_EDAD&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Recursos&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;recursos_sector_ok_2&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Reporte_Diario&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;saeh_sector_hist&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;saeh2011&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;saeh2012&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;saeh2013&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;saeh2016&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;saeh2017&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;saeh2018&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;saeh2019&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;SALUD_MENTAL&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;SALUD_MENTAL_18&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;seed2013&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;seed2016&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;seed2017_cierre&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;SICUENTAS&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;sinac_2015&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;sinac_2016&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;SINAC_SINBA_2017&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;sinac2017&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;SINERHIAS&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;SIS_2017_NEW&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;SIS_2018_NEW2&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;SIS_2019_2&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;SIS_SECTORIAL&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;sis2010&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;sis2011&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;sis2012&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;SIS2014&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;sis2015&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;sis2016&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;TEF_NAC_PROYECCIONES&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Urgencias_SINBA&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;urgencias2011&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;urgencias2012&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;urgencias2013&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;URGENCIAS2017&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;URGENCIAS2018&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Urgencias2019&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Urgencias2020&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Urgencias2021&#39;}&gt;,
+ &lt;SQLrow={catalog_name:&#39;Urgencias2022&#39;}&gt;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En nuestro caso, ya escogimos la base de datos "MATERNAS_2020" con los datos de mortalidad materna del año 2022.</p>
+<p>La siguiente query sirve para conocer los cubos y dimensiones de esta base de datos:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT [CATALOG_NAME] as [DATABASE],</span>
+<span class="s2">CUBE_NAME AS [CUBE], DIMENSION_CAPTION AS [DIMENSION]</span>
+<span class="s2">FROM $system.MDSchema_Dimensions</span>
+<span class="s2">WHERE DIMENSION_CAPTION=&#39;Measures&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">df_cubos_maternas</span> <span class="o">=</span> <span class="n">rows_to_df</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="n">df_cubos_maternas</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>database</th>
+      <th>cube</th>
+      <th>dimension</th>
+      <th>_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Maternas_2020</td>
+      <td>$AFILIACION</td>
+      <td>Measures</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Maternas_2020</td>
+      <td>$AÑO CERTIFICACION</td>
+      <td>Measures</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Maternas_2020</td>
+      <td>$AÑO DEFUNCION</td>
+      <td>Measures</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Maternas_2020</td>
+      <td>$AÑO REGISTRO</td>
+      <td>Measures</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Maternas_2020</td>
+      <td>$ASISTENCIA MEDICA</td>
+      <td>Measures</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Maternas_2020</td>
+      <td>$CAUSA BASICA</td>
+      <td>Measures</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Maternas_2020</td>
+      <td>$CERTIFICO</td>
+      <td>Measures</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Maternas_2020</td>
+      <td>$EDAD</td>
+      <td>Measures</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Maternas_2020</td>
+      <td>$EDADD</td>
+      <td>Measures</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Maternas_2020</td>
+      <td>$ENTIDAD DEFUNCION</td>
+      <td>Measures</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Maternas_2020</td>
+      <td>$ENTIDAD RESIDENCIA</td>
+      <td>Measures</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Maternas_2020</td>
+      <td>$ESCOLARIDAD</td>
+      <td>Measures</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Maternas_2020</td>
+      <td>$ESTADO CIVIL</td>
+      <td>Measures</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Maternas_2020</td>
+      <td>$MES CERTIFICACION</td>
+      <td>Measures</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Maternas_2020</td>
+      <td>$MES DEFUNCION</td>
+      <td>Measures</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Maternas_2020</td>
+      <td>$MES REGISTRO</td>
+      <td>Measures</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Maternas_2020</td>
+      <td>$PRINCIPALES CAUSAS</td>
+      <td>Measures</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Maternas_2020</td>
+      <td>$RAZON MORTALIDAD</td>
+      <td>Measures</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Maternas_2020</td>
+      <td>$SITIO OCURRENCIA</td>
+      <td>Measures</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Maternas_2020</td>
+      <td>$TAMAÑO LOCALIDAD</td>
+      <td>Measures</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Maternas_2020</td>
+      <td>MUERTES MATERNAS</td>
+      <td>Measures</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>de estos cubos, casi todos empiezan con el símbolo $ \$ $, excepto uno. Lo que he notado es que este cubo es el que tenemos que usar para hacer las consultas de los datos de interés. En este caso, por ejemplo, se trata del cubo "MUERTES MATERNAS"</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_cubos_maternas</span><span class="p">[</span><span class="s1">&#39;cube&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">~</span> <span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\$&#39;</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>20    MUERTES MATERNAS
+Name: cube, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://www.codeproject.com/Articles/710387/Learn-to-Write-Custom-MDX-Query-First-Time">MDX</a> permite hacer consultas con gran nivel de detalle, pero a mí me parece complicado. Considero más fácil descargar toda la información y luego hacer las agregaciones usando Python:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT *</span>
+<span class="s2">FROM [MUERTES MATERNAS].[Measures]</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">rows_to_df</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>[totales].[$afiliacion.afiliación derechohabiencia]</th>
+      <th>[totales].[$año certificacion.año de certificación]</th>
+      <th>[totales].[$año defuncion.año de la defunción]</th>
+      <th>[totales].[$año registro.año de registro]</th>
+      <th>[totales].[$asistencia medica.asistencia médica]</th>
+      <th>[totales].[$entidad defuncion.entidad de defunción]</th>
+      <th>[totales].[$entidad residencia.entidad de residencia]</th>
+      <th>[totales].[$escolaridad.escolaridad]</th>
+      <th>[totales].[$estado civil.estado civil]</th>
+      <th>[totales].[$mes certificacion.mes de la certificación]</th>
+      <th>...</th>
+      <th>[totales].[$certifico.quién certificó]</th>
+      <th>[totales].[$razon mortalidad.razón mortalidad materna]</th>
+      <th>[totales].[$sitio ocurrencia.sitio de ocurrencia]</th>
+      <th>[totales].[$tamaño localidad.tamaño de localidad]</th>
+      <th>[totales].[$edad.edad quinquenal]</th>
+      <th>[totales].[$edadd.edad]</th>
+      <th>[totales].[$causa basica.cve causa 4]</th>
+      <th>[totales].[$principales causas.clave pcm]</th>
+      <th>[totales].[muertes maternas]</th>
+      <th>_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NO ESPECIFICADA</td>
+      <td>2019</td>
+      <td>2019</td>
+      <td>2019</td>
+      <td>NO ESPECIFICADO</td>
+      <td>CHIAPAS</td>
+      <td>CHIAPAS</td>
+      <td>NO ESPECIFICADA</td>
+      <td>SE IGNORA</td>
+      <td>SEPTIEMBRE</td>
+      <td>...</td>
+      <td>NO ESPECIFICADO</td>
+      <td>MUERTES MATERNAS PARA LA RAZÓN DE MORTALIDAD M...</td>
+      <td>OTRO LUGAR</td>
+      <td>1000 A 1999    HABITANTES</td>
+      <td>30 a 34 años</td>
+      <td>None</td>
+      <td>O432 PLACENTA ANORMALMENTE ADHERIDA</td>
+      <td>43G</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SEGURO POPULAR</td>
+      <td>2019</td>
+      <td>2019</td>
+      <td>2019</td>
+      <td>SIN ATENCION MEDICA</td>
+      <td>CHIHUAHUA</td>
+      <td>CHIHUAHUA</td>
+      <td>NINGUNA</td>
+      <td>UNION LIBRE</td>
+      <td>OCTUBRE</td>
+      <td>...</td>
+      <td>MEDICO LEGISTA</td>
+      <td>MUERTES MATERNAS PARA LA RAZÓN DE MORTALIDAD M...</td>
+      <td>VIA PUBLICA</td>
+      <td>1 A 999            HABITANTES</td>
+      <td>30 a 34 años</td>
+      <td>None</td>
+      <td>O720 HEMORRAGIA DEL TERCER PERÍODO DEL PARTO</td>
+      <td>43K</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>IMSS</td>
+      <td>2019</td>
+      <td>2019</td>
+      <td>2019</td>
+      <td>CON ATENCION MEDICA</td>
+      <td>JALISCO</td>
+      <td>JALISCO</td>
+      <td>BACHILLERATO O PREPARATORIA COMPLETA</td>
+      <td>CASADO</td>
+      <td>ABRIL</td>
+      <td>...</td>
+      <td>OTRO MEDICO</td>
+      <td>MUERTES MATERNAS PARA LA RAZÓN DE MORTALIDAD M...</td>
+      <td>IMSS</td>
+      <td>1000000 A 1499999  HABITANTES</td>
+      <td>35 a 39 años</td>
+      <td>None</td>
+      <td>O021 ABORTO RETENIDO</td>
+      <td>43C</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>SEGURO POPULAR</td>
+      <td>2019</td>
+      <td>2019</td>
+      <td>2019</td>
+      <td>CON ATENCION MEDICA</td>
+      <td>JALISCO</td>
+      <td>JALISCO</td>
+      <td>SECUNDARIA COMPLETA</td>
+      <td>CASADO</td>
+      <td>MARZO</td>
+      <td>...</td>
+      <td>OTRO MEDICO</td>
+      <td>MUERTES MATERNAS EXCLUIDAS PARA LA RAZÓN DE MO...</td>
+      <td>OTRO LUGAR</td>
+      <td>10000 A 14999  HABITANTES</td>
+      <td>20 a 24 años</td>
+      <td>None</td>
+      <td>O961 MUERTE POR CAUSA OBSTÉTRICA INDIRECTA QUE...</td>
+      <td>4543</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>SEGURO POPULAR</td>
+      <td>2019</td>
+      <td>2019</td>
+      <td>2019</td>
+      <td>CON ATENCION MEDICA</td>
+      <td>JALISCO</td>
+      <td>JALISCO</td>
+      <td>SECUNDARIA COMPLETA</td>
+      <td>CASADO</td>
+      <td>ABRIL</td>
+      <td>...</td>
+      <td>MEDICO TRATANTE</td>
+      <td>MUERTES MATERNAS PARA LA RAZÓN DE MORTALIDAD M...</td>
+      <td>SECRETARIA DE SALUD</td>
+      <td>10000 A 14999  HABITANTES</td>
+      <td>30 a 34 años</td>
+      <td>None</td>
+      <td>O223 FLEBOTROMBOSIS PROFUNDA EN EL EMBARAZO</td>
+      <td>43N</td>
+      <td>1</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>21119</th>
+      <td>NO ESPECIFICADA</td>
+      <td>2020</td>
+      <td>2020</td>
+      <td>2020</td>
+      <td>CON ATENCION MEDICA</td>
+      <td>SINALOA</td>
+      <td>SINALOA</td>
+      <td>PROFESIONAL</td>
+      <td>CASADO</td>
+      <td>JULIO</td>
+      <td>...</td>
+      <td>OTRO MEDICO</td>
+      <td>MUERTES MATERNAS PARA LA RAZÓN DE MORTALIDAD M...</td>
+      <td>IMSS</td>
+      <td>500000 A 999999  HABITANTES</td>
+      <td>20 a 24 años</td>
+      <td>None</td>
+      <td>O985 OTRAS ENFERMEDADES VIRALES QUE COMPLICAN ...</td>
+      <td>45</td>
+      <td>1</td>
+      <td>21119</td>
+    </tr>
+    <tr>
+      <th>21120</th>
+      <td>IMSS</td>
+      <td>2020</td>
+      <td>2020</td>
+      <td>2020</td>
+      <td>CON ATENCION MEDICA</td>
+      <td>SINALOA</td>
+      <td>SINALOA</td>
+      <td>PROFESIONAL</td>
+      <td>SE IGNORA</td>
+      <td>OCTUBRE</td>
+      <td>...</td>
+      <td>OTRO MEDICO</td>
+      <td>MUERTES MATERNAS PARA LA RAZÓN DE MORTALIDAD M...</td>
+      <td>IMSS</td>
+      <td>500000 A 999999  HABITANTES</td>
+      <td>30 a 34 años</td>
+      <td>None</td>
+      <td>O996 ENFERMEDADES DEL SISTEMA DIGESTIVO QUE CO...</td>
+      <td>45</td>
+      <td>1</td>
+      <td>21120</td>
+    </tr>
+    <tr>
+      <th>21121</th>
+      <td>IMSS</td>
+      <td>2020</td>
+      <td>2020</td>
+      <td>2020</td>
+      <td>CON ATENCION MEDICA</td>
+      <td>SINALOA</td>
+      <td>SINALOA</td>
+      <td>BACHILLERATO O PREPARATORIA COMPLETA</td>
+      <td>CASADO</td>
+      <td>ENERO</td>
+      <td>...</td>
+      <td>MEDICO LEGISTA</td>
+      <td>MUERTES MATERNAS PARA LA RAZÓN DE MORTALIDAD M...</td>
+      <td>IMSS</td>
+      <td>250000 A 499999 HABITANTES</td>
+      <td>35 a 39 años</td>
+      <td>None</td>
+      <td>O721 OTRAS HEMORRAGIAS POSTPARTO INMEDIATAS</td>
+      <td>43K</td>
+      <td>1</td>
+      <td>21121</td>
+    </tr>
+    <tr>
+      <th>21122</th>
+      <td>IMSS</td>
+      <td>2020</td>
+      <td>2020</td>
+      <td>2020</td>
+      <td>CON ATENCION MEDICA</td>
+      <td>SINALOA</td>
+      <td>SINALOA</td>
+      <td>BACHILLERATO O PREPARATORIA COMPLETA</td>
+      <td>UNION LIBRE</td>
+      <td>SEPTIEMBRE</td>
+      <td>...</td>
+      <td>MEDICO TRATANTE</td>
+      <td>MUERTES MATERNAS PARA LA RAZÓN DE MORTALIDAD M...</td>
+      <td>IMSS</td>
+      <td>250000 A 499999 HABITANTES</td>
+      <td>25 a 29 años</td>
+      <td>None</td>
+      <td>O985 OTRAS ENFERMEDADES VIRALES QUE COMPLICAN ...</td>
+      <td>45</td>
+      <td>1</td>
+      <td>21122</td>
+    </tr>
+    <tr>
+      <th>21123</th>
+      <td>OTRA</td>
+      <td>2020</td>
+      <td>2020</td>
+      <td>2020</td>
+      <td>CON ATENCION MEDICA</td>
+      <td>SINALOA</td>
+      <td>SINALOA</td>
+      <td>PRIMARIA COMPLETA</td>
+      <td>UNION LIBRE</td>
+      <td>JUNIO</td>
+      <td>...</td>
+      <td>OTRO MEDICO</td>
+      <td>MUERTES MATERNAS PARA LA RAZÓN DE MORTALIDAD M...</td>
+      <td>SECRETARIA DE SALUD</td>
+      <td>1 A 999            HABITANTES</td>
+      <td>35 a 39 años</td>
+      <td>None</td>
+      <td>O432 PLACENTA ANORMALMENTE ADHERIDA</td>
+      <td>43G</td>
+      <td>1</td>
+      <td>21123</td>
+    </tr>
+  </tbody>
+</table>
+<p>21124 rows × 22 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>Los datos que obtuvimos son los 21124 registros individuales de mortalidad materna en 2020, para cada uno de ellos tenemos datos como el lugar de ocurrencia, causa, escolaridad, etc.</p>
+</li>
+<li><p>revisamos los nombres de columnas del DataFrame</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([&#39;[totales].[$afiliacion.afiliación derechohabiencia]&#39;,
+       &#39;[totales].[$año certificacion.año de certificación]&#39;,
+       &#39;[totales].[$año defuncion.año de la defunción]&#39;,
+       &#39;[totales].[$año registro.año de registro]&#39;,
+       &#39;[totales].[$asistencia medica.asistencia médica]&#39;,
+       &#39;[totales].[$entidad defuncion.entidad de defunción]&#39;,
+       &#39;[totales].[$entidad residencia.entidad de residencia]&#39;,
+       &#39;[totales].[$escolaridad.escolaridad]&#39;,
+       &#39;[totales].[$estado civil.estado civil]&#39;,
+       &#39;[totales].[$mes certificacion.mes de la certificación]&#39;,
+       &#39;[totales].[$mes defuncion.mes de la defunción]&#39;,
+       &#39;[totales].[$mes registro.mes de registro]&#39;,
+       &#39;[totales].[$certifico.quién certificó]&#39;,
+       &#39;[totales].[$razon mortalidad.razón mortalidad materna]&#39;,
+       &#39;[totales].[$sitio ocurrencia.sitio de ocurrencia]&#39;,
+       &#39;[totales].[$tamaño localidad.tamaño de localidad]&#39;,
+       &#39;[totales].[$edad.edad quinquenal]&#39;, &#39;[totales].[$edadd.edad]&#39;,
+       &#39;[totales].[$causa basica.cve causa 4]&#39;,
+       &#39;[totales].[$principales causas.clave pcm]&#39;,
+       &#39;[totales].[muertes maternas]&#39;, &#39;_id&#39;],
+      dtype=&#39;object&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Podemos hacer cruces entre variables o graficxar la distribución de las variables:</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>[totales].[$asistencia medica.asistencia médica]</th>
+      <th>CON ATENCION MEDICA</th>
+      <th>NO ESPECIFICADO</th>
+      <th>SIN ATENCION MEDICA</th>
+    </tr>
+    <tr>
+      <th>[totales].[$afiliacion.afiliación derechohabiencia]</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>IMSS</th>
+      <td>3918</td>
+      <td>118</td>
+      <td>130</td>
+    </tr>
+    <tr>
+      <th>IMSS OPORTUNIDADES</th>
+      <td>84</td>
+      <td>7</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>IMSS PROSPERA</th>
+      <td>26</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>ISSSTE</th>
+      <td>578</td>
+      <td>26</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>NINGUNA</th>
+      <td>6013</td>
+      <td>235</td>
+      <td>977</td>
+    </tr>
+    <tr>
+      <th>NO ESPECIFICADA</th>
+      <td>1383</td>
+      <td>280</td>
+      <td>284</td>
+    </tr>
+    <tr>
+      <th>OTRA</th>
+      <td>354</td>
+      <td>4</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>PEMEX</th>
+      <td>36</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>SECRETARIA DE LA DEFENSA NACIONAL</th>
+      <td>98</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>SECRETARIA DE MARINA</th>
+      <td>82</td>
+      <td>2</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>SEGURO POPULAR</th>
+      <td>5673</td>
+      <td>272</td>
+      <td>460</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;[totales].[$afiliacion.afiliación derechohabiencia]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;AxesSubplot:&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;[totales].[$escolaridad.escolaridad]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;AxesSubplot:&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;[totales].[$edad.edad quinquenal]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;AxesSubplot:&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+" />
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Con MDX podemos hacer consultas seleccionando filtrando algunas columnas con SELECT y o también filtrando filas con WHERE:</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT [$mes registro.mes de registro], [$afiliacion.afiliación derechohabiencia]</span>
+<span class="s2">FROM [MUERTES MATERNAS].[MEASURES]</span>
+<span class="s2">WHERE [$mes registro.mes de registro]=&quot;MAYO&quot;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">rows_to_df</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>[totales].[$mes registro.mes de registro]</th>
+      <th>[totales].[$afiliacion.afiliación derechohabiencia]</th>
+      <th>_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MAYO</td>
+      <td>SEGURO POPULAR</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MAYO</td>
+      <td>SEGURO POPULAR</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MAYO</td>
+      <td>SEGURO POPULAR</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>MAYO</td>
+      <td>IMSS PROSPERA</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>MAYO</td>
+      <td>SEGURO POPULAR</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1686</th>
+      <td>MAYO</td>
+      <td>OTRA</td>
+      <td>1686</td>
+    </tr>
+    <tr>
+      <th>1687</th>
+      <td>MAYO</td>
+      <td>NINGUNA</td>
+      <td>1687</td>
+    </tr>
+    <tr>
+      <th>1688</th>
+      <td>MAYO</td>
+      <td>IMSS</td>
+      <td>1688</td>
+    </tr>
+    <tr>
+      <th>1689</th>
+      <td>MAYO</td>
+      <td>IMSS</td>
+      <td>1689</td>
+    </tr>
+    <tr>
+      <th>1690</th>
+      <td>MAYO</td>
+      <td>SEGURO POPULAR</td>
+      <td>1690</td>
+    </tr>
+  </tbody>
+</table>
+<p>1691 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Segundo-ejemplo:-cubo-de-nacimientos">Segundo ejemplo: cubo de nacimientos<a class="anchor-link" href="#Segundo-ejemplo:-cubo-de-nacimientos"> </a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>De la lista de cubos disponibles, seleccionamos el de NACIMIENTOS_2022</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cubo2</span> <span class="o">=</span> <span class="s1">&#39;NACIMIENTOS_2022&#39;</span>
+<span class="n">conn2</span> <span class="o">=</span> <span class="n">adodbapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;Provider=MSOLAP.8;Password=Temp123!;Persist Security Info=True;User ID=SALUD\DGIS15;&#39;</span>
+                        <span class="sa">f</span><span class="s1">&#39;Data Source=pwidgis03.salud.gob.mx;Update Isolation Level=2;Initial Catalog=</span><span class="si">{</span><span class="n">cubo2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">cursor2</span> <span class="o">=</span> <span class="n">conn2</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>revisamos las dimensiones que tiene este cubo:</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cursor2</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT [CATALOG_NAME] as [DATABASE],</span>
+<span class="s2">CUBE_NAME AS [CUBE], DIMENSION_CAPTION AS [DIMENSION]</span>
+<span class="s2">FROM $system.MDSchema_Dimensions</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cursor2</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">df_cubos_nacimiento</span> <span class="o">=</span> <span class="n">rows_to_df</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="n">df_cubos_nacimiento</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>database</th>
+      <th>cube</th>
+      <th>dimension</th>
+      <th>_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>$01 UNIDADMEDICA PARTO</td>
+      <td>01 UNIDADMEDICA PARTO</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>$01 UNIDADMEDICA PARTO</td>
+      <td>Measures</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>$02 FECHA DE NACIMIENTO</td>
+      <td>02 FECHA DE NACIMIENTO</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>$02 FECHA DE NACIMIENTO</td>
+      <td>Measures</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>$APGARH</td>
+      <td>APGARH</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>124</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>SOBREVIVIO PARTO</td>
+      <td>124</td>
+    </tr>
+    <tr>
+      <th>125</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>TAMIZ Y VACUNAS</td>
+      <td>125</td>
+    </tr>
+    <tr>
+      <th>126</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>TRABAJA ACTUALMENTE</td>
+      <td>126</td>
+    </tr>
+    <tr>
+      <th>127</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>TRIMESTRE PRIMER CONSULTA</td>
+      <td>127</td>
+    </tr>
+    <tr>
+      <th>128</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>VIVE HIJO ANTERIOR</td>
+      <td>128</td>
+    </tr>
+  </tbody>
+</table>
+<p>129 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>el cubo de interés es "NACIMIENTOS_2022"</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_cubos_nacimiento</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;cube==&quot;NACIMIENTOS_2022&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>database</th>
+      <th>cube</th>
+      <th>dimension</th>
+      <th>_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>86</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>01 UNIDAD MEDICA PARTO</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>02 FECHA DE NACIMIENTO</td>
+      <td>87</td>
+    </tr>
+    <tr>
+      <th>88</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>APGARH</td>
+      <td>88</td>
+    </tr>
+    <tr>
+      <th>89</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>ATENCION PRENATAL</td>
+      <td>89</td>
+    </tr>
+    <tr>
+      <th>90</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>CERTIFICADO POR</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>91</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>CODIGO CIE</td>
+      <td>91</td>
+    </tr>
+    <tr>
+      <th>92</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>CONDICIONHIJOANTERIOR</td>
+      <td>92</td>
+    </tr>
+    <tr>
+      <th>93</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>CUENTA CON CURP</td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>DERECHOHABIENCIA</td>
+      <td>94</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>EDAD DE LA MADRE</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>EDAD GESTACIONAL</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>ENTIDAD DE CAPTURA</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>ENTIDAD_NACIMIENTO_MADRE</td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>ENTIDAD_PARTO</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>ENTIDAD_RESIDENCIA</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>101</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>ESCOLARIDAD</td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <th>102</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>ESTADO CONYUGAL</td>
+      <td>102</td>
+    </tr>
+    <tr>
+      <th>103</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>GRUPO DE PESO</td>
+      <td>103</td>
+    </tr>
+    <tr>
+      <th>104</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>GRUPO EDAD</td>
+      <td>104</td>
+    </tr>
+    <tr>
+      <th>105</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>GRUPO EDAD GESTACIONAL</td>
+      <td>105</td>
+    </tr>
+    <tr>
+      <th>106</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>GRUPO TALLA</td>
+      <td>106</td>
+    </tr>
+    <tr>
+      <th>107</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>HIJOS NACIDOS MUERTOS</td>
+      <td>107</td>
+    </tr>
+    <tr>
+      <th>108</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>HIJOS NACIDOS VIVOS</td>
+      <td>108</td>
+    </tr>
+    <tr>
+      <th>109</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>HIJOS SOBREVIVIENTES</td>
+      <td>109</td>
+    </tr>
+    <tr>
+      <th>110</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>LUGAR NACIMIENTO</td>
+      <td>110</td>
+    </tr>
+    <tr>
+      <th>111</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>Measures</td>
+      <td>111</td>
+    </tr>
+    <tr>
+      <th>112</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>NUMERO TOTAL DE CONSULTAS</td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <th>113</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>NUMERO_EMBARAZOS</td>
+      <td>113</td>
+    </tr>
+    <tr>
+      <th>114</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>OCUPACION_HABITUAL</td>
+      <td>114</td>
+    </tr>
+    <tr>
+      <th>115</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>ORDEN NACIMIENTO</td>
+      <td>115</td>
+    </tr>
+    <tr>
+      <th>116</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>PAIS_ORIGEN</td>
+      <td>116</td>
+    </tr>
+    <tr>
+      <th>117</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>PERSONAL ATENDIO</td>
+      <td>117</td>
+    </tr>
+    <tr>
+      <th>118</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>PESO</td>
+      <td>118</td>
+    </tr>
+    <tr>
+      <th>119</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>PRINCIPALES CAUSAS LM</td>
+      <td>119</td>
+    </tr>
+    <tr>
+      <th>120</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>PRODUCTO</td>
+      <td>120</td>
+    </tr>
+    <tr>
+      <th>121</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>SE CONSIDERA INDIGENA</td>
+      <td>121</td>
+    </tr>
+    <tr>
+      <th>122</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>SEXO</td>
+      <td>122</td>
+    </tr>
+    <tr>
+      <th>123</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>SILVERMAN</td>
+      <td>123</td>
+    </tr>
+    <tr>
+      <th>124</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>SOBREVIVIO PARTO</td>
+      <td>124</td>
+    </tr>
+    <tr>
+      <th>125</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>TAMIZ Y VACUNAS</td>
+      <td>125</td>
+    </tr>
+    <tr>
+      <th>126</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>TRABAJA ACTUALMENTE</td>
+      <td>126</td>
+    </tr>
+    <tr>
+      <th>127</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>TRIMESTRE PRIMER CONSULTA</td>
+      <td>127</td>
+    </tr>
+    <tr>
+      <th>128</th>
+      <td>NACIMIENTOS_2022</td>
+      <td>NACIMIENTOS_2022</td>
+      <td>VIVE HIJO ANTERIOR</td>
+      <td>128</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Si intentamos seleccionar todos los datos del cubo, nos aparece un error porque parece que la carga es mucha y el tiempo de consulta se agota.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cursor2</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT *</span>
+<span class="s2">FROM [NACIMIENTOS_2022].[Measures]</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cursor2</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">rows_to_df</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">com_error</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\adodbapi\adodbapi.py</span> in <span class="ansi-cyan-fg">_execute_command</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
+<span class="ansi-green-fg">    681</span>             <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span> <span class="ansi-red-intense-fg ansi-bold">#pywin32</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 682</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>recordset<span class="ansi-yellow-intense-fg ansi-bold">,</span> count <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>cmd<span class="ansi-yellow-intense-fg ansi-bold">.</span>Execute<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    683</span>             <span class="ansi-red-intense-fg ansi-bold"># ----- ------------------------------- ---</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\win32com\client\dynamic.py</span> in <span class="ansi-cyan-fg">Execute</span><span class="ansi-blue-intense-fg ansi-bold">(self, RecordsAffected, Parameters, Options)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\win32com\client\dynamic.py</span> in <span class="ansi-cyan-fg">_ApplyTypes_</span><span class="ansi-blue-intense-fg ansi-bold">(self, dispid, wFlags, retType, argTypes, user, resultCLSID, *args)</span>
+<span class="ansi-green-fg">    286</span>         <span class="ansi-green-intense-fg ansi-bold">def</span> _ApplyTypes_<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> dispid<span class="ansi-yellow-intense-fg ansi-bold">,</span> wFlags<span class="ansi-yellow-intense-fg ansi-bold">,</span> retType<span class="ansi-yellow-intense-fg ansi-bold">,</span> argTypes<span class="ansi-yellow-intense-fg ansi-bold">,</span> user<span class="ansi-yellow-intense-fg ansi-bold">,</span> resultCLSID<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 287</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>result <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_oleobj_<span class="ansi-yellow-intense-fg ansi-bold">.</span>InvokeTypes<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">*</span><span class="ansi-yellow-intense-fg ansi-bold">(</span>dispid<span class="ansi-yellow-intense-fg ansi-bold">,</span> LCID<span class="ansi-yellow-intense-fg ansi-bold">,</span> wFlags<span class="ansi-yellow-intense-fg ansi-bold">,</span> retType<span class="ansi-yellow-intense-fg ansi-bold">,</span> argTypes<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">+</span> args<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    288</span>                 <span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_get_good_object_<span class="ansi-yellow-intense-fg ansi-bold">(</span>result<span class="ansi-yellow-intense-fg ansi-bold">,</span> user<span class="ansi-yellow-intense-fg ansi-bold">,</span> resultCLSID<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-red-intense-fg ansi-bold">com_error</span>: (-2147352567, &#39;Ocurrió una excepción.&#39;, (0, &#39;Microsoft OLE DB Provider for Analysis Services.&#39;, &#39;XML for Analysis parser: The XML for Analysis request timed out before it was completed.&#39;, None, 0, -2147467259), None)
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-intense-fg ansi-bold">DatabaseError</span>                             Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-16-01a61da22894&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> cursor2.execute(&#34;&#34;&#34;
+</span><span class="ansi-green-fg">      2</span> SELECT <span class="ansi-yellow-intense-fg ansi-bold">*</span>
+<span class="ansi-green-fg">      3</span> FROM <span class="ansi-yellow-intense-fg ansi-bold">[</span>NACIMIENTOS_2022<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span><span class="ansi-yellow-intense-fg ansi-bold">[</span>Measures<span class="ansi-yellow-intense-fg ansi-bold">]</span>
+<span class="ansi-green-fg">      4</span> &#34;&#34;&#34;)
+<span class="ansi-green-fg">      5</span> rows <span class="ansi-yellow-intense-fg ansi-bold">=</span> cursor2<span class="ansi-yellow-intense-fg ansi-bold">.</span>fetchall<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\adodbapi\adodbapi.py</span> in <span class="ansi-cyan-fg">execute</span><span class="ansi-blue-intense-fg ansi-bold">(self, operation, parameters)</span>
+<span class="ansi-green-fg">    873</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> verbose <span class="ansi-yellow-intense-fg ansi-bold">&gt;</span> <span class="ansi-cyan-intense-fg ansi-bold">3</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    874</span>             print<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;Params=&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> format_parameters<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>cmd<span class="ansi-yellow-intense-fg ansi-bold">.</span>Parameters<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 875</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_execute_command<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    876</span> 
+<span class="ansi-green-fg">    877</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> executemany<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> operation<span class="ansi-yellow-intense-fg ansi-bold">,</span> seq_of_parameters<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\adodbapi\adodbapi.py</span> in <span class="ansi-cyan-fg">_execute_command</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
+<span class="ansi-green-fg">    688</span>                                                             format_parameters(self.cmd.Parameters, True))
+<span class="ansi-green-fg">    689</span>             klass <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>connection<span class="ansi-yellow-intense-fg ansi-bold">.</span>_suggest_error_class<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 690</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_raiseCursorError<span class="ansi-yellow-intense-fg ansi-bold">(</span>klass<span class="ansi-yellow-intense-fg ansi-bold">,</span> _message<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    691</span>         <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    692</span>             self<span class="ansi-yellow-intense-fg ansi-bold">.</span>rowcount <span class="ansi-yellow-intense-fg ansi-bold">=</span> recordset<span class="ansi-yellow-intense-fg ansi-bold">.</span>RecordCount
+
+<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\adodbapi\adodbapi.py</span> in <span class="ansi-cyan-fg">_raiseCursorError</span><span class="ansi-blue-intense-fg ansi-bold">(self, errorclass, errorvalue)</span>
+<span class="ansi-green-fg">    561</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> eh <span class="ansi-green-intense-fg ansi-bold">is</span> <span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    562</span>             eh <span class="ansi-yellow-intense-fg ansi-bold">=</span> api<span class="ansi-yellow-intense-fg ansi-bold">.</span>standardErrorHandler
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 563</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>eh<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>connection<span class="ansi-yellow-intense-fg ansi-bold">,</span> self<span class="ansi-yellow-intense-fg ansi-bold">,</span> errorclass<span class="ansi-yellow-intense-fg ansi-bold">,</span> errorvalue<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    564</span> 
+<span class="ansi-green-fg">    565</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> build_column_info<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> recordset<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\adodbapi\apibase.py</span> in <span class="ansi-cyan-fg">standardErrorHandler</span><span class="ansi-blue-intense-fg ansi-bold">(connection, cursor, errorclass, errorvalue)</span>
+<span class="ansi-green-fg">     55</span>             cursor<span class="ansi-yellow-intense-fg ansi-bold">.</span>messages<span class="ansi-yellow-intense-fg ansi-bold">.</span>append<span class="ansi-yellow-intense-fg ansi-bold">(</span>err<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     56</span>         <span class="ansi-green-intense-fg ansi-bold">except</span><span class="ansi-yellow-intense-fg ansi-bold">:</span> <span class="ansi-green-intense-fg ansi-bold">pass</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 57</span><span class="ansi-yellow-intense-fg ansi-bold">     </span><span class="ansi-green-intense-fg ansi-bold">raise</span> errorclass<span class="ansi-yellow-intense-fg ansi-bold">(</span>errorvalue<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     58</span> 
+<span class="ansi-green-fg">     59</span> <span class="ansi-red-intense-fg ansi-bold"># Note: _BaseException is defined differently between Python 2.x and 3.x</span>
+
+<span class="ansi-red-intense-fg ansi-bold">DatabaseError</span>: (-2147352567, &#39;Ocurrió una excepción.&#39;, (0, &#39;Microsoft OLE DB Provider for Analysis Services.&#39;, &#39;XML for Analysis parser: The XML for Analysis request timed out before it was completed.&#39;, None, 0, -2147467259), None)
+Command:
+
+SELECT *
+FROM [NACIMIENTOS_2022].[Measures]
+
+Parameters:
+[]</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Para poder hacer la consulta, la opción es hacer varias consultas más pequeñas, por ejemplo, una para cada entidad federativa. Revisemos las entidades federativas disponibles</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cursor2</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT entidadresidenciad</span>
+<span class="s2">FROM [NACIMIENTOS_2022].[$ENTIDAD_RESIDENCIA]</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cursor2</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">rows_to_df</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>[$entidad_residencia].[entidadresidenciad]</th>
+      <th>_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>00 NO ESPECIFICADO</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>01 AGUASCALIENTES</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>02 BAJA CALIFORNIA</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>03 BAJA CALIFORNIA SUR</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>04 CAMPECHE</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>05 COAHUILA DE ZARAGOZA</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>06 COLIMA</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>07 CHIAPAS</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>08 CHIHUAHUA</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>09 CIUDAD DE MEXICO</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>10 DURANGO</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>11 GUANAJUATO</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>12 GUERRERO</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>13 HIDALGO</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>14 JALISCO</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>15 MEXICO</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>16 MICHOACAN DE OCAMPO</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>17 MORELOS</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>18 NAYARIT</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>19 NUEVO LEON</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>20 OAXACA</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>21 PUEBLA</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>22 QUERETARO</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>23 QUINTANA ROO</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>24 SAN LUIS POTOSI</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>25 SINALOA</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>26 SONORA</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>27 TABASCO</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>28 TAMAULIPAS</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>29 TLAXCALA</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>30 VERACRUZ DE IGNACIO DE LA LLAVE</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>31 YUCATAN</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>32 ZACATECAS</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>88 NO APLICA</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>99 SE IGNORA</td>
+      <td>34</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>entonces ahora solo seleccionamos la de un estado en particular, por ejemplo, Chiapas</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cursor2</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT *</span>
+<span class="s2">FROM [NACIMIENTOS_2022].[Measures]</span>
+<span class="s2">WHERE [$ENTIDAD_RESIDENCIA.entidadresidenciad]=&quot;07 CHIAPAS&quot;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cursor2</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">df_nacimientos_chis</span> <span class="o">=</span> <span class="n">rows_to_df</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="n">df_nacimientos_chis</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>[nacimientos].[$atencion prenatal.atencion prenatal]</th>
+      <th>[nacimientos].[$certificado por.certificado por]</th>
+      <th>[nacimientos].[$condicionhijoanterior.condicion hijo anterior]</th>
+      <th>[nacimientos].[$producto.productoembarazo]</th>
+      <th>[nacimientos].[$entidad de captura.entidad de captura]</th>
+      <th>[nacimientos].[$estado conyugal.situacion conyugal]</th>
+      <th>[nacimientos].[$se considera indigena.seconsideraindigena]</th>
+      <th>[nacimientos].[$lugar nacimiento.lugar de nacimiento]</th>
+      <th>[nacimientos].[$personal atendio.personal que atendio]</th>
+      <th>[nacimientos].[$tamiz y vacunas.tamizauditivo]</th>
+      <th>...</th>
+      <th>[nacimientos].[$ocupacion_habitual.ocupacion habitual]</th>
+      <th>[nacimientos].[$entidad_parto.entidadfederativaparto]</th>
+      <th>[nacimientos].[$entidad_residencia.entidadresidencia]</th>
+      <th>[nacimientos].[$entidad_nacimiento_madre.entidadnacimiento]</th>
+      <th>[nacimientos].[$edad gestacional.edad gestacional]</th>
+      <th>[nacimientos].[$derechohabiencia.derechohabiencia]</th>
+      <th>[nacimientos].[$escolaridad.escolaridad]</th>
+      <th>[nacimientos].[$pais_origen.pais de origen]</th>
+      <th>[nacimientos].[nacimientos]</th>
+      <th>_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>SI</td>
+      <td>OTRO MÉDICO</td>
+      <td>NO HA TENIDO OTROS HIJOS(AS)</td>
+      <td>ÚNICO</td>
+      <td>07 CHIAPAS</td>
+      <td>UNION LIBRE</td>
+      <td>NO</td>
+      <td>SECRETARÍA DE SALUD</td>
+      <td>MÉDICO</td>
+      <td>NO</td>
+      <td>...</td>
+      <td>NO REMUNERADO, AMA DE CASA</td>
+      <td>0001 TUXTLA GUTIERREZ</td>
+      <td>0062</td>
+      <td>061</td>
+      <td>40</td>
+      <td>NINGUNA</td>
+      <td>BACHILLERATO O PREPARATORIA COMPLETA</td>
+      <td>MEXICO</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SI</td>
+      <td>OTRO MÉDICO</td>
+      <td>VIVO</td>
+      <td>ÚNICO</td>
+      <td>07 CHIAPAS</td>
+      <td>UNION LIBRE</td>
+      <td>NO</td>
+      <td>SECRETARÍA DE SALUD</td>
+      <td>MÉDICO</td>
+      <td>NO</td>
+      <td>...</td>
+      <td>NO REMUNERADO, AMA DE CASA</td>
+      <td>0001 TUXTLA GUTIERREZ</td>
+      <td>0001</td>
+      <td>003</td>
+      <td>41</td>
+      <td>NINGUNA</td>
+      <td>PRIMARIA COMPLETA</td>
+      <td>MEXICO</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>SI</td>
+      <td>OTRO MÉDICO</td>
+      <td>NO HA TENIDO OTROS HIJOS(AS)</td>
+      <td>ÚNICO</td>
+      <td>07 CHIAPAS</td>
+      <td>UNION LIBRE</td>
+      <td>NO</td>
+      <td>HOGAR</td>
+      <td>PARTERA</td>
+      <td>NO</td>
+      <td>...</td>
+      <td>NO REMUNERADO, AMA DE CASA</td>
+      <td>0001 MOTOZINTLA DE MENDOZA</td>
+      <td>0001</td>
+      <td>070</td>
+      <td>40</td>
+      <td>NINGUNA</td>
+      <td>BACHILLERATO O PREPARATORIA COMPLETA</td>
+      <td>MEXICO</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>SI</td>
+      <td>PERSONA AUTORIZADA POR LA SECRETARÍA DE SALUD</td>
+      <td>VIVO</td>
+      <td>ÚNICO</td>
+      <td>07 CHIAPAS</td>
+      <td>UNION LIBRE</td>
+      <td>NO</td>
+      <td>IMSS BIENESTAR</td>
+      <td>MÉDICO</td>
+      <td>NO</td>
+      <td>...</td>
+      <td>NO REMUNERADO, AMA DE CASA</td>
+      <td>0001 MOTOZINTLA DE MENDOZA</td>
+      <td>0063</td>
+      <td>057</td>
+      <td>39</td>
+      <td>SE IGNORA</td>
+      <td>BACHILLERATO O PREPARATORIA COMPLETA</td>
+      <td>MEXICO</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>SI</td>
+      <td>OTRO MÉDICO</td>
+      <td>VIVO</td>
+      <td>ÚNICO</td>
+      <td>07 CHIAPAS</td>
+      <td>UNION LIBRE</td>
+      <td>SI</td>
+      <td>SECRETARÍA DE SALUD</td>
+      <td>MÉDICO</td>
+      <td>NO</td>
+      <td>...</td>
+      <td>NO ESPECIFICADO</td>
+      <td>0001 CHALCHIHUITAN</td>
+      <td>0043</td>
+      <td>022</td>
+      <td>39</td>
+      <td>NINGUNA</td>
+      <td>SECUNDARIA COMPLETA</td>
+      <td>MEXICO</td>
+      <td>1</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>35819</th>
+      <td>SI</td>
+      <td>OTRO MÉDICO</td>
+      <td>VIVO</td>
+      <td>ÚNICO</td>
+      <td>07 CHIAPAS</td>
+      <td>UNION LIBRE</td>
+      <td>NO</td>
+      <td>SECRETARÍA DE SALUD</td>
+      <td>MÉDICO</td>
+      <td>NO</td>
+      <td>...</td>
+      <td>NO REMUNERADO, AMA DE CASA</td>
+      <td>0001 TUXTLA GUTIERREZ</td>
+      <td>1017</td>
+      <td>020</td>
+      <td>40</td>
+      <td>NINGUNA</td>
+      <td>BACHILLERATO O PREPARATORIA COMPLETA</td>
+      <td>MEXICO</td>
+      <td>1</td>
+      <td>35819</td>
+    </tr>
+    <tr>
+      <th>35820</th>
+      <td>SI</td>
+      <td>OTRO MÉDICO</td>
+      <td>VIVO</td>
+      <td>ÚNICO</td>
+      <td>07 CHIAPAS</td>
+      <td>UNION LIBRE</td>
+      <td>NO</td>
+      <td>SECRETARÍA DE SALUD</td>
+      <td>MÉDICO</td>
+      <td>NO</td>
+      <td>...</td>
+      <td>NO REMUNERADO, AMA DE CASA</td>
+      <td>0001 HUIXTLA</td>
+      <td>0225</td>
+      <td>071</td>
+      <td>39</td>
+      <td>NINGUNA</td>
+      <td>SECUNDARIA COMPLETA</td>
+      <td>MEXICO</td>
+      <td>1</td>
+      <td>35820</td>
+    </tr>
+    <tr>
+      <th>35821</th>
+      <td>SI</td>
+      <td>MÉDICO PEDIATRA</td>
+      <td>VIVO</td>
+      <td>ÚNICO</td>
+      <td>07 CHIAPAS</td>
+      <td>UNION LIBRE</td>
+      <td>NO</td>
+      <td>SECRETARÍA DE SALUD</td>
+      <td>MÉDICO</td>
+      <td>NO</td>
+      <td>...</td>
+      <td>NO REMUNERADO, AMA DE CASA</td>
+      <td>0001 TAPACHULA DE CORDOVA Y ORDOÑEZ</td>
+      <td>0001</td>
+      <td>997</td>
+      <td>40</td>
+      <td>NINGUNA</td>
+      <td>PRIMARIA COMPLETA</td>
+      <td>GUATEMALA</td>
+      <td>1</td>
+      <td>35821</td>
+    </tr>
+    <tr>
+      <th>35822</th>
+      <td>SI</td>
+      <td>MÉDICO PEDIATRA</td>
+      <td>NO HA TENIDO OTROS HIJOS(AS)</td>
+      <td>ÚNICO</td>
+      <td>07 CHIAPAS</td>
+      <td>CASADO(A)</td>
+      <td>NO</td>
+      <td>SECRETARÍA DE SALUD</td>
+      <td>MÉDICO</td>
+      <td>NO</td>
+      <td>...</td>
+      <td>NO REMUNERADO, AMA DE CASA</td>
+      <td>0001 COMITAN DE DOMINGUEZ</td>
+      <td>0085</td>
+      <td>104</td>
+      <td>38</td>
+      <td>NINGUNA</td>
+      <td>BACHILLERATO O PREPARATORIA COMPLETA</td>
+      <td>MEXICO</td>
+      <td>1</td>
+      <td>35822</td>
+    </tr>
+    <tr>
+      <th>35823</th>
+      <td>SI</td>
+      <td>PERSONA AUTORIZADA POR LA SECRETARÍA DE SALUD</td>
+      <td>VIVO</td>
+      <td>ÚNICO</td>
+      <td>07 CHIAPAS</td>
+      <td>UNION LIBRE</td>
+      <td>NO</td>
+      <td>IMSS BIENESTAR</td>
+      <td>MÉDICO</td>
+      <td>NO</td>
+      <td>...</td>
+      <td>NO REMUNERADO, AMA DE CASA</td>
+      <td>0001 MOTOZINTLA DE MENDOZA</td>
+      <td>0130</td>
+      <td>089</td>
+      <td>39</td>
+      <td>SE IGNORA</td>
+      <td>PRIMARIA COMPLETA</td>
+      <td>MEXICO</td>
+      <td>1</td>
+      <td>35823</td>
+    </tr>
+  </tbody>
+</table>
+<p>35824 rows × 44 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_nacimientos_chis</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([&#39;[nacimientos].[$atencion prenatal.atencion prenatal]&#39;,
+       &#39;[nacimientos].[$certificado por.certificado por]&#39;,
+       &#39;[nacimientos].[$condicionhijoanterior.condicion hijo anterior]&#39;,
+       &#39;[nacimientos].[$producto.productoembarazo]&#39;,
+       &#39;[nacimientos].[$entidad de captura.entidad de captura]&#39;,
+       &#39;[nacimientos].[$estado conyugal.situacion conyugal]&#39;,
+       &#39;[nacimientos].[$se considera indigena.seconsideraindigena]&#39;,
+       &#39;[nacimientos].[$lugar nacimiento.lugar de nacimiento]&#39;,
+       &#39;[nacimientos].[$personal atendio.personal que atendio]&#39;,
+       &#39;[nacimientos].[$tamiz y vacunas.tamizauditivo]&#39;,
+       &#39;[nacimientos].[$sexo.sexo]&#39;,
+       &#39;[nacimientos].[$sobrevivio parto.sobrevivio al parto]&#39;,
+       &#39;[nacimientos].[$trabaja actualmente.trabaja actualmente]&#39;,
+       &#39;[nacimientos].[$trimestre primer consulta.trimestre primer consulta]&#39;,
+       &#39;[nacimientos].[$hijos nacidos muertos.hijosnacidosmuertosc]&#39;,
+       &#39;[nacimientos].[$hijos sobrevivientes.hijos sobrevivientes]&#39;,
+       &#39;[nacimientos].[$hijos nacidos vivos.hijos nacidos vivos]&#39;,
+       &#39;[nacimientos].[$02 fecha de nacimiento.fechanacimiento]&#39;,
+       &#39;[nacimientos].[$numero_embarazos.numerodeembarazos]&#39;,
+       &#39;[nacimientos].[$edad de la madre.edad de la madre]&#39;,
+       &#39;[nacimientos].[$principales causas lm.cie causa]&#39;,
+       &#39;[nacimientos].[$grupo edad.grupoedad]&#39;, &#39;[nacimientos].[$peso.peso]&#39;,
+       &#39;[nacimientos].[$grupo de peso.grupopeso]&#39;,
+       &#39;[nacimientos].[$grupo edad gestacional.grupoedadgestacional]&#39;,
+       &#39;[nacimientos].[$grupo talla.grupotalla]&#39;,
+       &#39;[nacimientos].[$orden nacimiento.ordendenacimiento]&#39;,
+       &#39;[nacimientos].[$apgarh.apgar]&#39;, &#39;[nacimientos].[$silverman.silverman]&#39;,
+       &#39;[nacimientos].[$01 unidad medica parto.clues]&#39;,
+       &#39;[nacimientos].[$vive hijo anterior.vive hijo anterior]&#39;,
+       &#39;[nacimientos].[$codigo cie.codigocieanomalia1]&#39;,
+       &#39;[nacimientos].[$cuenta con curp.cuenta con curp]&#39;,
+       &#39;[nacimientos].[$numero total de consultas.numero total de consultas]&#39;,
+       &#39;[nacimientos].[$ocupacion_habitual.ocupacion habitual]&#39;,
+       &#39;[nacimientos].[$entidad_parto.entidadfederativaparto]&#39;,
+       &#39;[nacimientos].[$entidad_residencia.entidadresidencia]&#39;,
+       &#39;[nacimientos].[$entidad_nacimiento_madre.entidadnacimiento]&#39;,
+       &#39;[nacimientos].[$edad gestacional.edad gestacional]&#39;,
+       &#39;[nacimientos].[$derechohabiencia.derechohabiencia]&#39;,
+       &#39;[nacimientos].[$escolaridad.escolaridad]&#39;,
+       &#39;[nacimientos].[$pais_origen.pais de origen]&#39;,
+       &#39;[nacimientos].[nacimientos]&#39;, &#39;_id&#39;],
+      dtype=&#39;object&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En este último caso quizá convenga aprender mejor MDX para hacer consultas más detalladas y con menos resultados. La verdad a mí me pareció un lenguaje complicado, pero es necesario entenderlo un poco para poder usar los cubos dinámicos. Yo tuve muchísimos errores antes de poder dar con las consultas correctas que hice arriba.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="jjsantos01/jjsantosoblog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/dgis-conexion/" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Intentando aplicar ciencia de datos a las ciencias sociales.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
